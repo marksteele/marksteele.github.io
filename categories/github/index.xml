@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Github on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/github/</link>
+    <description>Recent content in Github on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 22 Apr 2018 12:36:25 -0400</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/github/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Serverless blog HOWTO</title>
+      <link>https://www.control-alt-del.org/post/serverless-blog-howto/</link>
+      <pubDate>Sun, 22 Apr 2018 12:36:25 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/serverless-blog-howto/</guid>
+      <description>&lt;h1 id=&#34;serverless-content-management&#34;&gt;Serverless content management&lt;/h1&gt;
+
+&lt;p&gt;In this post, I will go over how to setup a completely serverless blog that runs with no servers and is for all intents and purposes free to run!&lt;/p&gt;
+
+&lt;p&gt;It leverages static content generation, will be served from a content delivery network, and has a browser based UI for managing content with a review/approval workflow.&lt;/p&gt;
+
+&lt;p&gt;It&#39;s also highly secure, as there is virtually no attack surface for the bad guys to get a hold of.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/serverlessblog.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

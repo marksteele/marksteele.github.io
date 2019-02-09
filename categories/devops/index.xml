@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Devops on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/devops/</link>
+    <description>Recent content in Devops on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 13 Apr 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/devops/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>puppet lessons learned</title>
+      <link>https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/</link>
+      <pubDate>Mon, 13 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/</guid>
+      <description>Over the past couple of years my team has iterated several times on the proper way of managing systems using Puppet. For a while it was a gigantic time sink while we tested and prototyped several different appraoches to configuring things with many frustrating failures. This post will be an exploration of some of the lessons learned.
+Lesson #1: Puppet is not deterministic Yup, that&#39;s right. The tool you&#39;re trying to use to get all your servers to a deterministic state isn&#39;t very deterministic in resolving that state.</description>
+    </item>
+    
+    <item>
+      <title>geo blocking with iptables/ipset</title>
+      <link>https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/</link>
+      <pubDate>Fri, 13 Feb 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/</guid>
+      <description>In this post, I&#39;ll go over how to use iptables and ipset to create a basic firewall with ssh brute force protection and geo-blocking. I&#39;m assuming CentOS here, adjust paths/commands accordingly for other distributions.
+Ipset is a tool to create and maintain IP sets in the Linux kernel. The advantage of using ipset over setting up a bunch of individual rules is one of CPU utilization. Ipset can handle thousands of entries without CPU degradation, wheras introducing thousands of rules in iptables will have a noticeable impact on packet processing speeds.</description>
+    </item>
+    
+    <item>
+      <title>creating forensic images</title>
+      <link>https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/</link>
+      <pubDate>Thu, 04 Apr 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/</guid>
+      <description>Often reading big disks is a time consuming endeavor. To minimize the number of times you need to read the data, here&#39;s a tip for reading the image using dd, compressing it, and checksumming it.
+1 2 3 4  dd if=/dev/sda | pv | tee &amp;gt;( md5sum &amp;gt; box.dd.md5 ) | \ tee &amp;gt;( sha1 &amp;gt; box.dd.sha1 ) | tee box.dd | gzip | \ tee box.dd.gz | tee &amp;gt;( md5sum &amp;gt;box.</description>
+    </item>
+    
+    <item>
+      <title>compressing mysql binary logs</title>
+      <link>https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/</link>
+      <pubDate>Mon, 14 Jan 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/</guid>
+      <description>&lt;p&gt;Under normal circumstances, master servers in a replication can be setup to automatically rotate binary logs using the expire_logs_days my.cnf configuration setting.&lt;/p&gt;
+
+&lt;p&gt;However when it is known that slaves are in sync, it can be beneficial to pro-actively reduce on-disk size using compression. This can be especially useful in high-churn environments where binary logs grow quickly.&lt;/p&gt;
+
+&lt;p&gt;Grab the script:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git clone git://github.com/marksteele/mysql-dba-tools.git&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>building secure linux systems</title>
+      <link>https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/</link>
+      <pubDate>Wed, 14 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/</guid>
+      <description>&lt;p&gt;In this post, I&#39;m going to be documenting the process that I&#39;m working on to build secure Linux systems.&lt;/p&gt;
+
+&lt;p&gt;What I&#39;d like to have when I&#39;m done:&lt;br /&gt;
+- Selinux is ON and enforcing&lt;br /&gt;
+- Is certifiable to a set of reasonable standards&lt;br /&gt;
+- Can be deployed in an automated fashion&lt;br /&gt;
+- Supports remediation if flaws against known good state found&lt;br /&gt;
+&lt;br /&gt;
+Phew, that&#39;s quite the laundry list. But it forms the basis of a good security architecture. Thankfully, there&#39;s lots of help to be had in putting these things together.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>security policy templates</title>
+      <link>https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/</link>
+      <pubDate>Wed, 14 Sep 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/</guid>
+      <description> NIST has a good list
+ The department of the interior handbook to be quite a good and comprehensive resource.
+ The CMS IS policy seems to be a good over-reaching policy for starting policy
+ UCISA has a good toolkit
+  </description>
+    </item>
+    
+    <item>
+      <title>cloning systems</title>
+      <link>https://www.control-alt-del.org/post/2011/04/17/cloning-systems/</link>
+      <pubDate>Sun, 17 Apr 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/2011/04/17/cloning-systems/</guid>
+      <description>Grab partclone
+On both the server you want to image, and the server you want to restore to, boot a live usb that has netcat and partclone. I create
+my own using the gentoo LiveUSB install http://www.gentoo.org/doc/en/liveusb.xml, and copy the tools onto the usb stick.
+On target node:
+1  nc -l -p 999 | partclone.ext4 -r -o /dev/sda2   On source node:
+1  partclone.ext4 -c -s /dev/sda2 | nc 1.</description>
+    </item>
+    
+  </channel>
+</rss>

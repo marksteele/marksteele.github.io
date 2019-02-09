@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mysql on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/mysql/</link>
+    <description>Recent content in Mysql on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 Oct 2018 10:10:05 -0400</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/mysql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>String set manipulation functions for MySQL</title>
+      <link>https://www.control-alt-del.org/post/string-set-manipulation-functions-for-mysql/</link>
+      <pubDate>Thu, 11 Oct 2018 10:10:05 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/string-set-manipulation-functions-for-mysql/</guid>
+      <description>While I really don&#39;t advise using comma-separated values inside text columns, sometimes you inherit things...
+Here&#39;s a way to check for set inclusion and how to manipulate those sets using SQL functions.
+drop function if exists IN_SET; drop function if exists ADD_TO_SET; drop function if exists REMOVE_FROM_SET; DELIMITER // CREATE FUNCTION IN_SET( $str TEXT, $strlist TEXT ) RETURNS BOOL DETERMINISTIC BEGIN DECLARE inset INT DEFAULT 0; SET inset = (SELECT FIND_IN_SET($str, $strlist)); RETURN (!</description>
+    </item>
+    
+  </channel>
+</rss>

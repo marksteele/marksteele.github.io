@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/</link>
+    <description>Recent content in Categories on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 30 May 2018 22:19:19 -0400</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>3d Printing</title>
+      <link>https://www.control-alt-del.org/categories/3d-printing/</link>
+      <pubDate>Wed, 30 May 2018 22:19:19 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/3d-printing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Analytics</title>
+      <link>https://www.control-alt-del.org/categories/analytics/</link>
+      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/analytics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Api Gateway</title>
+      <link>https://www.control-alt-del.org/categories/api-gateway/</link>
+      <pubDate>Thu, 26 Apr 2018 13:48:12 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/api-gateway/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Athena</title>
+      <link>https://www.control-alt-del.org/categories/athena/</link>
+      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/athena/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Aws</title>
+      <link>https://www.control-alt-del.org/categories/aws/</link>
+      <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cep</title>
+      <link>https://www.control-alt-del.org/categories/cep/</link>
+      <pubDate>Sat, 19 Oct 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/cep/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cloudfront</title>
+      <link>https://www.control-alt-del.org/categories/cloudfront/</link>
+      <pubDate>Fri, 27 Apr 2018 11:40:02 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/cloudfront/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Content Security Policy</title>
+      <link>https://www.control-alt-del.org/categories/content-security-policy/</link>
+      <pubDate>Fri, 27 Apr 2018 11:40:02 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/content-security-policy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Devops</title>
+      <link>https://www.control-alt-del.org/categories/devops/</link>
+      <pubDate>Mon, 13 Apr 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dropbucket</title>
+      <link>https://www.control-alt-del.org/categories/dropbucket/</link>
+      <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/dropbucket/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dynamodb</title>
+      <link>https://www.control-alt-del.org/categories/dynamodb/</link>
+      <pubDate>Sat, 08 Sep 2018 21:56:19 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/dynamodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Encryption</title>
+      <link>https://www.control-alt-del.org/categories/encryption/</link>
+      <pubDate>Sat, 08 Sep 2018 21:56:19 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/encryption/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Esper</title>
+      <link>https://www.control-alt-del.org/categories/esper/</link>
+      <pubDate>Sat, 19 Oct 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/esper/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Etl</title>
+      <link>https://www.control-alt-del.org/categories/etl/</link>
+      <pubDate>Mon, 20 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/etl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>File Sharing</title>
+      <link>https://www.control-alt-del.org/categories/file-sharing/</link>
+      <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/file-sharing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Github</title>
+      <link>https://www.control-alt-del.org/categories/github/</link>
+      <pubDate>Sun, 22 Apr 2018 12:36:25 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/github/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Glue</title>
+      <link>https://www.control-alt-del.org/categories/glue/</link>
+      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/glue/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Image Gallery</title>
+      <link>https://www.control-alt-del.org/categories/image-gallery/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/image-gallery/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kids</title>
+      <link>https://www.control-alt-del.org/categories/kids/</link>
+      <pubDate>Thu, 14 Jun 2018 22:07:37 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/kids/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kinesis</title>
+      <link>https://www.control-alt-del.org/categories/kinesis/</link>
+      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/kinesis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kms</title>
+      <link>https://www.control-alt-del.org/categories/kms/</link>
+      <pubDate>Thu, 03 May 2018 10:44:37 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/kms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lambda</title>
+      <link>https://www.control-alt-del.org/categories/lambda/</link>
+      <pubDate>Sat, 08 Sep 2018 21:56:19 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/lambda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lambdaedge</title>
+      <link>https://www.control-alt-del.org/categories/lambdaedge/</link>
+      <pubDate>Fri, 27 Apr 2018 11:40:02 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/lambdaedge/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://www.control-alt-del.org/categories/linux/</link>
+      <pubDate>Thu, 04 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mysql</title>
+      <link>https://www.control-alt-del.org/categories/mysql/</link>
+      <pubDate>Thu, 11 Oct 2018 10:10:05 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Netlify Cms</title>
+      <link>https://www.control-alt-del.org/categories/netlify-cms/</link>
+      <pubDate>Sun, 22 Apr 2018 12:36:25 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/netlify-cms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Networking</title>
+      <link>https://www.control-alt-del.org/categories/networking/</link>
+      <pubDate>Fri, 13 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/networking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>News</title>
+      <link>https://www.control-alt-del.org/categories/news/</link>
+      <pubDate>Tue, 02 Oct 2018 22:49:29 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/news/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nosql</title>
+      <link>https://www.control-alt-del.org/categories/nosql/</link>
+      <pubDate>Wed, 14 Sep 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/nosql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Php</title>
+      <link>https://www.control-alt-del.org/categories/php/</link>
+      <pubDate>Fri, 10 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/php/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Quicksight</title>
+      <link>https://www.control-alt-del.org/categories/quicksight/</link>
+      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/quicksight/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Riak</title>
+      <link>https://www.control-alt-del.org/categories/riak/</link>
+      <pubDate>Wed, 14 Sep 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/riak/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>S3</title>
+      <link>https://www.control-alt-del.org/categories/s3/</link>
+      <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/s3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Safety</title>
+      <link>https://www.control-alt-del.org/categories/safety/</link>
+      <pubDate>Wed, 30 May 2018 22:19:19 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/safety/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>https://www.control-alt-del.org/categories/security/</link>
+      <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Serverless</title>
+      <link>https://www.control-alt-del.org/categories/serverless/</link>
+      <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/serverless/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Software</title>
+      <link>https://www.control-alt-del.org/categories/software/</link>
+      <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/software/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sql</title>
+      <link>https://www.control-alt-del.org/categories/sql/</link>
+      <pubDate>Mon, 14 Jan 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/sql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Travisci</title>
+      <link>https://www.control-alt-del.org/categories/travisci/</link>
+      <pubDate>Sun, 22 Apr 2018 12:36:25 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/categories/travisci/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

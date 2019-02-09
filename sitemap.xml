@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/dropbucket/</loc>
+    <lastmod>2019-02-07T21:59:37-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/string-set-manipulation-functions-for-mysql/</loc>
+    <lastmod>2018-10-11T10:10:05-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/summer-2018/</loc>
+    <lastmod>2018-10-02T22:49:29-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/one-time-password-sharing-securely/</loc>
+    <lastmod>2018-09-08T21:56:19-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/look-ma-no-training-wheels/</loc>
+    <lastmod>2018-06-14T22:07:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/3d-printing-safety-fire-detection-relay/</loc>
+    <lastmod>2018-05-30T22:19:19-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</loc>
+    <lastmod>2018-05-03T10:44:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/serverless-content-security-policy/</loc>
+    <lastmod>2018-04-27T11:40:02-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/</loc>
+    <lastmod>2018-04-26T13:48:12-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/</loc>
+    <lastmod>2018-04-26T12:10:31-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/serverless-blog-howto/</loc>
+    <lastmod>2018-04-22T12:36:25-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/bash-tips/</loc>
+    <lastmod>2018-04-09T13:50:47-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/</loc>
+    <lastmod>2018-04-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2016/02/12/benchmarking-cinched/</loc>
+    <lastmod>2016-02-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/</loc>
+    <lastmod>2016-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2016/01/30/setting-up-a-ca/</loc>
+    <lastmod>2016-01-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/</loc>
+    <lastmod>2015-11-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/</loc>
+    <lastmod>2015-04-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/</loc>
+    <lastmod>2015-03-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/</loc>
+    <lastmod>2015-02-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/gallery-2015/</loc>
+    <lastmod>2015-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/</loc>
+    <lastmod>2014-01-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2014/01/10/unserializing-php-from-pdi/</loc>
+    <lastmod>2014-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/</loc>
+    <lastmod>2014-01-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2013/12/15/superdaddy/</loc>
+    <lastmod>2013-12-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2013/10/24/tcpdump-tip-viewing-a-packet-stream-data-payload/</loc>
+    <lastmod>2013-10-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2013/10/23/i-see-packets-dot-dot-dot/</loc>
+    <lastmod>2013-10-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/</loc>
+    <lastmod>2013-10-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/</loc>
+    <lastmod>2013-06-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/</loc>
+    <lastmod>2013-06-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/</loc>
+    <lastmod>2013-04-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/</loc>
+    <lastmod>2013-01-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2012/08/22/calculating-distances-between-coordinates-in-sql/</loc>
+    <lastmod>2012-08-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2012/02/04/splenda-candied-walnuts/</loc>
+    <lastmod>2012-02-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/</loc>
+    <lastmod>2011-12-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/</loc>
+    <lastmod>2011-11-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/</loc>
+    <lastmod>2011-11-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/</loc>
+    <lastmod>2011-11-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/</loc>
+    <lastmod>2011-10-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/</loc>
+    <lastmod>2011-09-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/</loc>
+    <lastmod>2011-09-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2011/05/29/easy-thumnail-resizing/</loc>
+    <lastmod>2011-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2011/04/17/cloning-systems/</loc>
+    <lastmod>2011-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/2011/01/06/converting-avi-files-to-flash-video-on-windows-xp/</loc>
+    <lastmod>2011-01-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/404/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/3d-printing/</loc>
+    <lastmod>2018-05-30T22:19:19-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/analytics/</loc>
+    <lastmod>2018-04-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/api-gateway/</loc>
+    <lastmod>2018-04-26T13:48:12-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/athena/</loc>
+    <lastmod>2018-04-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/aws/</loc>
+    <lastmod>2019-02-07T21:59:37-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/</loc>
+    <lastmod>2018-05-30T22:19:19-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/cep/</loc>
+    <lastmod>2013-10-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/cloudfront/</loc>
+    <lastmod>2018-04-27T11:40:02-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/content-security-policy/</loc>
+    <lastmod>2018-04-27T11:40:02-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/devops/</loc>
+    <lastmod>2015-04-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/dropbucket/</loc>
+    <lastmod>2019-02-07T21:59:37-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/dynamodb/</loc>
+    <lastmod>2018-09-08T21:56:19-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/encryption/</loc>
+    <lastmod>2018-09-08T21:56:19-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/esper/</loc>
+    <lastmod>2013-10-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/etl/</loc>
+    <lastmod>2014-01-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/file-sharing/</loc>
+    <lastmod>2019-02-07T21:59:37-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/github/</loc>
+    <lastmod>2018-04-22T12:36:25-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/glue/</loc>
+    <lastmod>2018-04-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/image-gallery/</loc>
+    <lastmod>2015-01-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/kids/</loc>
+    <lastmod>2018-06-14T22:07:37-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/kinesis/</loc>
+    <lastmod>2018-04-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/kms/</loc>
+    <lastmod>2018-05-03T10:44:37-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/lambda/</loc>
+    <lastmod>2018-09-08T21:56:19-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/lambdaedge/</loc>
+    <lastmod>2018-04-27T11:40:02-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/linux/</loc>
+    <lastmod>2016-02-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/</loc>
+    <lastmod>2019-02-07T21:59:37-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/mysql/</loc>
+    <lastmod>2018-10-11T10:10:05-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/netlify-cms/</loc>
+    <lastmod>2018-04-22T12:36:25-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/networking/</loc>
+    <lastmod>2015-11-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/news/</loc>
+    <lastmod>2018-10-02T22:49:29-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/nosql/</loc>
+    <lastmod>2011-09-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/php/</loc>
+    <lastmod>2014-01-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/post/</loc>
+    <lastmod>2019-02-07T21:59:37-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/quicksight/</loc>
+    <lastmod>2018-04-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/riak/</loc>
+    <lastmod>2011-09-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/s3/</loc>
+    <lastmod>2018-04-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/safety/</loc>
+    <lastmod>2018-05-30T22:19:19-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/security/</loc>
+    <lastmod>2019-02-07T21:59:37-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/serverless/</loc>
+    <lastmod>2019-02-07T21:59:37-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/software/</loc>
+    <lastmod>2019-02-07T21:59:37-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/sql/</loc>
+    <lastmod>2013-01-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/travisci/</loc>
+    <lastmod>2018-04-22T12:36:25-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

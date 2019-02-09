@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta property="og:title" content=" introducing cinched &middot;  Cogito Interruptus Vulgaris" />
+    <meta property="og:site_name" content="Cogito Interruptus Vulgaris" />
+    <meta property="og:url" content="https://www.control-alt-del.org/blog/2016/02/04/introducing-cinched/" />
+
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content="2016-02-04T00:00:00Z" />
+    
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta name="twitter:title" content="introducing cinched" />
+    
+    <meta name="twitter:description" content="Given the frequency of rather embarrassing data breaches recently, I&#39;ve had the opportunity to spend some time thinking about how to help developers protect the data they are storing.
+Getting encryption right is hard, and designing cryptographic applications is not something web developers typically have lots of experience with. To (hopefully) help bridge this knowledge gap, I&#39;ve written a microservice which provides encryption and key management services.
+It&#39;s a cinch to use, and will keep your data cinched." />
+    <meta name="twitter:url" content="https://www.control-alt-del.org/blog/2016/02/04/introducing-cinched/" />
+    
+
+    <title> introducing cinched &middot;  Cogito Interruptus Vulgaris</title>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="preload" href="/js/main.js" as="script" />
+    <link rel="preload" href="/css/main.css" as="style" />
+    
+    
+
+
+    
+    <meta name="description" content="Everything is awesome !" />
+    
+
+    
+    <meta name="p:domain_verify" content=""/>
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+    
+
+    
+    <link href="https://www.control-alt-del.org/index.xml" rel="alternate" type="application/rss+xml" title="Cogito Interruptus Vulgaris" />
+    
+
+    
+    <link rel="canonical" href="https://www.control-alt-del.org/blog/2016/02/04/introducing-cinched/" />
+
+    
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://www.control-alt-del.org/blog/2016/02/04/introducing-cinched/"
+        },
+        "headline": "introducing cinched",
+        "description": "",
+        "author": {
+            "@type": "Person",
+            "name": " ",
+            "url": "http://profiles.google.com/?rel=author",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https:",
+              "height": 80,
+              "width": 80
+            }
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://www.control-alt-del.org/",
+          "name": "Cogito Interruptus Vulgaris",
+          "url": "https://www.control-alt-del.org/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https:",
+            "height": 80,
+            "width": 80
+          }
+        },
+        
+        "image": {
+          "@type": "ImageObject",
+          "url": "",
+          "height": 80,
+          "width": 80
+        },
+        "datePublished": "2016-02-04",
+        "dateModified": "2016-02-04",
+        "wordCount": 2096,
+        
+    }
+    </script>
+    
+
+    
+    <script type="text/javascript">
+        
+        
+    </script>
+    
+
+    <script type="text/javascript">
+        var config = {
+            baseUrl: "https:\/\/www.control-alt-del.org\/"
+        };
+    </script>
+
+    <style>
+html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,figure,footer,header,main,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figure{margin:1em 40px}a{background-color:transparent;-webkit-text-decoration-skip:objects}img{border-style:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:300;src:local("Merriweather Sans Light"),local(MerriweatherSans-Light),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowY_zIojJi0m4a5Z6tRh6itY.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:400;src:local("Merriweather Sans Regular"),local(MerriweatherSans-Regular),url(//fonts.gstatic.com/s/merriweathersans/v5/AKu1CjQ4qnV8MUltkAX3sL2aU247V0zTzydO4RoO9Ok.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:700;src:local("Merriweather Sans Bold"),local(MerriweatherSans-Bold),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowQfd-b-I5PxxcmB4_-MNcqw.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:800;src:local("Merriweather Sans ExtraBold"),local(MerriweatherSans-ExtraBold),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowWT7sFQ1Iz1BbpcuCPlgc9Q.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:300;src:local("Merriweather Sans Light Italic"),local(MerriweatherSans-LightItalic),url(//fonts.gstatic.com/s/merriweathersans/v5/nAqt4hiqwq3tzCecpgPmVX9UU5BmOJGkLxUCVv5VXdc.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:400;src:local("Merriweather Sans Italic"),local(MerriweatherSans-Italic),url(//fonts.gstatic.com/s/merriweathersans/v5/3Mz4hOHzs2npRMG3B1ascf0KIgDhPIHb_R-SWdtqte8.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:700;src:local("Merriweather Sans Bold Italic"),local(MerriweatherSans-BoldItalic),url(//fonts.gstatic.com/s/merriweathersans/v5/nAqt4hiqwq3tzCecpgPmVYM8pfYvjMoOxygpzLVILAs.woff) format("woff")}@font-face {font-family: 'Aldrich';font-style: normal;font-weight: 400;src: local('Aldrich Regular'), local('Aldrich-Regular'), url('//fonts.gstatic.com/s/aldrich/v8/j-NnyokbAnhXANS2iZ6Jew.woff2') format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;font-style:normal}[class^="icon-"]:before{font-family:"icons";font-style:normal;font-weight:400;speak:none;display:inline-block;text-decoration:inherit;width:1em;margin-right:.2em;text-align:center;font-variant:normal;text-transform:none;line-height:1em;margin-left:.2em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-arrow-right:before{content:'\e807'}.icon-rss:before{content:'\e808'}body{font:300 1em / 1.5em 'Merriweather Sans',sans-serif;color:#595B66}a{color:inherit;text-decoration:none;font-weight:400}h1,h2{text-rendering:optimizeLegibility;color:#1F2026}h2 a{font-weight:inherit}h1{font-size:2em;line-height:1em;margin:2em 0 -.5em}h2{font-size:1.75em;line-height:1.143em;margin:2.286em 0 -.571em}p{margin:2em auto}i{font-weight:400;font-style:italic;color:#363740}img{display:block;max-width:100%;height:auto;margin:2.5em auto}body{background:#fff}.inner{max-width:48em;margin:0 auto;padding:0 1em}#wrapper{position:relative;box-sizing:border-box;width:100%;min-height:100vh;padding-bottom:6em;background:#F2F3F5}#push{transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#nav{position:relative;background:#fff;z-index:70;transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#nav:after{clear:both;content:'';display:table}#nav .nav-logo{float:left;height:2em;padding:1em;max-width:50%}#nav .nav-logo img{width:auto;max-width:none;height:2em;margin:0;border-radius:5px}#nav .nav-menu{float:right}#nav .nav-menu:after{clear:both;content:'';display:table}#nav .nav-menu a{display:block;width:1em;height:1em;line-height:1em;padding:1.5em;text-align:center;float:left}#nav .nav-menu a i:before{margin:auto}.overlay{display:none;position:fixed;left:0;top:0;width:100%;height:100%;z-index:80;display:none}.overlay:before{content:'';position:absolute;left:0;top:0;width:100%;height:100%;background:#1F2026;opacity:0;transform-style:preserve-3d}#header{position:relative;padding:4em 0}#header .inner{position:relative;z-index:2}#header .header-title{display:block;text-align:center}#header .header-name{font-family: Aldrich, sans-serif;font-weight:700;letter-spacing:-1px;display:block;line-height:1em;font-size:2em;text-decoration:none;color:#1F2026;padding:0;margin:0}#header.has-cover .header-name{color:#fff}#header .header-description{display:block;margin:1em auto 0;color:#9D9FA6;position:relative;font-weight:300}#header .header-description:after{content:'';position:absolute;height:1px;width:100px;margin-left:-50px;left:50%;top:-.5em;background:#D4D5D9}#header.has-cover .header-description{color:#fff}#header.has-cover .header-description:after{background:#fff}#header .header-cover{position:absolute;width:100%;height:100%;top:0;left:0;margin-top:-4em;padding:4em 0;background:no-repeat fixed center 100% / cover;z-index:1}#header .header-cover:before{content:'';position:absolute;width:100%;height:100%;left:0;top:0;background:rgba(0,0,0,0.2)}#header .header-cover:after{content:'';position:absolute;width:100%;left:0;bottom:0;border-bottom:4px solid #19A0D7}#footer{position:absolute;width:100%;left:0;bottom:0;font-size:.75em;line-height:1.334em;background:#1F2026;color:#737580;z-index:20;transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#footer a{color:#9D9FA6;font-weight:400}#footer .credits{text-align:center;font-size:.75em;line-height:1.334em;padding:2.667em;overflow:auto}#footer .credits span{display:block}#footer .credits .credits-theme{float:left}#footer .credits .credits-software{float:right}.post{position:relative;z-index:20}.post .post-image{display:block;margin:0;padding:0}.post .post-image img{display:block;width:100%;height:auto;margin:0;padding:0}.post .post-meta{display:block;font-size:.75em;line-height:1.334em;font-weight:400;margin-bottom:1.334em}.post .post-title{position:relative;color:#000;font-size:2em;line-height:1.375em;font-weight:800;text-indent:-1px;margin:.25em 0 .75em}.post .post-title:before{content:'';position:absolute;left:0;bottom:-.334em;width:1em;margin-bottom:-2px;border-bottom:4px solid #19A0D7}.post .post-title a{text-decoration:none;color:inherit;font-weight:inherit}#post-index{position:relative;max-width:1200px;margin:0 auto 4em;padding:.5em;z-index:10}@keyframes fade{0%{transform:translate3d(0,3em,0);opacity:0}100%{transform:translate3d(0,0,0);opacity:1}}.post-list{position:relative}.post-list .post{float:left;width:33.3%;transform:translate3d(0,3em,0);transform-style:preserve-3d;opacity:0;animation:fade ease-out .5s forwards;animation-delay:1.4s}@media only screen and (max-width: 50em){.post-list .post{width:49.9%}}@media only screen and (max-width: 30em){.post-list .post{width:100%;float:none}}.post-list .post:nth-child(1){animation-delay:.1s}.post-list .post:nth-child(2){animation-delay:.2s}.post-list .post:nth-child(3){animation-delay:.3s}.post-list .post:nth-child(4){animation-delay:.4s}.post-list .post:nth-child(5){animation-delay:.5s}.post-list .post:nth-child(6){animation-delay:.6s}.post-list .post:nth-child(7){animation-delay:.7s}.post-list .post:nth-child(8){animation-delay:.8s}.post-list .post:nth-child(9){animation-delay:.9s}.post-list .post .inner{padding:2em;margin:.5em;max-width:none;background:#fff;box-sizing:border-box;transform:scale(1);transform-style:preserve-3d}@media only screen and (max-width: 50em){.post-list .post .inner{padding:1em}}.post-list .post .post-link{position:absolute;left:0;top:0;width:100%;height:100%;z-index:10}.post-list .post .post-image{position:relative;margin:-2em -2em 0;overflow:hidden;background:#19A0D7}@media only screen and (max-width: 50em){.post-list .post .post-image{margin:-1em -1em 0}}.post-list .post .post-image img{transform:scale(1);transform-style:preserve-3d;opacity:1}.post-list .post .post-image:after{content:'';position:absolute;left:-5%;bottom:-2.5em;width:110%;height:4em;background:#fff;border-top:4px solid #19A0D7;box-shadow:0 0 2em rgba(0,0,0,0.2);transform:rotate(5deg)}.post-list .post .post-title{font-size:1.5em;line-height:1.167em}.post-list .post .post-excerpt{margin:0}.post-list .post .post-more{display:block;margin-top:1.5em}.post-list .post .post-more a{display:inline-block;font-size:.875em;line-height:1.143em;font-weight:400;color:#363740}.post-list .post .post-more a i{color:#0e77a0}.pagination{min-height:3em;margin:4em auto 2em;padding:0;position:relative}.pagination .pagination-item{position:relative;display:block;height:3em;line-height:3em;padding:0 1em;text-align:center;text-decoration:none;font-weight:700;color:#363740;border:1px solid #19A0D7;border-radius:4em;z-index:60}.pagination .pagination-item i{position:relative}@media only screen and (max-width: 30em){.pagination .pagination-item{width:4em;height:4em;line-height:4em;margin-top:-.5em;padding:0!important}.pagination .pagination-item i{font-size:1.5em}.pagination .pagination-item>span{display:none}}.pagination .pagination-prev{float:right}.pagination .pagination-prev i{right:-.05em}.pagination .pagination-info{display:block;left:0;top:0;height:3em;line-height:3em;position:absolute;text-align:center;width:100%;z-index:50;color:#9D9FA6}#loader-wrapper{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000}#loader{display:block;position:relative;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;border:3px solid transparent;border-top-color:#19A0D7;animation:spin 2s linear infinite}#loader:before{content:"";position:absolute;top:5px;left:5px;right:5px;bottom:5px;border-radius:50%;border:3px solid transparent;border-top-color:#0e77a0;animation:spin 3s linear infinite}#loader:after{content:"";position:absolute;top:15px;left:15px;right:15px;bottom:15px;border-radius:50%;border:3px solid transparent;border-top-color:#D4D5D9;animation:spin 1.5s linear infinite}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+</style>
+
+
+</head>
+<body class="home-template">
+<div id="loader-wrapper">
+    <div id="loader"></div>
+</div>
+<section id="wrapper" style="display: none;">
+    <div id="ajax-container">
+        <nav id="nav" class="nav">
+            <div class="nav-logo">
+                <a href="https://www.control-alt-del.org/">
+                    
+                    Cogito Interruptus Vulgaris
+                    
+                </a>
+            </div>
+            <div id="main-menu" class="nav-menu">
+                
+                
+                <a id="search-button" onclick="$('#search-form').toggle();" title="Search"><i class="fa fa-search"></i></a>
+                <form id="search-form" method="get" role="search" action="https://google.com/search">
+                    <input type="hidden" name="as_sitesearch" value="https://www.control-alt-del.org/">
+                    <input type="text" name="q" maxlength="255" placeholder="Search..." class="form-control">
+                    <input type="submit" value="Search">
+                </form>
+                
+                
+                
+                
+            </div>
+        </nav>
+
+
+<main class="content" role="main">
+    <article class="post">
+        <div class="inner">
+
+            <div id="push">
+
+                <header class="post-header">
+                
+                    <span class="post-meta">
+                        <span class="post-date">4 Feb 2016</span> <span class="reading-time">| <span class="estimated-reading-time">10 min.</span> (<span class="word-count">2096</span> words)</span></span>
+                    </span>
+                <div class="clear"></div>
+                
+                <h1 class="post-title">introducing cinched</h1>
+              </header>
+
+              <section class="post-content">
+                
+                  
+
+<p>Given the frequency of rather embarrassing data breaches recently, I've had the opportunity to spend some time thinking about how to help developers protect the data they are storing.</p>
+
+<p>Getting encryption right is hard, and designing cryptographic applications is not something web developers typically have lots of experience with. To (hopefully) help bridge this knowledge gap, I've written a microservice which provides encryption and key management services.</p>
+
+<p>It's a cinch to use, and will keep your data cinched. It's also called Cinched. Get it?</p>
+
+<p>I've released version 0.0.1, a preview to gather feedback. Some of the key features are:</p>
+
+<ul>
+<li>An easy to use RESTful API<br /></li>
+<li>Clustered highly available service<br /></li>
+<li>Sane strong encryption defaults<br /></li>
+<li>All stored data is encrypted at rest<br /></li>
+<li>OS level mandatory access control using SELinux type enforcement<br /></li>
+<li>Tamper resistant and encrypted audit logging<br />
+<br /></li>
+</ul>
+
+<!-- more -->
+
+<p><a href="https://github.com/marksteele/cinched">Official documentation</a></p>
+
+<h1 id="overview">Overview</h1>
+
+<h2 id="cluster">Cluster</h2>
+
+<p>Cinched is built using Erlang/OTP and leverages Erlang's clustering capabilities.</p>
+
+<p>Nodes in a Cinched cluster establish a mesh network, with inter-node communication encrypted via TLS1.2.</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/NetworkTopology-FullyConnected.png" alt="Mesh" /></p>
+
+<p>Node peer authentication uses a shared secret, and the mesh only accepts peers which reside on the same subnet.</p>
+
+<p>Cinched clusters are master-less, that is that each node can accept client requests, there are no special roles.</p>
+
+<h2 id="encryption">Encryption</h2>
+
+<p>This service uses authenticated symmetrical encryption implemented via Erlang bindings to libsodium. The algorithms used are Salsa20 for encryption/decryption, and Poly1305 for message authentication.</p>
+
+<h2 id="certificates">Certificates</h2>
+
+<p>Cinched relies on public key infrastructure (PKI) heavily for both securing intra-cluster communication, as well as authorizing client API calls.</p>
+
+<p>Before using Cinched, you'll need to have access to a certificate authority (CA) to generate certificates as well as provide online certificate status protocol (OCSP) and certificate revocation list (CRL) distribution points.</p>
+
+<p>For running a CA on CentOS 7, I've put together a very quick guide <a href="http://www.control-alt-del.org/blog/2016/01/30/setting-up-a-ca/">here</a>.</p>
+
+<p>The certificates you'll need (all PEM encoded):</p>
+
+<ul>
+<li>The CA certificate<br /></li>
+<li>The node certificate(s) (used to secure intra-cluster communication as well as client API calls)<br /></li>
+<li>Client certificates (used by API clients).<br />
+<br /></li>
+</ul>
+
+<p>Cinched performs certificate validation on all incoming requests, and both the server and client certificates must be signed by the same certificate authority.</p>
+
+<p>It is crucial to understand that certificate validation is the only form of authentication that Cinched supports, so make sure you keep your private keys safe (this in itself is a hard problem)</p>
+
+<p>On Cinched nodes, certificate private keys are protected with SELinux policy and regular DAC controls. With policy locked down, even root can't get at any of the protected information.</p>
+
+<h2 id="encryption-keys">Encryption Keys</h2>
+
+<p>All keys in Cinched are randomly generated. There are four different types of keys that serve different purposes.</p>
+
+<p>Visually:</p>
+
+<pre><code> Operator key -- encrypts/decrypts --&gt; Service key
+
+ Service key (stored) -- encrypts/decrypts --&gt; Master keys
+
+ Master keys (stored) -- encrypts/decrypts --&gt; Data keys
+
+ Data keys -- encrypt/decrypt --&gt; client supplied data.
+
+</code></pre>
+
+<p>Before diving into the details, a quick analogy on how these keys work.</p>
+
+<p>Let's imagine we're running a bank that provides safety deposit boxes.</p>
+
+<p>We're going to want to make sure at least two people are involved in opening up the bank in the morning, to make sure there's no collusion.<br />
+So we'll give one set of bank employees the keys to open the front door, and another set of employees the pin code to disable the alarm.<br />
+In order to start the day, we'll need one person from each group available to open up for the day. (these are the operator key shards described below).</p>
+
+<p>Next, we have a vault room. The vault room is rigged to sensors on the door as well as to the alarm system. When both the door is open and the alarm system is disarmed, the vault door can be opened. (this is the service key, described below)</p>
+
+<p>In order to enter the vault room, our customers must present a valid ID card issued by our security department (the client certificate).</p>
+
+<p>Our bank is special. Our safety deposit boxes are built on demand. In our bank, we employ a master locksmith who helps us build our lock-boxes.</p>
+
+<p>On a daily basis, the locksmith builds one master key that we store inside the vault.</p>
+
+<p>The locks on our boxes are designed to require two keys to be unlocked. One is the master key for the date at which they are built, and the other is a key that is unique to the box. (the data key).</p>
+
+<p>When a customer orders a box, we build it and give him the only copy of the box-specific key.</p>
+
+<p>Both the master key AND the box-specific key are required to open a box. The box, keys, and locks are made in such a clever way that there is currently no known way of opening the box without being inside the vault with the proper keys.</p>
+
+<p>Since our boxes are so good we do not store the box. We want to save space, so we give the boxes to our customers. If they want to open it, they must come inside the vault with their key and box.</p>
+
+<h3 id="operator-key">Operator key</h3>
+
+<p>The operator key (<code>OK</code>), is created during the initialization of the cluster. It is split into a set of shards using a cryptographic technique known as <a href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing">Shamir secret sharing</a>.</p>
+
+<p>By default ten shards are created from the operator key, with a threshold of three shards being required to reconstruct the original key. So if you distribute 2 shards to 5 people, you ensure that no single person can start the service, plus you get some redundancy to make sure there's always enough people around to unlock things.</p>
+
+<p>This technique prevents a single rogue operator from possessing sufficient information to compromise the system.</p>
+
+<p>There are two scenarios where the <code>OK</code> is used:</p>
+
+<ul>
+<li>Cluster initialization: When a cluster is initialized, the <code>OK</code> is used to encrypt the service key (<code>SK</code>), more on that later. During initialization, the key shards are output to the terminal of the operator initializing the cluster.<br /></li>
+<li>Node startup: Whenever an operator wants to bring a cluster node online, sufficient shards must be provided by the shard custodians to reconstruct the <code>OK</code> in order to decrypt the service key (<code>SK</code>).<br />
+<br /></li>
+</ul>
+
+<p>After cluster initialization or node startup, it is discarded from memory.</p>
+
+<p>It is possible to rotate the <code>OK</code> and generate new sets of key shards.</p>
+
+<h3 id="service-key">Service key</h3>
+
+<p>The service key (<code>SK</code>) is created during the initialization of the cluster.</p>
+
+<p>It is encrypted using the <code>OK</code> and persisted to the storage subsystem, and held in RAM unencrypted.</p>
+
+<p>This key is used to encrypt/decrypt master keys (<code>MK</code>) as well as being the seed for the rotating encryption key of the audit logs.</p>
+
+<p>It is currently not possible to rotate the <code>SK</code>.</p>
+
+<h3 id="master-keys">Master keys</h3>
+
+<p>Master keys (<code>MK</code>) are generated once per day and are associated with a crypto-period, which is an integer representing the number of days since the start of the UNIX epoch.</p>
+
+<p>The keys are generated on demand, and are used to encrypt/decrypt data keys.</p>
+
+<p>When generated, master keys are stored encrypted with the <code>SK</code> at rest in the storage subsystem.</p>
+
+<p>They are also held unencrypted in memory in a LRU cache with a default lifetime of 1 day.</p>
+
+<h3 id="data-keys">Data keys</h3>
+
+<p>Data keys (<code>DK</code>) are generated either via the key API or whenever an encryption API call does not provide a data key via the HTTP headers.</p>
+
+<p>The key is encrypted with the <code>MK</code> for the day it is generated, and returned to the calling application.</p>
+
+<p><code>DK</code>'s are not stored in Cinched, it is assumed that the calling application will store the <code>DK</code>s.</p>
+
+<h2 id="storage">Storage</h2>
+
+<p>Master keys are identified by the crypto-period for which they are generated, and the key name space is mapped to a consistent hash ring.</p>
+
+<p>The hash ring is split into a number of partitions, and each partition is assigned to a group of cluster nodes. This grouping of nodes represents a partition's replication group.</p>
+
+<p>Replication in Cinched is accomplished via a multi-paxos consensus algorithm, ensuring immediate consistency in the cluster.</p>
+
+<p>The overall storage system is therefore resilient to node failures, as long as a quorum of replicas remain online the service can continue to operate.</p>
+
+<p>Increasing the replication factor makes the system more fault tolerant at the expense of slower writes, which happen infrequently (once per day at most during master key generation).</p>
+
+<h1 id="api">API</h1>
+
+<p>The official documentation has a more comprehensive set of examples and covers more functionality (document API, blob API, etc...), however here's a quick example of using Cinched.</p>
+
+<h2 id="generate-a-data-key">Generate a data key</h2>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -s <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>-X POST --cert fixtures/cert.pem --key fixtures/key.pem <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>--cacert fixtures/cacert.pem --tlsv1.2  <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>https://dev1.control-alt-del.org:55443/key/data-key | jq
+{
+  <span style="color:#cd5555">&#34;dataKey&#34;</span>: <span style="color:#cd5555">&#34;g2gEZA9rZXliAABBk&lt;snip&gt;XA4WglqFGSzDA2H3FI2uXYu0bqGthAQ==&#34;</span>,
+  <span style="color:#cd5555">&#34;cryptoPeriod&#34;</span>: <span style="color:#b452cd">16786</span>
+}</code></pre></div>
+<p>Store this information somewhere, we'll need it to decrypt the data later on.</p>
+
+<h2 id="encrypt-something">Encrypt something</h2>
+
+<p>Let's imagine we have a JSON document that looks like this:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+ <span style="color:#8b008b;font-weight:bold">&#34;foo&#34;</span>: <span style="color:#cd5555">&#34;bar&#34;</span>,
+ <span style="color:#8b008b;font-weight:bold">&#34;favoriteBar&#34;</span>:<span style="color:#cd5555">&#34;baz&#39;s emporium of fine spirits&#34;</span>
+}</code></pre></div>
+<p>And let's further suppose we want to encrypt the field 'favoriteBar', as that's confidential.</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -s <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  -H <span style="color:#cd5555">&#39;Content-Type: application/json&#39;</span> <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  -H <span style="color:#cd5555">&#39;Accept: application/json&#39;</span> <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  -H <span style="color:#cd5555">&#34;x-cinched-data-key: g2gEZA9rZXliAABBk&lt;snip&gt;XA4WglqFGSzDA2H3FI2uXYu0bqGthAQ==&#34;</span> <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  -H <span style="color:#cd5555">&#34;x-cinched-metadata: foobar&#34;</span> <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  -X POST -d <span style="color:#cd5555">&#34;{\&#34;foo\&#34;:\&#34;bar\&#34;,\&#34;favoriteBar\&#34;:\&#34;baz&#39;s emporium of fine spirits\&#34;}&#34;</span> <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  --cert fixtures/cert.pem --key fixtures/key.pem <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  --cacert fixtures/cacert.pem <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  --tlsv1.2 <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  https://dev1.control-alt-del.org:55443/doc/encrypt?fields=<span style="color:#cd5555">\(</span>favoriteBar<span style="color:#cd5555">\)</span>
+{<span style="color:#cd5555">&#34;foo&#34;</span>: <span style="color:#cd5555">&#34;bar&#34;</span>,<span style="color:#cd5555">&#34;favoriteBar&#34;</span>: <span style="color:#cd5555">&#34;A9rZXliAABBk&lt;snip&gt;XA4WglqFGSzD&#34;</span>}</code></pre></div>
+<p>Success! Now we can safely store this document somewhere. Should a nefarious ne'er do well steal it, they won't know the location of our favorite dive.</p>
+
+<h2 id="decrypting-data">Decrypting data</h2>
+
+<p>To read the data back:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -s <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  -H <span style="color:#cd5555">&#39;Content-Type: application/json&#39;</span> <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  -H <span style="color:#cd5555">&#39;Accept: application/json&#39;</span> <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  -H <span style="color:#cd5555">&#34;x-cinched-data-key: g2gEZA9rZXliAABBk&lt;snip&gt;XA4WglqFGSzDA2H3FI2uXYu0bqGthAQ==&#34;</span> <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  -H <span style="color:#cd5555">&#34;x-cinched-metadata: foobar&#34;</span> <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  -X POST -d <span style="color:#cd5555">&#34;{\&#34;foo\&#34;:\&#34;bar\&#34;,\&#34;bar\&#34;:\&#34;A9rZXliAABBk&lt;snip&gt;XA4WglqFGSzD\&#34;}&#34;</span> <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  --cert fixtures/cert.pem --key fixtures/key.pem <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  --cacert fixtures/cacert.pem <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  --tlsv1.2 <span style="color:#cd5555">\
+</span><span style="color:#cd5555"></span>  https://dev1.control-alt-del.org:55443/doc/decrypt?fields=<span style="color:#cd5555">\(</span>favoriteBar<span style="color:#cd5555">\)</span>
+{<span style="color:#cd5555">&#34;foo&#34;</span>: <span style="color:#cd5555">&#34;bar&#34;</span>,<span style="color:#cd5555">&#34;favoriteBar&#34;</span>: <span style="color:#cd5555">&#34;baz&#39;s emporium of fine spirits&#34;</span>}</code></pre></div>
+<p>Well done! Now we know where to go grab a brew.</p>
+
+<h1 id="notes-for-using-cinched">Notes for using Cinched</h1>
+
+<p>If possible, establish long-lived persistent connections to amortize the cost of the TCP/TLS session negotiation.</p>
+
+<p>Store the data keys separately from the encrypted data (with different access credentials).</p>
+
+<p>If possible, keep your certificate private keys encrypted with a passphrase, or leverage a TPM chip. Other ideas for doing this are to provide the decryption keys out of band to the service loading the key (eg: passphrase prompt, environment variables). If all else fails, it's not that hard to write some SELinux policy to lock down filesystem access to a confined domain. Look at Cinched's policy if you need a sample.</p>
+
+<h1 id="attack-vectors">Attack vectors</h1>
+
+<p>Assuming the system is configured as recommended, I can't see too many ways to compromise the security of the system. That's not to say that it's proof against everything...</p>
+
+<p>The SELinux policy should defend against several attack vectors such as reading values from RAM as well as protect the filesystem.</p>
+
+<p>That being said, once root level compromise happens on a system, things get very very difficult to defend against comprehensively without introducing a ton of operator friction.</p>
+
+<p>Some recommendations:</p>
+
+<ul>
+<li>Remove simple password based authentication if you can (2FA, Kerberos, key-based are all superior).<br /></li>
+<li>Don't allow direct root-level ssh<br /></li>
+<li>Segment your network, keep Cinched in it's own subnet<br /></li>
+<li>Have host-based firewalls on all Cinched nodes, with DENY rules by default for both ingress and egress traffic. Explicitly allow only what you need. Even better if you can make this a hardware firewall.<br /></li>
+<li>Lock down the policy when prompted by the cinched setup wizard if this is a production deployment.<br /></li>
+<li>Compile a custom kernel that does not support dynamic loading of kernel modules and lock that down when prompted by the Cinched setup wizard.<br /></li>
+<li>You really really need to be on top of properly managing your PKI. If you can properly control who has access to your certificates and private keys, it will go a long way to protecting the integrity of Cinched as the certificates control access to the service.<br />
+<br /></li>
+</ul>
+
+<h1 id="future-direction">Future direction</h1>
+
+<p>I'd really like to start leveraging TPM with the Linux integrity subsystem for key storage and system attestation. I could foresee a future version of Cinched leveraging TPM across the stack for both intra-cluster integrity as well as client side integrity. It should be possible to build a system that is proof against stealing the secret keys using this type of setup.</p>
+
+<p>One of the hard problems in getting this all to work is the management burden of maintaining the integrity chain in a fast-moving environment. Will require experimentation...</p>
+
+<h1 id="in-closing">In closing...</h1>
+
+<p>I enjoy canceled vacations, crazy unpaid overtime doing incident response, calls in the middle of the night from anxious execs, fending off reporters and so on just as much as the next sec/dev/ops guys.... Oh wait, not so much.</p>
+
+<p>Go forth! Encrypt that sensitive data! Just make sure you're doing it right. Customer trust is a currency that's hard to acquire and even harder to regain once squandered.</p>
+
+              </section>
+
+              <footer class="post-footer">
+                  <div class="post-tags">
+            
+                  </div>
+                
+                    <div class="post-share">
+                        <a class="fa fa-reddit-alien" href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false">
+                            <span>Reddit</span>
+                        </a>
+                        <a class="fa fa-twitter" href="https://twitter.com/share?text=introducing%20cinched&url=https%3a%2f%2fwww.control-alt-del.org%2fblog%2f2016%2f02%2f04%2fintroducing-cinched%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span>Twitter</span>
+                        </a>
+                    </div>
+            
+              </footer>
+
+            
+                <aside class="post-comments">
+    
+    
+    
+</aside>
+
+            
+            </div>
+
+            <nav class="post-nav">
+                
+                    <a class="post-nav-item post-nav-next" href="https://www.control-alt-del.org/blog/2016/02/12/benchmarking-cinched/">
+                        <section class="post-nav-teaser">
+                            <span class="post-nav-icon"><i class="fa fa-chevron-left"></i></span>
+                            <span class="post-nav-info">
+                                <h4 class="post-nav-title">benchmarking cinched</h4>
+                            </span>
+                        </section>
+                    </a>
+                
+                
+                    <a class="post-nav-item post-nav-prev" href="https://www.control-alt-del.org/blog/2016/01/30/setting-up-a-ca/">
+                        <section class="post-nav-teaser">
+                            <span class="post-nav-icon"><i class="fa fa-chevron-right"></i></span>
+                            <span class="post-nav-info">
+                                <h4 class="post-nav-title">setting up a ca</h4>
+                            </span>
+                        </section>
+                    </a>
+                
+                <div class="clear"></div>
+            </nav>
+
+        </div>
+    </article>
+</main>
+
+                <div id="body-class" style="display: none;"></div>
+                <footer id="footer">
+                    <section class="credits">
+                        <span class="credits-license"><i class="fa fa-copyright"></i>2018 Mark Steele
+                    </span>
+                    </section>
+                </footer>
+                
+
+                
+
+                
+                <div class="overlay"></div>
+            </div>
+        </section>
+
+    <script async src="/js/main.js"></script>
+
+
+
+  <noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+</body>
+</html>
+

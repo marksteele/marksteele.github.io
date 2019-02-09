@@ -1,0 +1,537 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta property="og:title" content=" Serverless blog HOWTO &middot;  Cogito Interruptus Vulgaris" />
+    <meta property="og:site_name" content="Cogito Interruptus Vulgaris" />
+    <meta property="og:url" content="https://www.control-alt-del.org/blog/serverless-blog-howto/" />
+
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content="2018-04-22T12:36:25-04:00" />
+    
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta name="twitter:title" content="Serverless blog HOWTO" />
+    
+    <meta name="twitter:description" content="Serverless content management
+
+In this post, I will go over how to setup a completely serverless blog that runs with no servers and is for all intents and purposes free to run!
+
+It leverages static content generation, will be served from a content delivery network, and has a browser based UI for managing content with a review/approval workflow.
+
+It&#39;s also highly secure, as there is virtually no attack surface for the bad guys to get a hold of.
+
+
+
+" />
+    <meta name="twitter:url" content="https://www.control-alt-del.org/blog/serverless-blog-howto/" />
+    
+
+    <title> Serverless blog HOWTO &middot;  Cogito Interruptus Vulgaris</title>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="preload" href="/js/main.js" as="script" />
+    <link rel="preload" href="/css/main.css" as="style" />
+    
+    
+
+
+    
+    <meta name="description" content="Everything is awesome !" />
+    
+
+    
+    <meta name="p:domain_verify" content=""/>
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+    
+
+    
+    <link href="https://www.control-alt-del.org/index.xml" rel="alternate" type="application/rss+xml" title="Cogito Interruptus Vulgaris" />
+    
+
+    
+    <link rel="canonical" href="https://www.control-alt-del.org/blog/serverless-blog-howto/" />
+
+    
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://www.control-alt-del.org/blog/serverless-blog-howto/"
+        },
+        "headline": "Serverless blog HOWTO",
+        "description": "",
+        "author": {
+            "@type": "Person",
+            "name": " ",
+            "url": "http://profiles.google.com/?rel=author",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https:",
+              "height": 80,
+              "width": 80
+            }
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://www.control-alt-del.org/",
+          "name": "Cogito Interruptus Vulgaris",
+          "url": "https://www.control-alt-del.org/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https:",
+            "height": 80,
+            "width": 80
+          }
+        },
+        
+        "image": {
+          "@type": "ImageObject",
+          "url": "",
+          "height": 80,
+          "width": 80
+        },
+        "datePublished": "2018-04-22",
+        "dateModified": "2018-04-22",
+        "wordCount": 1673,
+        
+    }
+    </script>
+    
+
+    
+    <script type="text/javascript">
+        
+        
+    </script>
+    
+
+    <script type="text/javascript">
+        var config = {
+            baseUrl: "https:\/\/www.control-alt-del.org\/"
+        };
+    </script>
+
+    <style>
+html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,figure,footer,header,main,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figure{margin:1em 40px}a{background-color:transparent;-webkit-text-decoration-skip:objects}img{border-style:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:300;src:local("Merriweather Sans Light"),local(MerriweatherSans-Light),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowY_zIojJi0m4a5Z6tRh6itY.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:400;src:local("Merriweather Sans Regular"),local(MerriweatherSans-Regular),url(//fonts.gstatic.com/s/merriweathersans/v5/AKu1CjQ4qnV8MUltkAX3sL2aU247V0zTzydO4RoO9Ok.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:700;src:local("Merriweather Sans Bold"),local(MerriweatherSans-Bold),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowQfd-b-I5PxxcmB4_-MNcqw.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:800;src:local("Merriweather Sans ExtraBold"),local(MerriweatherSans-ExtraBold),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowWT7sFQ1Iz1BbpcuCPlgc9Q.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:300;src:local("Merriweather Sans Light Italic"),local(MerriweatherSans-LightItalic),url(//fonts.gstatic.com/s/merriweathersans/v5/nAqt4hiqwq3tzCecpgPmVX9UU5BmOJGkLxUCVv5VXdc.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:400;src:local("Merriweather Sans Italic"),local(MerriweatherSans-Italic),url(//fonts.gstatic.com/s/merriweathersans/v5/3Mz4hOHzs2npRMG3B1ascf0KIgDhPIHb_R-SWdtqte8.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:700;src:local("Merriweather Sans Bold Italic"),local(MerriweatherSans-BoldItalic),url(//fonts.gstatic.com/s/merriweathersans/v5/nAqt4hiqwq3tzCecpgPmVYM8pfYvjMoOxygpzLVILAs.woff) format("woff")}@font-face {font-family: 'Aldrich';font-style: normal;font-weight: 400;src: local('Aldrich Regular'), local('Aldrich-Regular'), url('//fonts.gstatic.com/s/aldrich/v8/j-NnyokbAnhXANS2iZ6Jew.woff2') format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;font-style:normal}[class^="icon-"]:before{font-family:"icons";font-style:normal;font-weight:400;speak:none;display:inline-block;text-decoration:inherit;width:1em;margin-right:.2em;text-align:center;font-variant:normal;text-transform:none;line-height:1em;margin-left:.2em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-arrow-right:before{content:'\e807'}.icon-rss:before{content:'\e808'}body{font:300 1em / 1.5em 'Merriweather Sans',sans-serif;color:#595B66}a{color:inherit;text-decoration:none;font-weight:400}h1,h2{text-rendering:optimizeLegibility;color:#1F2026}h2 a{font-weight:inherit}h1{font-size:2em;line-height:1em;margin:2em 0 -.5em}h2{font-size:1.75em;line-height:1.143em;margin:2.286em 0 -.571em}p{margin:2em auto}i{font-weight:400;font-style:italic;color:#363740}img{display:block;max-width:100%;height:auto;margin:2.5em auto}body{background:#fff}.inner{max-width:48em;margin:0 auto;padding:0 1em}#wrapper{position:relative;box-sizing:border-box;width:100%;min-height:100vh;padding-bottom:6em;background:#F2F3F5}#push{transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#nav{position:relative;background:#fff;z-index:70;transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#nav:after{clear:both;content:'';display:table}#nav .nav-logo{float:left;height:2em;padding:1em;max-width:50%}#nav .nav-logo img{width:auto;max-width:none;height:2em;margin:0;border-radius:5px}#nav .nav-menu{float:right}#nav .nav-menu:after{clear:both;content:'';display:table}#nav .nav-menu a{display:block;width:1em;height:1em;line-height:1em;padding:1.5em;text-align:center;float:left}#nav .nav-menu a i:before{margin:auto}.overlay{display:none;position:fixed;left:0;top:0;width:100%;height:100%;z-index:80;display:none}.overlay:before{content:'';position:absolute;left:0;top:0;width:100%;height:100%;background:#1F2026;opacity:0;transform-style:preserve-3d}#header{position:relative;padding:4em 0}#header .inner{position:relative;z-index:2}#header .header-title{display:block;text-align:center}#header .header-name{font-family: Aldrich, sans-serif;font-weight:700;letter-spacing:-1px;display:block;line-height:1em;font-size:2em;text-decoration:none;color:#1F2026;padding:0;margin:0}#header.has-cover .header-name{color:#fff}#header .header-description{display:block;margin:1em auto 0;color:#9D9FA6;position:relative;font-weight:300}#header .header-description:after{content:'';position:absolute;height:1px;width:100px;margin-left:-50px;left:50%;top:-.5em;background:#D4D5D9}#header.has-cover .header-description{color:#fff}#header.has-cover .header-description:after{background:#fff}#header .header-cover{position:absolute;width:100%;height:100%;top:0;left:0;margin-top:-4em;padding:4em 0;background:no-repeat fixed center 100% / cover;z-index:1}#header .header-cover:before{content:'';position:absolute;width:100%;height:100%;left:0;top:0;background:rgba(0,0,0,0.2)}#header .header-cover:after{content:'';position:absolute;width:100%;left:0;bottom:0;border-bottom:4px solid #19A0D7}#footer{position:absolute;width:100%;left:0;bottom:0;font-size:.75em;line-height:1.334em;background:#1F2026;color:#737580;z-index:20;transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#footer a{color:#9D9FA6;font-weight:400}#footer .credits{text-align:center;font-size:.75em;line-height:1.334em;padding:2.667em;overflow:auto}#footer .credits span{display:block}#footer .credits .credits-theme{float:left}#footer .credits .credits-software{float:right}.post{position:relative;z-index:20}.post .post-image{display:block;margin:0;padding:0}.post .post-image img{display:block;width:100%;height:auto;margin:0;padding:0}.post .post-meta{display:block;font-size:.75em;line-height:1.334em;font-weight:400;margin-bottom:1.334em}.post .post-title{position:relative;color:#000;font-size:2em;line-height:1.375em;font-weight:800;text-indent:-1px;margin:.25em 0 .75em}.post .post-title:before{content:'';position:absolute;left:0;bottom:-.334em;width:1em;margin-bottom:-2px;border-bottom:4px solid #19A0D7}.post .post-title a{text-decoration:none;color:inherit;font-weight:inherit}#post-index{position:relative;max-width:1200px;margin:0 auto 4em;padding:.5em;z-index:10}@keyframes fade{0%{transform:translate3d(0,3em,0);opacity:0}100%{transform:translate3d(0,0,0);opacity:1}}.post-list{position:relative}.post-list .post{float:left;width:33.3%;transform:translate3d(0,3em,0);transform-style:preserve-3d;opacity:0;animation:fade ease-out .5s forwards;animation-delay:1.4s}@media only screen and (max-width: 50em){.post-list .post{width:49.9%}}@media only screen and (max-width: 30em){.post-list .post{width:100%;float:none}}.post-list .post:nth-child(1){animation-delay:.1s}.post-list .post:nth-child(2){animation-delay:.2s}.post-list .post:nth-child(3){animation-delay:.3s}.post-list .post:nth-child(4){animation-delay:.4s}.post-list .post:nth-child(5){animation-delay:.5s}.post-list .post:nth-child(6){animation-delay:.6s}.post-list .post:nth-child(7){animation-delay:.7s}.post-list .post:nth-child(8){animation-delay:.8s}.post-list .post:nth-child(9){animation-delay:.9s}.post-list .post .inner{padding:2em;margin:.5em;max-width:none;background:#fff;box-sizing:border-box;transform:scale(1);transform-style:preserve-3d}@media only screen and (max-width: 50em){.post-list .post .inner{padding:1em}}.post-list .post .post-link{position:absolute;left:0;top:0;width:100%;height:100%;z-index:10}.post-list .post .post-image{position:relative;margin:-2em -2em 0;overflow:hidden;background:#19A0D7}@media only screen and (max-width: 50em){.post-list .post .post-image{margin:-1em -1em 0}}.post-list .post .post-image img{transform:scale(1);transform-style:preserve-3d;opacity:1}.post-list .post .post-image:after{content:'';position:absolute;left:-5%;bottom:-2.5em;width:110%;height:4em;background:#fff;border-top:4px solid #19A0D7;box-shadow:0 0 2em rgba(0,0,0,0.2);transform:rotate(5deg)}.post-list .post .post-title{font-size:1.5em;line-height:1.167em}.post-list .post .post-excerpt{margin:0}.post-list .post .post-more{display:block;margin-top:1.5em}.post-list .post .post-more a{display:inline-block;font-size:.875em;line-height:1.143em;font-weight:400;color:#363740}.post-list .post .post-more a i{color:#0e77a0}.pagination{min-height:3em;margin:4em auto 2em;padding:0;position:relative}.pagination .pagination-item{position:relative;display:block;height:3em;line-height:3em;padding:0 1em;text-align:center;text-decoration:none;font-weight:700;color:#363740;border:1px solid #19A0D7;border-radius:4em;z-index:60}.pagination .pagination-item i{position:relative}@media only screen and (max-width: 30em){.pagination .pagination-item{width:4em;height:4em;line-height:4em;margin-top:-.5em;padding:0!important}.pagination .pagination-item i{font-size:1.5em}.pagination .pagination-item>span{display:none}}.pagination .pagination-prev{float:right}.pagination .pagination-prev i{right:-.05em}.pagination .pagination-info{display:block;left:0;top:0;height:3em;line-height:3em;position:absolute;text-align:center;width:100%;z-index:50;color:#9D9FA6}#loader-wrapper{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000}#loader{display:block;position:relative;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;border:3px solid transparent;border-top-color:#19A0D7;animation:spin 2s linear infinite}#loader:before{content:"";position:absolute;top:5px;left:5px;right:5px;bottom:5px;border-radius:50%;border:3px solid transparent;border-top-color:#0e77a0;animation:spin 3s linear infinite}#loader:after{content:"";position:absolute;top:15px;left:15px;right:15px;bottom:15px;border-radius:50%;border:3px solid transparent;border-top-color:#D4D5D9;animation:spin 1.5s linear infinite}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+</style>
+
+
+</head>
+<body class="home-template">
+<div id="loader-wrapper">
+    <div id="loader"></div>
+</div>
+<section id="wrapper" style="display: none;">
+    <div id="ajax-container">
+        <nav id="nav" class="nav">
+            <div class="nav-logo">
+                <a href="https://www.control-alt-del.org/">
+                    
+                    Cogito Interruptus Vulgaris
+                    
+                </a>
+            </div>
+            <div id="main-menu" class="nav-menu">
+                
+                
+                <a id="search-button" onclick="$('#search-form').toggle();" title="Search"><i class="fa fa-search"></i></a>
+                <form id="search-form" method="get" role="search" action="https://google.com/search">
+                    <input type="hidden" name="as_sitesearch" value="https://www.control-alt-del.org/">
+                    <input type="text" name="q" maxlength="255" placeholder="Search..." class="form-control">
+                    <input type="submit" value="Search">
+                </form>
+                
+                
+                
+                
+            </div>
+        </nav>
+
+
+<main class="content" role="main">
+    <article class="post">
+        <div class="inner">
+
+            <div id="push">
+
+                <header class="post-header">
+                
+                    <span class="post-meta">
+                        <span class="post-date">22 Apr 2018</span> <span class="reading-time">| <span class="estimated-reading-time">8 min.</span> (<span class="word-count">1673</span> words)</span></span>
+                    </span>
+                <div class="clear"></div>
+                
+                <h1 class="post-title">Serverless blog HOWTO</h1>
+              </header>
+
+              <section class="post-content">
+                
+                  <h1 id="serverless-content-management">Serverless content management</h1>
+
+<p>In this post, I will go over how to setup a completely serverless blog that runs with no servers and is for all intents and purposes free to run!</p>
+
+<p>It leverages static content generation, will be served from a content delivery network, and has a browser based UI for managing content with a review/approval workflow.</p>
+
+<p>It's also highly secure, as there is virtually no attack surface for the bad guys to get a hold of.</p>
+
+<p><img src="/images/serverlessblog.png" alt="null" /></p>
+
+<p></p>
+
+<h1 id="moving-parts">Moving parts</h1>
+
+<ul>
+<li><a href="https://gohugo.io">Hugo</a>: Static site generator<br /></li>
+<li><a href="https://github.com">Github</a>: Code repository. We'll use 2 repos for this project. One contains the source, and one contains the HTML that we want published (using Github pages).<br /></li>
+<li><a href="https://travis-ci.org">TravisCI</a>: The continuous integration tool that we can leverage to build the site when the source gets updated.<br /></li>
+<li><a href="https://www.netlifycms.org/">Netlify CMS</a>: The browser-based content management system that we'll integrate with Github to be able to create posts straight from a browser.<br /></li>
+<li><a href="https://aws.amazon.com/lambda/">AWS Lambda</a>: In order to authenticate the CMS with Github, we need an application in the middle to handle the OAuth2 handshake (and keep our secrets secret). We'll use a Lambda function <a href="https://github.com/marksteele/netlify-serverless-oauth2-backend">that I wrote</a> with the <a href="https://serverless.com">Serverless framework</a> to do just that.<br />
+<br /></li>
+</ul>
+
+<h2 id="static-site-generator-hugo">Static Site Generator - Hugo</h2>
+
+<p>I chose to leverage a static content site generator for this, as I wanted to keep things as simple as possible as well as ensure that the site will load fast and be cacheable.</p>
+
+<p>The framework that I landed on was <a href="https://gohugo.io/">Hugo</a>. Getting Hugo up and running is pretty straight-forward.</p>
+
+<p>Follow the instructions in the <a href="https://gohugo.io/getting-started/quick-start/">quick-start guide</a>, and you'll be ready for the next steps.</p>
+
+<p>By the end of the quick-start, you should be able to test a working static site on your local machine.</p>
+
+<p>Here's what my configuration file looks like (~/blog/config.toml):</p>
+
+<pre><code>baseURL = &quot;https://www.control-alt-del.org/&quot;
+languageCode = &quot;en-us&quot;
+title = &quot;Cogito Interruptus Vulgaris&quot;
+theme = &quot;hugo-theme-bleak&quot;
+copyright = &quot;Mark Steele&quot;
+pygmentsCodeFences = &quot;true&quot;
+PygmentsStyle = &quot;perldoc&quot;
+
+[blackfriday]
+  plainIDAnchors = true
+  hrefTargetBlank = false
+  latexDashes = true
+  smartypants = false
+  factions = true
+  extensions = [&quot;hardLineBreak&quot;]
+
+[params]
+    cover = &quot;/images/IMG_1191.jpg&quot;
+    Subtitle = &quot;Mark's blog&quot;
+    description = &quot;Everything is awesome !&quot;
+
+[params.posts]
+    foldername = &quot;post&quot;
+    pagesize = &quot;6&quot;
+    featuredpost = &quot;true&quot;
+</code></pre>
+
+<h2 id="setup-some-github-repositories">Setup some Github repositories</h2>
+
+<p>Next we'll want to create a couple Github repositories to store the source and published sites. For the source site, create a repo. Mine's called 'blog'.</p>
+
+<p>For the published site, I'm using Github pages, so my repo for that is 'marksteele.github.io'.</p>
+
+<p>Read on <a href="https://pages.github.com/">here</a> for more details on Github pages.</p>
+
+<h2 id="set-origins">Set origins</h2>
+
+<p>Head on over to your blog source (~/blog in this example), and set the origin. Something like this:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#658b00">cd</span> ~/blog
+git init
+git remote add origin git@github.com:marksteele/blog.git </code></pre></div>
+<p>Next we want to make sure we point our <code>public</code> folder to the repository we want to publish to. We'll use a git submodule for this.</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#658b00">cd</span>
+mkdir marksteele.github.io
+<span style="color:#658b00">cd</span> marksteele.github.io
+touch README.md
+git init
+git remote add origin git@github.com:marksteele/marksteele.github.io.git 
+git add .
+git commit -m <span style="color:#cd5555">&#39;initial import&#39;</span>
+git push origin master</code></pre></div>
+<p>Next we want to create a configuration file for TravisCI. Head on over to the blog source and create a file named ~/blog/.travis.yml with the following contents (edit to match your settings):</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">language:<span style="color:#bbb"> </span>python<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>install:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>-<span style="color:#bbb"> </span>sudo<span style="color:#bbb"> </span>apt-get<span style="color:#bbb"> </span>install<span style="color:#bbb"> </span>python-pygments<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>-<span style="color:#bbb"> </span>sudo<span style="color:#bbb"> </span>wget<span style="color:#bbb"> </span>-qO<span style="color:#bbb"> </span>hugo_0.39_Linux-64bit.deb<span style="color:#bbb"> </span>https://github.com/gohugoio/hugo/releases/download/v0.<span style="color:#b452cd">39</span>/hugo_0.39_Linux-64bit.deb<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>-<span style="color:#bbb"> </span>sudo<span style="color:#bbb"> </span>dpkg<span style="color:#bbb"> </span>-i<span style="color:#bbb"> </span>hugo_0.39_Linux-64bit.deb<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>script:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>-<span style="color:#bbb"> </span>git<span style="color:#bbb"> </span>submodule<span style="color:#bbb"> </span>foreach<span style="color:#bbb"> </span>-q<span style="color:#bbb"> </span>--recursive<span style="color:#bbb"> </span><span style="color:#cd5555">&#39;branch=&#34;$(git config -f $toplevel/.gitmodules submodule.$name.branch)&#34;; [ -z &#34;$branch&#34; ] &amp;&amp; git checkout master || git checkout $branch&#39;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>-<span style="color:#bbb"> </span>hugo<span style="color:#bbb"> </span><span style="color:#228b22"># This commands builds your website on travis</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>after_success:<span style="color:#bbb"> </span><span style="color:#cd5555">|
+</span><span style="color:#cd5555">    cd public
+</span><span style="color:#cd5555">    git add .
+</span><span style="color:#cd5555">    git status
+</span><span style="color:#cd5555">    git commit -m &#39;Site push&#39;
+</span><span style="color:#cd5555">    git push https://$GITHUB_USER:$GITHUB_API_KEY@github.com/marksteele/marksteele.github.io master</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>branches:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>only:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>-<span style="color:#bbb"> </span>master</code></pre></div>
+<p>This job will install a few packages, then run a couple scripts. The first script ensures that submodules are pointing to the branch HEAD, and the second script generates the site. Once the site is built, the new content is published to the publishing repo.</p>
+
+<p>Head back over into the blog folder, remove the public folder and setup the submodule pointing to our publishing repo. Then push.</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#658b00">cd</span> ~/blog
+rm -rf public
+git submodule add -b master https://github.com/marksteele/marksteele.github.io.git public
+git submodule sync
+git add .
+git commit -m <span style="color:#cd5555">&#39;initial import&#39;</span>
+git push origin master</code></pre></div>
+<h2 id="setup-api-keys-in-github">Setup API keys in Github</h2>
+
+<p>Head on over to Github, in the Settings page -&gt; Developer settings, you'll find a menu for personal access tokens. Create a token, call it something meaningful (eg: TravisCI), and give the token access to everything in the 'repo' ACL section. Copy paste that somewhere for later.</p>
+
+<h2 id="setup-travisci">Setup TravisCI</h2>
+
+<p>Head on over to <a href="https://travis-ci.org">Travis</a> and login. Give Travis access to your repositories. Next, navigate to the blog repo in the Travis UI, and click on the settings tab. You want to add two variables: GITHUB_USER and GITHUB_API_KEY. The GITHUB_API_KEY is the key you just created, and the GITHUB_USER is your github username.</p>
+
+<p><img src="/images/travis-settings.png" alt="null" /></p>
+
+<h2 id="checkpoint-what-we-have-so-far">Checkpoint - What we have so far</h2>
+
+<p>If all went well, at this point we should have Travis automatically triggering every time something is pushed to the blog repo, and pushing changes after running Hugo to the publishing repo.</p>
+
+<p>But why stop here? Let's create a UI to make this easier for non technical folks to update content.</p>
+
+<h2 id="authentication">Authentication</h2>
+
+<p>Before setting up the CMS, we'll want to setup an OAuth2 middle-man to hold our secrets.</p>
+
+<p>There is a simpler version of this setup that trusts the nice folks at Netlify to do this for us, but being the paranoid person that I am, I'd rather run that myself.</p>
+
+<p>Since I don't expect a lot of volume on this endpoint, unless I start receiving more than a million requests a month I can run this on AWS for free.</p>
+
+<p>Before continuing, you'll want to create an AWS account if you don't already have one. You'll also want to create an IAM user with API access with full admin rights.</p>
+
+<p>I usually setup an AWS profile in my ~/.aws/credentials file. See <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html">here</a> for details.</p>
+
+<h3 id="setup-lambda-function">Setup Lambda function</h3>
+
+<p>Clone the git repository, install dependancies</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#658b00">cd</span> ~
+git clone https://github.com/marksteele/netlify-serverless-oauth2-backend.git
+<span style="color:#658b00">cd</span> netlify-serverless-oauth2-backend
+sudo npm -i serverless -g
+npm i</code></pre></div>
+<p>Next we want to figure out what our default KMS key is in AWS for the parameter store. To do this, use the following command:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aws kms describe-key --key-id alias/aws/ssm --profile &lt;YOURAWSPROFILE&gt; --region &lt;REGION&gt;</code></pre></div>
+<p>Edit the file ~/netlify-serverless-oauth2-backend/serverless.yml and update the kms_key variable in the region of your choice to reflect the output of the CLI command we just ran.</p>
+
+<p>Next, time to deploy the lambda code.</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sls deploy -s prod --aws-profile &lt;YOURAWSPROFILE&gt; --region &lt;REGION&gt;</code></pre></div>
+<p>This should output something similar to this:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Service Information
+service: serverless-oauth2
+stage: prod
+region: us-east-1
+stack: serverless-oauth2-prod
+api keys:
+  None
+endpoints:
+  GET - https://&lt;RANDOMSTUFF&gt;.execute-api.us-east-1.amazonaws.com/prod/oauth/auth
+  GET - https://&lt;RANDOMSTUFF&gt;.execute-api.us-east-1.amazonaws.com/prod/oauth/callback
+  GET - https://&lt;RANDOMSTUFF&gt;.execute-api.us-east-1.amazonaws.com/prod/oauth/success
+  GET - https://&lt;RANDOMSTUFF&gt;.execute-api.us-east-1.amazonaws.com/prod/oauth
+functions:
+  auth: serverless-oauth2-prod-auth
+  callback: serverless-oauth2-prod-callback
+  success: serverless-oauth2-prod-success
+  default: serverless-oauth2-prod-default</code></pre></div>
+<p>Take note of the URLs that ends with /oauth/auth and /oauth/callback, we'll need those in a second.</p>
+
+<h3 id="create-an-oauth2-client-id-secret-in-github">Create an OAuth2 client id/secret in Github</h3>
+
+<p>Head on over to Github settings -&gt; developer settings and create an OAuth2 app. The callback URL is the URL we just created (the one with /oauth/callback).</p>
+
+<p>Take note of the OAuth2 client id and secret. We'll need those in a second.</p>
+
+<h3 id="setup-secrets-in-the-aws-parameter-store">Setup secrets in the AWS parameter store</h3>
+
+<p>Now let's configure our code to use the right parameters. Being good security conscious folks, we don't hardcode passwords or secrets anywhere and instead leverage an encrypted parameter store to store our secrets. In this case, we'll use the AWS SSM parameter store, which keeps things encrypted using KMS.</p>
+
+<p>From the AWS console, head on over to either EC2 or Systems manager, then find Parameter store.</p>
+
+<p>We'll want to create the following parameters (of type SecureString):</p>
+
+<ul>
+<li>/ctrl-alt-del/oauth/prod/GIT_HOSTNAME - The github host to use. Ex: <a href="https://github.com">https://github.com</a><br /></li>
+<li>/ctrl-alt-del/oauth/prod/OAUTH_TOKEN_PATH - The token api uri path. Most probably this: /login/oauth/access_token<br /></li>
+<li>/ctrl-alt-del/oauth/prod/OAUTH_AUTHORIZE_PATH - The authorize api uri path. Most probably this: /login/oauth/authorize<br /></li>
+<li>/ctrl-alt-del/oauth/prod/OAUTH_CLIENT_ID - Your Github OAuth client id<br /></li>
+<li>/ctrl-alt-del/oauth/prod/OAUTH_CLIENT_SECRET - Your Github OAuth client secret<br /></li>
+<li>/ctrl-alt-del/oauth/prod/REDIRECT_URL - Your callback URL. It will look something like this: https://<code>RANDOMSTUFF</code>.execute-api.us-east-1.amazonaws.com/prod/callback<br /></li>
+<li>/ctrl-alt-del/oauth/prod/OAUTH_SCOPES - The scopes to grant. Probably this: repo,user<br />
+<br /></li>
+</ul>
+
+<h2 id="content-management">Content management</h2>
+
+<p>Netlify CMS is a content management system built as a React web app, which integrates into Github to allow you to edit content straight from your browser. Setting it up is as easy as dropping an HTML page into your site.</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#658b00">cd</span> ~/blog
+mkdir -p static/admin/</code></pre></div>
+<p>Create the CMS configuration file, edit to fit your settings (~/blog/static/admin/config.yml):</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">publish_mode:<span style="color:#bbb"> </span>editorial_workflow<span style="color:#bbb">
+</span><span style="color:#bbb"></span>backend:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>name:<span style="color:#bbb"> </span>github<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>repo:<span style="color:#bbb"> </span>marksteele/blog<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>base_url:<span style="color:#bbb"> </span>https://RANDOMSTUFF.execute-api.us-east-<span style="color:#b452cd">1.</span>amazonaws.com/prod<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>auth_endpoint:<span style="color:#bbb"> </span>/oauth/auth<span style="color:#bbb">
+</span><span style="color:#bbb"></span>site_id:<span style="color:#bbb"> </span>www.control-alt-del.org<span style="color:#bbb">
+</span><span style="color:#bbb"></span>media_folder:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;static/images&#34;</span><span style="color:#bbb"> 
+</span><span style="color:#bbb"></span>public_folder:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;/images&#34;</span><span style="color:#bbb"> 
+</span><span style="color:#bbb"></span>collections:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>-<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;blog&#34;</span><span style="color:#bbb"> </span><span style="color:#228b22"># Used in routes, e.g., /admin/collections/blog</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>label:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;Blog&#34;</span><span style="color:#bbb"> </span><span style="color:#228b22"># Used in the UI</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>folder:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;content/blog&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>create:<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">true</span><span style="color:#bbb"> </span><span style="color:#228b22"># Allow users to create new documents in this collection</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>fields:<span style="color:#bbb"> </span><span style="color:#228b22"># The fields for each document, usually in front matter</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span>-<span style="color:#bbb"> </span>{label:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;Layout&#34;</span>,<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;layout&#34;</span>,<span style="color:#bbb"> </span>widget:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;hidden&#34;</span>,<span style="color:#bbb"> </span>default:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;blog&#34;</span>}<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>-<span style="color:#bbb"> </span>{label:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;Title&#34;</span>,<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;title&#34;</span>,<span style="color:#bbb"> </span>widget:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;string&#34;</span>}<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>-<span style="color:#bbb"> </span>{label:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;Publish Date&#34;</span>,<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;date&#34;</span>,<span style="color:#bbb"> </span>widget:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;datetime&#34;</span>}<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>-<span style="color:#bbb"> </span>{label:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;Featured image&#34;</span>,<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;thumbnail&#34;</span>,<span style="color:#bbb"> </span>widget:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;image&#34;</span>}<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>-<span style="color:#bbb"> </span>{label:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;Categories&#34;</span>,<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;categories&#34;</span>,<span style="color:#bbb"> </span>widget:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;list&#34;</span>,<span style="color:#bbb"> </span>default:<span style="color:#bbb"> </span>[<span style="color:#cd5555">&#34;news&#34;</span>]}<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>-<span style="color:#bbb"> </span>{label:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;Body&#34;</span>,<span style="color:#bbb"> </span>name:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;body&#34;</span>,<span style="color:#bbb"> </span>widget:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;markdown&#34;</span>}</code></pre></div>
+<p>Create the CMS webpage (~/blog/static/admin/index.html):</p>
+
+<code data-gist-id="04ad004a7a276b067f271856c7de4def"></code>
+
+
+<p>I've created a few custom widgets to add some more Hugo markdown shortcodes. Enjoy!</p>
+
+<p>Add the newly create config/html to the blog source</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#658b00">cd</span> ~/blog
+git add .
+git commit -m <span style="color:#cd5555">&#39;adding cms&#39;</span>
+git push origin master</code></pre></div>
+<p>Give it a few minutes for Travis to push out the new build, then head on over to your published blog. If all went according to plan, you can hit your CMS at<br />
+<a href="https://YOURNAME.github.io/admin">https://YOURNAME.github.io/admin</a></p>
+
+<p>You should then be able to login and start editing your files.  Should look something like this:</p>
+
+<p><img src="/images/netlify.png" alt="Editing window" /></p>
+
+<p><img src="/images/netlify2.png" alt="Editorial workflow" /></p>
+
+<h1 id="closing-thoughts">Closing thoughts</h1>
+
+<p>So I lied a little bit in this post. In order to get the OAuth2 authentication to work, I had to edit the code of the CMS to fix a bug in how it was appending URL paths in the OAuth2 flow.</p>
+
+<p>There is a PR open (<a href="https://github.com/netlify/netlify-cms/pull/1294">https://github.com/netlify/netlify-cms/pull/1294</a>) that fixes the issue, and the configuration I listed in this post assumes that the code is merged.</p>
+
+<p>My site is running the branch that fixes the issue, so I assume it'll work when they merge the change upstream.</p>
+
+<p>This post was written using the CMS, and I'm liking how easy it is to use.</p>
+
+<p>I am serving this site using the CloudFront content delivery network, and I think I might write a small Lambda function to invalidate the CDN cache and trigger it every time the site gets published.  Stay tuned!</p>
+
+<p>-M</p>
+
+<h2 id="update">Update</h2>
+
+<p>Since writing this post, the PR has been merged to fix the OAuth2 flow, and that's working just fine.</p>
+
+<p>I've also setup a Lambda function to be triggered by Travis whenever the build succeeds which invalidates CloudFront. Read more <a href="/blog/invalidate-cloudfront-with-lambda/">here</a>. Here's the <a href="https://github.com/marksteele/blog/blob/master/.travis.yml">travis config</a>.</p>
+              </section>
+
+              <footer class="post-footer">
+                  <div class="post-tags">
+            
+                  </div>
+                
+                    <div class="post-share">
+                        <a class="fa fa-reddit-alien" href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false">
+                            <span>Reddit</span>
+                        </a>
+                        <a class="fa fa-twitter" href="https://twitter.com/share?text=Serverless%20blog%20HOWTO&url=https%3a%2f%2fwww.control-alt-del.org%2fblog%2fserverless-blog-howto%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span>Twitter</span>
+                        </a>
+                    </div>
+            
+              </footer>
+
+            
+                <aside class="post-comments">
+    
+    
+    
+</aside>
+
+            
+            </div>
+
+            <nav class="post-nav">
+                
+                    <a class="post-nav-item post-nav-next" href="https://www.control-alt-del.org/blog/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+                        <section class="post-nav-teaser">
+                            <span class="post-nav-icon"><i class="fa fa-chevron-left"></i></span>
+                            <span class="post-nav-info">
+                                <h4 class="post-nav-title">Programatically associating Lambda@Edge with a CloudFront distribution</h4>
+                            </span>
+                        </section>
+                    </a>
+                
+                
+                    <a class="post-nav-item post-nav-prev" href="https://www.control-alt-del.org/blog/bash-tips/">
+                        <section class="post-nav-teaser">
+                            <span class="post-nav-icon"><i class="fa fa-chevron-right"></i></span>
+                            <span class="post-nav-info">
+                                <h4 class="post-nav-title">Bash Tips</h4>
+                            </span>
+                        </section>
+                    </a>
+                
+                <div class="clear"></div>
+            </nav>
+
+        </div>
+    </article>
+</main>
+
+                <div id="body-class" style="display: none;"></div>
+                <footer id="footer">
+                    <section class="credits">
+                        <span class="credits-license"><i class="fa fa-copyright"></i>2018 Mark Steele
+                    </span>
+                    </section>
+                </footer>
+                
+
+                
+
+                
+                <div class="overlay"></div>
+            </div>
+        </section>
+
+    <script async src="/js/main.js"></script>
+
+
+
+  <noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+</body>
+</html>
+

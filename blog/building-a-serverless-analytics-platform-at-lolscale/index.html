@@ -1,0 +1,828 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta property="og:title" content=" building a serverless analytics platform at lolscale &middot;  Cogito Interruptus Vulgaris" />
+    <meta property="og:site_name" content="Cogito Interruptus Vulgaris" />
+    <meta property="og:url" content="https://www.control-alt-del.org/blog/building-a-serverless-analytics-platform-at-lolscale/" />
+
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content="2018-04-04T00:00:00Z" />
+    
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta name="twitter:title" content="building a serverless analytics platform at lolscale" />
+    
+    <meta name="twitter:description" content="Hundreds of millions of events per month on the cheap
+
+In this post, I&#39;m going to go over the setup of infrastructure for creating an analytics platform capable of handling hundreds of millions of events per month. All without spinning up a single server.
+
+
+
+" />
+    <meta name="twitter:url" content="https://www.control-alt-del.org/blog/building-a-serverless-analytics-platform-at-lolscale/" />
+    
+
+    <title> building a serverless analytics platform at lolscale &middot;  Cogito Interruptus Vulgaris</title>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="preload" href="/js/main.js" as="script" />
+    <link rel="preload" href="/css/main.css" as="style" />
+    
+    
+
+
+    
+    <meta name="description" content="Everything is awesome !" />
+    
+
+    
+    <meta name="p:domain_verify" content=""/>
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+    
+
+    
+    <link href="https://www.control-alt-del.org/index.xml" rel="alternate" type="application/rss+xml" title="Cogito Interruptus Vulgaris" />
+    
+
+    
+    <link rel="canonical" href="https://www.control-alt-del.org/blog/building-a-serverless-analytics-platform-at-lolscale/" />
+
+    
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://www.control-alt-del.org/blog/building-a-serverless-analytics-platform-at-lolscale/"
+        },
+        "headline": "building a serverless analytics platform at lolscale",
+        "description": "",
+        "author": {
+            "@type": "Person",
+            "name": " ",
+            "url": "http://profiles.google.com/?rel=author",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https:",
+              "height": 80,
+              "width": 80
+            }
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://www.control-alt-del.org/",
+          "name": "Cogito Interruptus Vulgaris",
+          "url": "https://www.control-alt-del.org/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https:",
+            "height": 80,
+            "width": 80
+          }
+        },
+        
+        "image": {
+          "@type": "ImageObject",
+          "url": "",
+          "height": 80,
+          "width": 80
+        },
+        "datePublished": "2018-04-04",
+        "dateModified": "2018-04-04",
+        "wordCount": 2548,
+        
+    }
+    </script>
+    
+
+    
+    <script type="text/javascript">
+        
+        
+    </script>
+    
+
+    <script type="text/javascript">
+        var config = {
+            baseUrl: "https:\/\/www.control-alt-del.org\/"
+        };
+    </script>
+
+    <style>
+html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,figure,footer,header,main,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figure{margin:1em 40px}a{background-color:transparent;-webkit-text-decoration-skip:objects}img{border-style:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:300;src:local("Merriweather Sans Light"),local(MerriweatherSans-Light),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowY_zIojJi0m4a5Z6tRh6itY.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:400;src:local("Merriweather Sans Regular"),local(MerriweatherSans-Regular),url(//fonts.gstatic.com/s/merriweathersans/v5/AKu1CjQ4qnV8MUltkAX3sL2aU247V0zTzydO4RoO9Ok.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:700;src:local("Merriweather Sans Bold"),local(MerriweatherSans-Bold),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowQfd-b-I5PxxcmB4_-MNcqw.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:800;src:local("Merriweather Sans ExtraBold"),local(MerriweatherSans-ExtraBold),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowWT7sFQ1Iz1BbpcuCPlgc9Q.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:300;src:local("Merriweather Sans Light Italic"),local(MerriweatherSans-LightItalic),url(//fonts.gstatic.com/s/merriweathersans/v5/nAqt4hiqwq3tzCecpgPmVX9UU5BmOJGkLxUCVv5VXdc.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:400;src:local("Merriweather Sans Italic"),local(MerriweatherSans-Italic),url(//fonts.gstatic.com/s/merriweathersans/v5/3Mz4hOHzs2npRMG3B1ascf0KIgDhPIHb_R-SWdtqte8.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:700;src:local("Merriweather Sans Bold Italic"),local(MerriweatherSans-BoldItalic),url(//fonts.gstatic.com/s/merriweathersans/v5/nAqt4hiqwq3tzCecpgPmVYM8pfYvjMoOxygpzLVILAs.woff) format("woff")}@font-face {font-family: 'Aldrich';font-style: normal;font-weight: 400;src: local('Aldrich Regular'), local('Aldrich-Regular'), url('//fonts.gstatic.com/s/aldrich/v8/j-NnyokbAnhXANS2iZ6Jew.woff2') format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;font-style:normal}[class^="icon-"]:before{font-family:"icons";font-style:normal;font-weight:400;speak:none;display:inline-block;text-decoration:inherit;width:1em;margin-right:.2em;text-align:center;font-variant:normal;text-transform:none;line-height:1em;margin-left:.2em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-arrow-right:before{content:'\e807'}.icon-rss:before{content:'\e808'}body{font:300 1em / 1.5em 'Merriweather Sans',sans-serif;color:#595B66}a{color:inherit;text-decoration:none;font-weight:400}h1,h2{text-rendering:optimizeLegibility;color:#1F2026}h2 a{font-weight:inherit}h1{font-size:2em;line-height:1em;margin:2em 0 -.5em}h2{font-size:1.75em;line-height:1.143em;margin:2.286em 0 -.571em}p{margin:2em auto}i{font-weight:400;font-style:italic;color:#363740}img{display:block;max-width:100%;height:auto;margin:2.5em auto}body{background:#fff}.inner{max-width:48em;margin:0 auto;padding:0 1em}#wrapper{position:relative;box-sizing:border-box;width:100%;min-height:100vh;padding-bottom:6em;background:#F2F3F5}#push{transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#nav{position:relative;background:#fff;z-index:70;transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#nav:after{clear:both;content:'';display:table}#nav .nav-logo{float:left;height:2em;padding:1em;max-width:50%}#nav .nav-logo img{width:auto;max-width:none;height:2em;margin:0;border-radius:5px}#nav .nav-menu{float:right}#nav .nav-menu:after{clear:both;content:'';display:table}#nav .nav-menu a{display:block;width:1em;height:1em;line-height:1em;padding:1.5em;text-align:center;float:left}#nav .nav-menu a i:before{margin:auto}.overlay{display:none;position:fixed;left:0;top:0;width:100%;height:100%;z-index:80;display:none}.overlay:before{content:'';position:absolute;left:0;top:0;width:100%;height:100%;background:#1F2026;opacity:0;transform-style:preserve-3d}#header{position:relative;padding:4em 0}#header .inner{position:relative;z-index:2}#header .header-title{display:block;text-align:center}#header .header-name{font-family: Aldrich, sans-serif;font-weight:700;letter-spacing:-1px;display:block;line-height:1em;font-size:2em;text-decoration:none;color:#1F2026;padding:0;margin:0}#header.has-cover .header-name{color:#fff}#header .header-description{display:block;margin:1em auto 0;color:#9D9FA6;position:relative;font-weight:300}#header .header-description:after{content:'';position:absolute;height:1px;width:100px;margin-left:-50px;left:50%;top:-.5em;background:#D4D5D9}#header.has-cover .header-description{color:#fff}#header.has-cover .header-description:after{background:#fff}#header .header-cover{position:absolute;width:100%;height:100%;top:0;left:0;margin-top:-4em;padding:4em 0;background:no-repeat fixed center 100% / cover;z-index:1}#header .header-cover:before{content:'';position:absolute;width:100%;height:100%;left:0;top:0;background:rgba(0,0,0,0.2)}#header .header-cover:after{content:'';position:absolute;width:100%;left:0;bottom:0;border-bottom:4px solid #19A0D7}#footer{position:absolute;width:100%;left:0;bottom:0;font-size:.75em;line-height:1.334em;background:#1F2026;color:#737580;z-index:20;transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#footer a{color:#9D9FA6;font-weight:400}#footer .credits{text-align:center;font-size:.75em;line-height:1.334em;padding:2.667em;overflow:auto}#footer .credits span{display:block}#footer .credits .credits-theme{float:left}#footer .credits .credits-software{float:right}.post{position:relative;z-index:20}.post .post-image{display:block;margin:0;padding:0}.post .post-image img{display:block;width:100%;height:auto;margin:0;padding:0}.post .post-meta{display:block;font-size:.75em;line-height:1.334em;font-weight:400;margin-bottom:1.334em}.post .post-title{position:relative;color:#000;font-size:2em;line-height:1.375em;font-weight:800;text-indent:-1px;margin:.25em 0 .75em}.post .post-title:before{content:'';position:absolute;left:0;bottom:-.334em;width:1em;margin-bottom:-2px;border-bottom:4px solid #19A0D7}.post .post-title a{text-decoration:none;color:inherit;font-weight:inherit}#post-index{position:relative;max-width:1200px;margin:0 auto 4em;padding:.5em;z-index:10}@keyframes fade{0%{transform:translate3d(0,3em,0);opacity:0}100%{transform:translate3d(0,0,0);opacity:1}}.post-list{position:relative}.post-list .post{float:left;width:33.3%;transform:translate3d(0,3em,0);transform-style:preserve-3d;opacity:0;animation:fade ease-out .5s forwards;animation-delay:1.4s}@media only screen and (max-width: 50em){.post-list .post{width:49.9%}}@media only screen and (max-width: 30em){.post-list .post{width:100%;float:none}}.post-list .post:nth-child(1){animation-delay:.1s}.post-list .post:nth-child(2){animation-delay:.2s}.post-list .post:nth-child(3){animation-delay:.3s}.post-list .post:nth-child(4){animation-delay:.4s}.post-list .post:nth-child(5){animation-delay:.5s}.post-list .post:nth-child(6){animation-delay:.6s}.post-list .post:nth-child(7){animation-delay:.7s}.post-list .post:nth-child(8){animation-delay:.8s}.post-list .post:nth-child(9){animation-delay:.9s}.post-list .post .inner{padding:2em;margin:.5em;max-width:none;background:#fff;box-sizing:border-box;transform:scale(1);transform-style:preserve-3d}@media only screen and (max-width: 50em){.post-list .post .inner{padding:1em}}.post-list .post .post-link{position:absolute;left:0;top:0;width:100%;height:100%;z-index:10}.post-list .post .post-image{position:relative;margin:-2em -2em 0;overflow:hidden;background:#19A0D7}@media only screen and (max-width: 50em){.post-list .post .post-image{margin:-1em -1em 0}}.post-list .post .post-image img{transform:scale(1);transform-style:preserve-3d;opacity:1}.post-list .post .post-image:after{content:'';position:absolute;left:-5%;bottom:-2.5em;width:110%;height:4em;background:#fff;border-top:4px solid #19A0D7;box-shadow:0 0 2em rgba(0,0,0,0.2);transform:rotate(5deg)}.post-list .post .post-title{font-size:1.5em;line-height:1.167em}.post-list .post .post-excerpt{margin:0}.post-list .post .post-more{display:block;margin-top:1.5em}.post-list .post .post-more a{display:inline-block;font-size:.875em;line-height:1.143em;font-weight:400;color:#363740}.post-list .post .post-more a i{color:#0e77a0}.pagination{min-height:3em;margin:4em auto 2em;padding:0;position:relative}.pagination .pagination-item{position:relative;display:block;height:3em;line-height:3em;padding:0 1em;text-align:center;text-decoration:none;font-weight:700;color:#363740;border:1px solid #19A0D7;border-radius:4em;z-index:60}.pagination .pagination-item i{position:relative}@media only screen and (max-width: 30em){.pagination .pagination-item{width:4em;height:4em;line-height:4em;margin-top:-.5em;padding:0!important}.pagination .pagination-item i{font-size:1.5em}.pagination .pagination-item>span{display:none}}.pagination .pagination-prev{float:right}.pagination .pagination-prev i{right:-.05em}.pagination .pagination-info{display:block;left:0;top:0;height:3em;line-height:3em;position:absolute;text-align:center;width:100%;z-index:50;color:#9D9FA6}#loader-wrapper{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000}#loader{display:block;position:relative;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;border:3px solid transparent;border-top-color:#19A0D7;animation:spin 2s linear infinite}#loader:before{content:"";position:absolute;top:5px;left:5px;right:5px;bottom:5px;border-radius:50%;border:3px solid transparent;border-top-color:#0e77a0;animation:spin 3s linear infinite}#loader:after{content:"";position:absolute;top:15px;left:15px;right:15px;bottom:15px;border-radius:50%;border:3px solid transparent;border-top-color:#D4D5D9;animation:spin 1.5s linear infinite}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+</style>
+
+
+</head>
+<body class="home-template">
+<div id="loader-wrapper">
+    <div id="loader"></div>
+</div>
+<section id="wrapper" style="display: none;">
+    <div id="ajax-container">
+        <nav id="nav" class="nav">
+            <div class="nav-logo">
+                <a href="https://www.control-alt-del.org/">
+                    
+                    Cogito Interruptus Vulgaris
+                    
+                </a>
+            </div>
+            <div id="main-menu" class="nav-menu">
+                
+                
+                <a id="search-button" onclick="$('#search-form').toggle();" title="Search"><i class="fa fa-search"></i></a>
+                <form id="search-form" method="get" role="search" action="https://google.com/search">
+                    <input type="hidden" name="as_sitesearch" value="https://www.control-alt-del.org/">
+                    <input type="text" name="q" maxlength="255" placeholder="Search..." class="form-control">
+                    <input type="submit" value="Search">
+                </form>
+                
+                
+                
+                
+            </div>
+        </nav>
+
+
+<main class="content" role="main">
+    <article class="post">
+        <div class="inner">
+
+            <div id="push">
+
+                <header class="post-header">
+                
+                    <span class="post-meta">
+                        <span class="post-date">4 Apr 2018</span> <span class="reading-time">| <span class="estimated-reading-time">12 min.</span> (<span class="word-count">2548</span> words)</span></span>
+                    </span>
+                <div class="clear"></div>
+                
+                <h1 class="post-title">building a serverless analytics platform at lolscale</h1>
+              </header>
+
+              <section class="post-content">
+                
+                  <h1 id="hundreds-of-millions-of-events-per-month-on-the-cheap">Hundreds of millions of events per month on the cheap</h1>
+
+<p>In this post, I'm going to go over the setup of infrastructure for creating an analytics platform capable of handling hundreds of millions of events per month. All without spinning up a single server.</p>
+
+<p><img src="/images/Serverless-Analytics.png" alt="Serverless Analytics" /></p>
+
+<p></p>
+
+<p>I've recently had the opportunity to glimpse at how much some companies charge for this type of service, and it is shocking. For example, <a href="https://mixpanel.com/pricing/">150$ per 1 million data points</a>. At 200 million events/month, that would be a 30,000$/month bill. Ouch!</p>
+
+<p>Let's see if we can do better. Better-ish. I'm not going to tackle any sort of advanced reporting in this article. Arguably, that's the big value add that you get when you pay a SaaS provider for this kind of solution. Obivously you'll have to spend some time tinkering on building the reports you need. Even if you have to spin up a dev team to do so, at large scale it's probably cheaper than most SaaS offerings.</p>
+
+<p>If you've already got a BI solution in your organization, this might be an easy win as integrating this into most BI suites shouldn't be too hard to do.</p>
+
+<h2 id="dramatis-personae">Dramatis personae</h2>
+
+<ul>
+<li>Lambda: Serverless computing framework. This is where the code lives.<br /></li>
+<li>API Gateway: The API interface that exposes the Lambda code to an HTTPS endpoint.<br /></li>
+<li>Kinesis Firehose: Data ingestion pipeline. Buffers incoming data, and writes it out periodically to S3.<br /></li>
+<li>S3: The file storage backend.<br /></li>
+<li>Glue: The ETL processing framework.<br /></li>
+<li>Athena: The data query layer<br /></li>
+<li>Quicksight: The reporting layer.<br />
+<br /></li>
+</ul>
+
+<h2 id="high-level-overview">High level overview</h2>
+
+<p>Client code invokes the HTTP API endpoint that lives on API Gateway.</p>
+
+<p>API Gateway, passes along the event to the Lambda function.</p>
+
+<p>The Lambda function queues the data up in Kinesis firehose.</p>
+
+<p>Kinesis firehose periodically dumps the data (in compressed form) to S3.</p>
+
+<p>On file creation in S3, a Lambda function is invoked to rename the file (to follow Athena paritioning naming conventions).</p>
+
+<p>On a regular schedule, a Glue ETL is kicked off to transform the JSON files in S3 into the Parquet format, which is better suited for querying it in Athena.</p>
+
+<p>Finally, data can be queried via Athena, and dashboards can be built using QuickSight.</p>
+
+<p>Along the way, we'll also setup some crawlers in Glue to map out the data schema.</p>
+
+<h2 id="implementation-data-ingestion">Implementation - Data ingestion</h2>
+
+<h3 id="make-a-place-to-store-the-data">Make a place to store the data.</h3>
+
+<p>From the AWS console, let's create an S3 bucket. Choose the region of your choice, and give your bucket a memorable name.</p>
+
+<p>If you want to, setup some lifecycle hooks to periodically delete old data.</p>
+
+<p>I'd recommend you don't set the bucket permissions to public, that's just a bad idea. Once you're setup, time to move on.</p>
+
+<h3 id="create-iam-role-for-event-delivery">Create IAM role for event delivery</h3>
+
+<p>Create an IAM role called firehose_delivery_role, with the following permissions (replace YOUR_FIREHOSE_NAME, YOUR_BUCKET_NAME, YOUR_AWS_ACCOUNT_NUMBER_HERE):</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#8b008b;font-weight:bold">&#34;Version&#34;</span>: <span style="color:#cd5555">&#34;2012-10-17&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;Statement&#34;</span>: [
+        {
+            <span style="color:#8b008b;font-weight:bold">&#34;Sid&#34;</span>: <span style="color:#cd5555">&#34;&#34;</span>,
+            <span style="color:#8b008b;font-weight:bold">&#34;Effect&#34;</span>: <span style="color:#cd5555">&#34;Allow&#34;</span>,
+            <span style="color:#8b008b;font-weight:bold">&#34;Action&#34;</span>: [
+                <span style="color:#cd5555">&#34;glue:GetTableVersions&#34;</span>
+            ],
+            <span style="color:#8b008b;font-weight:bold">&#34;Resource&#34;</span>: <span style="color:#cd5555">&#34;*&#34;</span>
+        },
+        {
+            <span style="color:#8b008b;font-weight:bold">&#34;Sid&#34;</span>: <span style="color:#cd5555">&#34;&#34;</span>,
+            <span style="color:#8b008b;font-weight:bold">&#34;Effect&#34;</span>: <span style="color:#cd5555">&#34;Allow&#34;</span>,
+            <span style="color:#8b008b;font-weight:bold">&#34;Action&#34;</span>: [
+                <span style="color:#cd5555">&#34;s3:AbortMultipartUpload&#34;</span>,
+                <span style="color:#cd5555">&#34;s3:GetBucketLocation&#34;</span>,
+                <span style="color:#cd5555">&#34;s3:GetObject&#34;</span>,
+                <span style="color:#cd5555">&#34;s3:ListBucket&#34;</span>,
+                <span style="color:#cd5555">&#34;s3:ListBucketMultipartUploads&#34;</span>,
+                <span style="color:#cd5555">&#34;s3:PutObject&#34;</span>
+            ],
+            <span style="color:#8b008b;font-weight:bold">&#34;Resource&#34;</span>: [
+                <span style="color:#cd5555">&#34;arn:aws:s3:::YOUR_BUCKET_NAME&#34;</span>,
+                <span style="color:#cd5555">&#34;arn:aws:s3:::YOUR_BUCKET_NAME/*&#34;</span>,
+                <span style="color:#cd5555">&#34;arn:aws:s3:::%FIREHOSE_BUCKET_NAME%&#34;</span>,
+                <span style="color:#cd5555">&#34;arn:aws:s3:::%FIREHOSE_BUCKET_NAME%/*&#34;</span>
+            ]
+        },
+        {
+            <span style="color:#8b008b;font-weight:bold">&#34;Sid&#34;</span>: <span style="color:#cd5555">&#34;&#34;</span>,
+            <span style="color:#8b008b;font-weight:bold">&#34;Effect&#34;</span>: <span style="color:#cd5555">&#34;Allow&#34;</span>,
+            <span style="color:#8b008b;font-weight:bold">&#34;Action&#34;</span>: [
+                <span style="color:#cd5555">&#34;lambda:InvokeFunction&#34;</span>,
+                <span style="color:#cd5555">&#34;lambda:GetFunctionConfiguration&#34;</span>
+            ],
+            <span style="color:#8b008b;font-weight:bold">&#34;Resource&#34;</span>: <span style="color:#cd5555">&#34;arn:aws:lambda:us-east-1:YOUR_AWS_ACCOUNT_NUMBER_HERE:function:%FIREHOSE_DEFAULT_FUNCTION%:%FIREHOSE_DEFAULT_VERSION%&#34;</span>
+        },
+        {
+            <span style="color:#8b008b;font-weight:bold">&#34;Sid&#34;</span>: <span style="color:#cd5555">&#34;&#34;</span>,
+            <span style="color:#8b008b;font-weight:bold">&#34;Effect&#34;</span>: <span style="color:#cd5555">&#34;Allow&#34;</span>,
+            <span style="color:#8b008b;font-weight:bold">&#34;Action&#34;</span>: [
+                <span style="color:#cd5555">&#34;logs:PutLogEvents&#34;</span>
+            ],
+            <span style="color:#8b008b;font-weight:bold">&#34;Resource&#34;</span>: [
+                <span style="color:#cd5555">&#34;arn:aws:logs:us-east-1:YOUR_AWS_ACCOUNT_NUMBER_HERE:log-group:/aws/kinesisfirehose/YOUR_FIREHOSE_NAME_HERE:log-stream:*&#34;</span>
+            ]
+        },
+        {
+            <span style="color:#8b008b;font-weight:bold">&#34;Sid&#34;</span>: <span style="color:#cd5555">&#34;&#34;</span>,
+            <span style="color:#8b008b;font-weight:bold">&#34;Effect&#34;</span>: <span style="color:#cd5555">&#34;Allow&#34;</span>,
+            <span style="color:#8b008b;font-weight:bold">&#34;Action&#34;</span>: [
+                <span style="color:#cd5555">&#34;kinesis:DescribeStream&#34;</span>,
+                <span style="color:#cd5555">&#34;kinesis:GetShardIterator&#34;</span>,
+                <span style="color:#cd5555">&#34;kinesis:GetRecords&#34;</span>
+            ],
+            <span style="color:#8b008b;font-weight:bold">&#34;Resource&#34;</span>: <span style="color:#cd5555">&#34;arn:aws:kinesis:us-east-1:YOUR_AWS_ACCOUNT_NUMBER_HERE:stream/%FIREHOSE_STREAM_NAME%&#34;</span>
+        },
+        {
+            <span style="color:#8b008b;font-weight:bold">&#34;Effect&#34;</span>: <span style="color:#cd5555">&#34;Allow&#34;</span>,
+            <span style="color:#8b008b;font-weight:bold">&#34;Action&#34;</span>: [
+                <span style="color:#cd5555">&#34;kms:Decrypt&#34;</span>
+            ],
+            <span style="color:#8b008b;font-weight:bold">&#34;Resource&#34;</span>: [
+                <span style="color:#cd5555">&#34;arn:aws:kms:region:accountid:key/%SSE_KEY_ARN%&#34;</span>
+            ],
+            <span style="color:#8b008b;font-weight:bold">&#34;Condition&#34;</span>: {
+                <span style="color:#8b008b;font-weight:bold">&#34;StringEquals&#34;</span>: {
+                    <span style="color:#8b008b;font-weight:bold">&#34;kms:ViaService&#34;</span>: <span style="color:#cd5555">&#34;kinesis.%REGION_NAME%.amazonaws.com&#34;</span>
+                },
+                <span style="color:#8b008b;font-weight:bold">&#34;StringLike&#34;</span>: {
+                    <span style="color:#8b008b;font-weight:bold">&#34;kms:EncryptionContext:aws:kinesis:arn&#34;</span>: <span style="color:#cd5555">&#34;arn:aws:kinesis:%REGION_NAME%:YOUR_AWS_ACCOUNT_NUMBER_HERE:stream/%FIREHOSE_STREAM_NAME%&#34;</span>
+                }
+            }
+        }
+    ]
+}</code></pre></div>
+<h3 id="setup-the-firehose">Setup the firehose</h3>
+
+<p>Head on over to Kinesis firehose, and setup your firehose. Use the following settings (make sure you change the firehose name and the bucket name):</p>
+
+<pre><code>Stream name: YOUR_FIREHOSE_NAME_HERE
+Source: Direct put
+S3 bucket output: YOUR_BUCKET_NAME_HERE
+S3 prefix: analytics_raw
+IAM role: firehose_delivery_role
+Data transform: disabled
+Source record backup: disabled
+S3 buffer size (MB): 128
+S3 buffer interval: 900
+S3 compression: GZIP
+S3 encryption: No encryption
+</code></pre>
+
+<p>This instructs Kinesis do dump your data in 128MB chunks, or every 15 minutes whichever comes first.</p>
+
+<h3 id="http-api">HTTP API</h3>
+
+<p>For the HTTP API, we'll use API Gateway and Lambda. I'm going to use the <a href="https://serverless.com">serverless</a> framework which will take care of things like orchestrating the deployment of the Lambda, associating events to API Gateway and S3.</p>
+
+<p>To start, let's get the serverless framework installed:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm i serverless -g</code></pre></div>
+<p>Next, we'll create a file for package dependancies and the serverless framework config (make sure you change the firehose name and the bucket name):</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir serverless-analytics
+<span style="color:#658b00">cd</span> serverless-analytics</code></pre></div>
+<p>Create the config file serverless.yml:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">service:<span style="color:#bbb"> </span>serverless-analytics<span style="color:#bbb">
+</span><span style="color:#bbb"></span>provider:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>name:<span style="color:#bbb"> </span>aws<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>runtime:<span style="color:#bbb"> </span>nodejs6.<span style="color:#b452cd">10</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>stage:<span style="color:#bbb"> </span>${opt:stage,<span style="color:#bbb"> </span>self:custom.defaultStage}<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>apiKeys:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;ClientAPIKey-${opt:stage, self:provider.stage}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>environment:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>TZ:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;utc&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>KINESIS_FIREHOSE_STREAM_NAME:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;YOUR_FIREHOSE_NAME_HERE&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>iamRoleStatements:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>Effect:<span style="color:#bbb"> </span>Allow<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>Action:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span>-<span style="color:#bbb"> </span>firehose:PutRecord<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>Resource:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;arn:aws:firehose:${opt:region, self:provider.region}:*:deliverystream/${self:provider.environment.KINESIS_FIREHOSE_STREAM_NAME}&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>Effect:<span style="color:#bbb"> </span>Allow<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>Action:<span style="color:#bbb">
+</span><span style="color:#bbb">        </span>-<span style="color:#bbb"> </span>s3:*<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>Resource:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;arn:aws:s3:::YOUR_BUCKET_NAME_HERE/*&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>custom:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>defaultStage:<span style="color:#bbb"> </span>dev<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>functions:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>track:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>handler:<span style="color:#bbb"> </span>track.track<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>memorySize:<span style="color:#bbb"> </span><span style="color:#b452cd">128</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>timeout:<span style="color:#bbb"> </span><span style="color:#b452cd">5</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>events:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>-<span style="color:#bbb"> </span>http:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>path:<span style="color:#bbb"> </span>/track<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>method:<span style="color:#bbb"> </span>post<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>private:<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">true</span><span style="color:#bbb">
+</span><span style="color:#bbb">          </span>cors:<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">true</span><span style="color:#bbb">               
+</span><span style="color:#bbb">  </span>mover:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>handler:<span style="color:#bbb"> </span>s3mover.mover<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>memorySize:<span style="color:#bbb"> </span><span style="color:#b452cd">512</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>timeout:<span style="color:#bbb"> </span><span style="color:#b452cd">30</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>events:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>-<span style="color:#bbb"> </span>existingS3:<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>bucket:<span style="color:#bbb"> </span>YOUR_BUCKET_NAME_HERE<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>events:<span style="color:#bbb">
+</span><span style="color:#bbb">            </span>-<span style="color:#bbb"> </span>s3:ObjectCreated:*<span style="color:#bbb">
+</span><span style="color:#bbb">          </span>rules:<span style="color:#bbb">
+</span><span style="color:#bbb">            </span>-<span style="color:#bbb"> </span>prefix:<span style="color:#bbb"> </span>analytics_raw<span style="color:#bbb">
+</span><span style="color:#bbb"></span>plugins:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>-<span style="color:#bbb"> </span>serverless-plugin-optimize<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>-<span style="color:#bbb"> </span>serverless-plugin-existing-s3<span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>package:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>individually:<span style="color:#bbb"> </span><span style="color:#8b008b;font-weight:bold">true</span></code></pre></div>
+<p>The package config file: package.json</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#8b008b;font-weight:bold">&#34;name&#34;</span>: <span style="color:#cd5555">&#34;serverless-analytics&#34;</span>,
+  <span style="color:#8b008b;font-weight:bold">&#34;version&#34;</span>: <span style="color:#cd5555">&#34;1.0.0&#34;</span>,
+  <span style="color:#8b008b;font-weight:bold">&#34;description&#34;</span>: <span style="color:#cd5555">&#34;serverless-analytics&#34;</span>,
+  <span style="color:#8b008b;font-weight:bold">&#34;repository&#34;</span>: <span style="color:#cd5555">&#34;&#34;</span>,
+  <span style="color:#8b008b;font-weight:bold">&#34;author&#34;</span>: <span style="color:#cd5555">&#34;Mark Steele &lt;mark@control-alt-del.org&gt;&#34;</span>,
+  <span style="color:#8b008b;font-weight:bold">&#34;license&#34;</span>: <span style="color:#cd5555">&#34;GPL&#34;</span>,
+  <span style="color:#8b008b;font-weight:bold">&#34;private&#34;</span>: <span style="color:#8b008b;font-weight:bold">true</span>,
+  <span style="color:#8b008b;font-weight:bold">&#34;dependencies&#34;</span>: {
+    <span style="color:#8b008b;font-weight:bold">&#34;npm&#34;</span>: <span style="color:#cd5555">&#34;^5.7.1&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;serverless-plugin-existing-s3&#34;</span>: <span style="color:#cd5555">&#34;^2.0.3&#34;</span>
+  },
+  <span style="color:#8b008b;font-weight:bold">&#34;devDependencies&#34;</span>: {
+    <span style="color:#8b008b;font-weight:bold">&#34;aws-sdk&#34;</span>: <span style="color:#cd5555">&#34;^2.12.0&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;aws-sdk-mock&#34;</span>: <span style="color:#cd5555">&#34;^1.6.1&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;babel-preset-es2015&#34;</span>: <span style="color:#cd5555">&#34;^6.24.1&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;chai&#34;</span>: <span style="color:#cd5555">&#34;^4.0.2&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;eslint&#34;</span>: <span style="color:#cd5555">&#34;^4.17.0&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;eslint-config-airbnb-base&#34;</span>: <span style="color:#cd5555">&#34;^12.1.0&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;eslint-plugin-import&#34;</span>: <span style="color:#cd5555">&#34;^2.8.0&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;eslint-plugin-mocha&#34;</span>: <span style="color:#cd5555">&#34;^4.11.0&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;eslint-plugin-node&#34;</span>: <span style="color:#cd5555">&#34;^6.0.0&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;eslint-plugin-promise&#34;</span>: <span style="color:#cd5555">&#34;^3.6.0&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;mocha&#34;</span>: <span style="color:#cd5555">&#34;^3.2.0&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;nyc&#34;</span>: <span style="color:#cd5555">&#34;^11.2.1&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;serverless-plugin-optimize&#34;</span>: <span style="color:#cd5555">&#34;^1.0.0-rc.15&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;sinon&#34;</span>: <span style="color:#cd5555">&#34;^2.1.0&#34;</span>
+  },
+  <span style="color:#8b008b;font-weight:bold">&#34;scripts&#34;</span>: {
+    <span style="color:#8b008b;font-weight:bold">&#34;test&#34;</span>: <span style="color:#cd5555">&#34;IS_TEST=1 mocha&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;coverage&#34;</span>: <span style="color:#cd5555">&#34;IS_TEST=1 nyc --check-coverage --lines 75 --per-file mocha&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;coverage-report&#34;</span>: <span style="color:#cd5555">&#34;IS_TEST=1 nyc --check-coverage --report -r html mocha&#34;</span>,
+    <span style="color:#8b008b;font-weight:bold">&#34;lint&#34;</span>: <span style="color:#cd5555">&#34;node node_modules/eslint/bin/eslint.js --color .&#34;</span>
+  },
+  <span style="color:#8b008b;font-weight:bold">&#34;standard&#34;</span>: {
+    <span style="color:#8b008b;font-weight:bold">&#34;env&#34;</span>: [
+      <span style="color:#cd5555">&#34;mocha&#34;</span>
+    ]
+  }
+}</code></pre></div>
+<p>Install the deps:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm i</code></pre></div>
+<p>Code for file s3mover.js:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#228b22">/* eslint-disable no-console */</span>
+<span style="color:#8b008b;font-weight:bold">const</span> AWS = require(<span style="color:#cd5555">&#39;aws-sdk&#39;</span>); <span style="color:#228b22">// eslint-disable-line import/no-extraneous-dependencies
+</span><span style="color:#228b22"></span>
+<span style="color:#8b008b;font-weight:bold">const</span> s3 = <span style="color:#8b008b;font-weight:bold">new</span> AWS.S3();
+
+<span style="color:#228b22">// Moves files written by firehose into partition path format.
+</span><span style="color:#228b22"></span>module.exports.mover = (e, ctx, cb) =&gt; {
+  <span style="color:#8b008b;font-weight:bold">const</span> pathRegex = <span style="color:#1c7e71">/^analytics_raw\/(\d+)\/(\d+)\/(\d+)\/\d+\/(.*)$/</span>;
+  <span style="color:#8b008b;font-weight:bold">const</span> srcKey = e.Records[<span style="color:#b452cd">0</span>].s3.object.key;
+  <span style="color:#8b008b;font-weight:bold">const</span> bucket = e.Records[<span style="color:#b452cd">0</span>].s3.bucket.name;
+  <span style="color:#8b008b;font-weight:bold">const</span> matches = pathRegex.exec(srcKey);
+  console.log(JSON.stringify(e));
+  <span style="color:#8b008b;font-weight:bold">if</span> (matches) {
+    <span style="color:#8b008b;font-weight:bold">const</span> newKey = <span style="color:#cd5555">`partitioned_analytics_raw/year=</span><span style="color:#cd5555">${</span>matches[<span style="color:#b452cd">1</span>]<span style="color:#cd5555">}</span><span style="color:#cd5555">/month=</span><span style="color:#cd5555">${</span>matches[<span style="color:#b452cd">2</span>]<span style="color:#cd5555">}</span><span style="color:#cd5555">/day=</span><span style="color:#cd5555">${</span>matches[<span style="color:#b452cd">3</span>]<span style="color:#cd5555">}</span><span style="color:#cd5555">/</span><span style="color:#cd5555">${</span>matches[<span style="color:#b452cd">4</span>]<span style="color:#cd5555">}</span><span style="color:#cd5555">`</span>;
+    s3.getObject({ Bucket: bucket, Key: srcKey }).promise()
+      .then(response =&gt;
+        s3.putObject({ Bucket: bucket, Key: newKey, Body: response.Body }).promise())
+      .then(() =&gt; s3.deleteObject({ Bucket: bucket, Key: srcKey }).promise())
+      .then(() =&gt; {
+        cb(<span style="color:#8b008b;font-weight:bold">null</span>, <span style="color:#cd5555">`Moved </span><span style="color:#cd5555">${</span>srcKey<span style="color:#cd5555">}</span><span style="color:#cd5555"> to </span><span style="color:#cd5555">${</span>newKey<span style="color:#cd5555">}</span><span style="color:#cd5555">`</span>);
+      })
+      .<span style="color:#8b008b;font-weight:bold">catch</span>((err) =&gt; {
+        console.log(<span style="color:#cd5555">&#39;Error moving/deleting file&#39;</span>);
+        console.log(<span style="color:#cd5555">`SRC: </span><span style="color:#cd5555">${</span>srcKey<span style="color:#cd5555">}</span><span style="color:#cd5555">`</span>);
+        console.log(JSON.stringify(err));
+        cb(<span style="color:#8b008b;font-weight:bold">null</span>, <span style="color:#cd5555">&#39;Error&#39;</span>);
+      });
+  } <span style="color:#8b008b;font-weight:bold">else</span> {
+    cb(<span style="color:#8b008b;font-weight:bold">null</span>, <span style="color:#cd5555">`No match on key </span><span style="color:#cd5555">${</span>srcKey<span style="color:#cd5555">}</span><span style="color:#cd5555">`</span>);
+  }
+};
+</code></pre></div>
+<p>Code for track.js:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#8b008b;font-weight:bold">const</span> AWS = require(<span style="color:#cd5555">&#39;aws-sdk&#39;</span>); <span style="color:#228b22">// eslint-disable-line import/no-extraneous-dependencies
+</span><span style="color:#228b22"></span>
+<span style="color:#8b008b;font-weight:bold">const</span> firehose = <span style="color:#8b008b;font-weight:bold">new</span> AWS.Firehose();
+
+module.exports.track = (e, ctx, cb) =&gt; {
+  <span style="color:#8b008b;font-weight:bold">const</span> params = {
+    DeliveryStreamName: process.env.KINESIS_FIREHOSE_STREAM_NAME,
+    Record: {
+      Data: e.body,
+    },
+  };
+  firehose.putRecord(params).promise()
+    .then(() =&gt; {
+      cb(<span style="color:#8b008b;font-weight:bold">null</span>, {
+        statusCode: <span style="color:#b452cd">204</span>,
+      });
+    }).<span style="color:#8b008b;font-weight:bold">catch</span>((err) =&gt; {
+      console.log(JSON.stringify(err, <span style="color:#8b008b;font-weight:bold">null</span>, <span style="color:#b452cd">2</span>));
+      cb(<span style="color:#8b008b;font-weight:bold">null</span>, {
+        statusCode: <span style="color:#b452cd">500</span>,
+        body: err.message,
+      });
+    });
+};
+</code></pre></div>
+<p>Deploy the code</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sls deploy -s prod --aws-profile YOURPROFILE
+sls s3deploy</code></pre></div>
+<h3 id="check-your-progress">Check your progress</h3>
+
+<p>If everything went well, you now have a data ingestion pipeline setup that can receive nearly limitless amounts of inbound data, efficiently pushing it to an S3 bucket.</p>
+
+<p>Let's test it out. Here's a little script you can run to hit your API and push some random events in.<br />
+(replace the URL and API key as per the output of sls deploy)</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cpan HTTP::Request LWP LWP::UserAgent Date::Format</code></pre></div>
+<p>Create a file datagenerator.pl:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-perl" data-lang="perl"><span style="color:#228b22">#!/usr/bin/perl</span>
+<span style="color:#8b008b;font-weight:bold">use</span> <span style="color:#008b45">HTTP::Request</span>;
+<span style="color:#8b008b;font-weight:bold">use</span> <span style="color:#008b45">LWP::UserAgent</span>;
+<span style="color:#8b008b;font-weight:bold">use</span> <span style="color:#008b45">Date::Format</span>;
+
+<span style="color:#8b008b;font-weight:bold">my</span> <span style="color:#00688b">$url</span> = <span style="color:#cd5555">&#39;https://URLGOESHERE/prod/track&#39;</span>;
+<span style="color:#8b008b;font-weight:bold">my</span> <span style="color:#00688b">$apiKey</span> = <span style="color:#cd5555">&#39;APIKEYGOESHERE&#39;</span>;
+<span style="color:#8b008b;font-weight:bold">my</span> <span style="color:#00688b">@NAMES</span> = <span style="color:#cb6c20">qw(joe mary john suzy mark zoe shelly barry smelly sneezy doofy derpy sally dave harry mikey kimmy sarah rae shae bae)</span>;
+<span style="color:#8b008b;font-weight:bold">my</span> <span style="color:#00688b">$ua</span> = <span style="color:#008b45">LWP::UserAgent</span>-&gt;<span style="color:#8b008b;font-weight:bold">new</span>;
+<span style="color:#8b008b;font-weight:bold">while</span>(true) {
+  <span style="color:#8b008b;font-weight:bold">my</span> <span style="color:#00688b">$output</span>;
+  <span style="color:#8b008b;font-weight:bold">for</span> (<span style="color:#b452cd">1</span>..<span style="color:#b452cd">100</span>) {
+    <span style="color:#8b008b;font-weight:bold">my</span> <span style="color:#00688b">$randName</span> = <span style="color:#00688b">$NAMES</span>[<span style="color:#658b00">rand</span> <span style="color:#00688b">@NAMES</span>] . <span style="color:#658b00">int</span>(<span style="color:#658b00">rand</span>(<span style="color:#b452cd">10</span>));
+    <span style="color:#00688b">$output</span> .= <span style="color:#658b00">sprintf</span>(<span style="color:#cd5555">&#39;{&#34;event&#34;:&#34;LOGIN&#34;,&#34;userId&#34;:&#34;%s&#34;,&#34;dateTime&#34;:&#34;%s&#34;}&#39;</span>,<span style="color:#00688b">$randName</span>,time2str(<span style="color:#cd5555">&#34;%Y-%m-%d %H:%M:%S&#34;</span>,<span style="color:#658b00">time</span>())) . <span style="color:#cd5555">&#34;\n&#34;</span>;
+  }
+  <span style="color:#8b008b;font-weight:bold">my</span> <span style="color:#00688b">$req</span> = <span style="color:#008b45">HTTP::Request</span>-&gt;<span style="color:#8b008b;font-weight:bold">new</span>( <span style="color:#cd5555">&#39;POST&#39;</span>, <span style="color:#00688b">$url</span>);
+  <span style="color:#00688b">$req</span>-&gt;header(<span style="color:#cd5555">&#39;x-api-key&#39;</span> =&gt; <span style="color:#00688b">$apiKey</span>);
+  <span style="color:#00688b">$req</span>-&gt;content(<span style="color:#00688b">$output</span>);
+  <span style="color:#00688b">$ua</span>-&gt;request(<span style="color:#00688b">$req</span>);
+  <span style="color:#8b008b;font-weight:bold">print</span> <span style="color:#00688b">$output</span>;
+  <span style="color:#658b00">select</span>(<span style="color:#658b00">undef</span>,<span style="color:#658b00">undef</span>,<span style="color:#658b00">undef</span>,<span style="color:#b452cd">0.25</span>);
+}</code></pre></div>
+<p>And run it</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">perl datagenerator.pl</code></pre></div>
+<p>If all went well, you should see some output being printed out to the screen. Wait about 15 minutes and go have a look at your S3 bucket, you should see some data files.</p>
+
+<h2 id="implementation-data-schema-discovery-and-optimization">Implementation - Data/Schema discovery and optimization</h2>
+
+<h3 id="create-glue-db">Create Glue DB</h3>
+
+<p>Head over to the Glue console, and create a database. Just enter DB name that you'd like. (eg: YOUR_ANALYTICS_DB_NAME)</p>
+
+<h3 id="create-glue-crawlers-for-raw-data">Create Glue crawlers for raw data</h3>
+
+<p>Head to crawlers, and create a new one. The parameters are:</p>
+
+<pre><code>Name: raw_discovery
+db: YOUR_ANALYTICS_DB_NAME
+table prefix: 
+ServiceRole: create one, needs to have AWSGlueServiceRole- as the name prefix
+Selected classifiers:
+Data store: S3
+Include path: s3://YOUR_BUCKET_NAME_HERE/partitioned_analytics_raw
+</code></pre>
+
+<p>Save/Run it. Will create a table in your Glue DB</p>
+
+<p>Create a trigger to schedule the crawler to run once an hour, this will keep the Athena meta-data up to date with the partition list.</p>
+
+<h3 id="create-etl-job-to-transform-raw-json-files-to-parquet">Create ETL job to transform raw json files to parquet</h3>
+
+<p>Here's a python script that will transform your raw json files to Parquet. When creating the ETL, make sure you enable job bookmarks in the advanced settings. Make sure you change YOUR_BUCKET_NAME_HERE and YOUR_ANALYTICS_DB_NAME to match what your settings.</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#8b008b;font-weight:bold">import</span> <span style="color:#008b45">sys</span>
+<span style="color:#8b008b;font-weight:bold">from</span> <span style="color:#008b45">awsglue.transforms</span> <span style="color:#8b008b;font-weight:bold">import</span> *
+<span style="color:#8b008b;font-weight:bold">from</span> <span style="color:#008b45">awsglue.utils</span> <span style="color:#8b008b;font-weight:bold">import</span> getResolvedOptions
+<span style="color:#8b008b;font-weight:bold">from</span> <span style="color:#008b45">pyspark.context</span> <span style="color:#8b008b;font-weight:bold">import</span> SparkContext
+<span style="color:#8b008b;font-weight:bold">from</span> <span style="color:#008b45">awsglue.context</span> <span style="color:#8b008b;font-weight:bold">import</span> GlueContext
+<span style="color:#8b008b;font-weight:bold">from</span> <span style="color:#008b45">awsglue.job</span> <span style="color:#8b008b;font-weight:bold">import</span> Job
+
+args = getResolvedOptions(sys.argv, [<span style="color:#cd5555">&#39;JOB_NAME&#39;</span>])
+
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init(args[<span style="color:#cd5555">&#39;JOB_NAME&#39;</span>], args)
+datasource0 = glueContext.create_dynamic_frame.from_catalog(database = <span style="color:#cd5555">&#34;YOUR_ANALYTICS_DB_NAME&#34;</span>, table_name = <span style="color:#cd5555">&#34;partitioned_analytics_raw&#34;</span>, transformation_ctx = <span style="color:#cd5555">&#34;datasource0&#34;</span>)
+datasource0.printSchema()
+applymapping1 = ApplyMapping.<span style="color:#658b00">apply</span>(frame = datasource0, mappings = [(<span style="color:#cd5555">&#34;event&#34;</span>, <span style="color:#cd5555">&#34;string&#34;</span>, <span style="color:#cd5555">&#34;event&#34;</span>, <span style="color:#cd5555">&#34;string&#34;</span>), (<span style="color:#cd5555">&#34;userid&#34;</span>, <span style="color:#cd5555">&#34;string&#34;</span>, <span style="color:#cd5555">&#34;userid&#34;</span>, <span style="color:#cd5555">&#34;string&#34;</span>), (<span style="color:#cd5555">&#34;datetime&#34;</span>, <span style="color:#cd5555">&#34;string&#34;</span>, <span style="color:#cd5555">&#34;datetime&#34;</span>, <span style="color:#cd5555">&#34;timestamp&#34;</span>), (<span style="color:#cd5555">&#34;year&#34;</span>, <span style="color:#cd5555">&#34;string&#34;</span>, <span style="color:#cd5555">&#34;year&#34;</span>, <span style="color:#cd5555">&#34;string&#34;</span>), (<span style="color:#cd5555">&#34;month&#34;</span>, <span style="color:#cd5555">&#34;string&#34;</span>, <span style="color:#cd5555">&#34;month&#34;</span>, <span style="color:#cd5555">&#34;string&#34;</span>), (<span style="color:#cd5555">&#34;day&#34;</span>, <span style="color:#cd5555">&#34;string&#34;</span>, <span style="color:#cd5555">&#34;day&#34;</span>, <span style="color:#cd5555">&#34;string&#34;</span>)], transformation_ctx = <span style="color:#cd5555">&#34;applymapping1&#34;</span>)
+resolvechoice2 = ResolveChoice.<span style="color:#658b00">apply</span>(frame = applymapping1, choice = <span style="color:#cd5555">&#34;make_struct&#34;</span>, transformation_ctx = <span style="color:#cd5555">&#34;resolvechoice2&#34;</span>)
+dropnullfields3 = DropNullFields.<span style="color:#658b00">apply</span>(frame = resolvechoice2, transformation_ctx = <span style="color:#cd5555">&#34;dropnullfields3&#34;</span>)
+datasink4 = glueContext.write_dynamic_frame.from_options(frame = dropnullfields3, connection_type = <span style="color:#cd5555">&#34;s3&#34;</span>, connection_options = {<span style="color:#cd5555">&#34;path&#34;</span>: <span style="color:#cd5555">&#34;s3://YOUR_BUCKET_NAME_HERE/analytics_data&#34;</span>,<span style="color:#cd5555">&#34;partitionKeys&#34;</span>:[<span style="color:#cd5555">&#34;year&#34;</span>,<span style="color:#cd5555">&#34;month&#34;</span>,<span style="color:#cd5555">&#34;day&#34;</span>]}, format = <span style="color:#cd5555">&#34;parquet&#34;</span>, transformation_ctx = <span style="color:#cd5555">&#34;datasink4&#34;</span>)
+job.commit()</code></pre></div>
+<p>Run the job, you should now see a new path in your S3 bucket that contains partitioned Parquet files.</p>
+
+<p>Probably a good time to create a trigger to have the job run every hour or day.</p>
+
+<h3 id="create-a-crawler-for-the-parquet-files">Create a crawler for the Parquet files</h3>
+
+<p>Head to crawlers, and create a new one. The parameters are:</p>
+
+<pre><code>Name: parquet_discovery
+db: YOUR_ANALYTICS_DB_NAME
+table prefix: 
+ServiceRole: create one, needs to have AWSGlueServiceRole- as the name prefix
+Selected classifiers:
+Data store: S3
+Include path: s3://YOUR_BUCKET_NAME_HERE/analytics_data
+</code></pre>
+
+<p>Save/Run it. Will create a table in your Glue DB</p>
+
+<p>Create a trigger to schedule the crawler to run once an hour, this will keep the Athena meta-data up to date with the partition list.</p>
+
+<h2 id="review-of-what-we-have-so-far">Review of what we have so far...</h2>
+
+<p>You're almost done. At this point you have a data pipeline that is ingesting data from an HTTP api, and pushing it into a query friendly format.</p>
+
+<p>This pipeline should scale to just about any size, as all the pieces of the puzzle auto-scale based on throughput.</p>
+
+<p>(assuming you've set the limits in your AWS account accordingly).</p>
+
+<h2 id="querying-the-data">Querying the data</h2>
+
+<p>We can now query the data using AWS Athena. Head on over to the Athena console, and you'll find a database with two tables.</p>
+
+<p>On table queries against the partitioned JSON files, and one queries against the Parquet format files.</p>
+
+<p>To test things out, I've populated S3 with a year's worth of data similar to the data produced by my test script above.</p>
+
+<p>The size of the data set is 20GB of compressed JSON files, partitioned over year/month/day. It represents the equivalent of having ingested data at a rate of 200,000,000 events per month (or about 77 events per second) for a year.</p>
+
+<p>Let's try something simple first. We'll grab the distinct count of users for 1 month:</p>
+
+<p><img src="/images/athena-query1.png" alt="Athena query 1" /></p>
+
+<p>Not exactly blazing speed here at 8 seconds compared to an RDBM, but keep in mind we're not running any servers here. Also, this is all brute force with no indexes, query caches, etc...</p>
+
+<p>As you can see, the scan only read 1.48 GB of data. From this we can see that our partitioning is working correctly.</p>
+
+<p>Next, let's see what kind of gains we've made by using the Parquet file format and query across all partitions for a single column.</p>
+
+<p><img src="/images/athena-query2.png" alt="Athena query 2" /></p>
+
+<p>Pretty neat. We've gone over all partitions in 4 seconds, and got the event count for all of them. This time, we had to only read out 1.14 GB of data.</p>
+
+<p>Finally, let's look at the speed when we have to read everything. This query gets the distinct count of users by year and month.</p>
+
+<p><img src="/images/athena-query3.png" alt="Athena query 3" /></p>
+
+<p>For this query, it took 28 seconds, and scanned almost the entire data set with 17GB of data read.</p>
+
+<h2 id="building-dashboards-in-quisksight">Building dashboards in QuiskSight</h2>
+
+<p>Adding reports on top of this is very straightforward with Quicksight.</p>
+
+<p>Head on over to the Quicksight console.</p>
+
+<ul>
+<li>From the manage quicksight menu, go to account settings<br /></li>
+<li>Click on Edit AWS permissions<br /></li>
+<li>Make sure you grant access to Athena, as well as to the S3 bucket you've created to store the data<br /></li>
+<li>Create a new data set of type Athena.<br /></li>
+<li>Type in the Athena database name, click create data source<br />
+<br /></li>
+</ul>
+
+<p>At this point you can optionally import the data into Spice, which will essentially load everything into RAM. Making queries much faster, but also costing more money. Your choice!</p>
+
+<p>Create some reports!</p>
+
+<p><img src="/images/Quicksight-1.png" alt="Quicksight 1" /></p>
+
+<p><img src="/images/Quicksight-2.png" alt="Quicksight 2" /></p>
+
+<p><img src="/images/Quicksight-3.png" alt="Quicksight 3" /></p>
+
+<h1 id="cost-analysis">Cost analysis</h1>
+
+<h2 id="assumptions">Assumptions</h2>
+
+<p>200 byte payload per event<br />
+200,000,000 events per month<br />
+200*200,000,000 = 37.25 GB/month<br />
+200,000,000/30 (days)/86400 (seconds per day) = 77 requests/sec<br />
+200 bytes per event * 77 requests/sec = 15 KB/sec raw throughput</p>
+
+<h3 id="lambda-compute">Lambda compute</h3>
+
+<p>The compute costs of moving the files around in s3 should be negligible.</p>
+
+<pre><code>200,000,000 lambda invocations per month with 128MB memory @ 100ms runtime.
+The monthly compute price is $0.00001667 per GB-s and the free tier provides 400,000 GB-s.
+Total compute (seconds) = 200M * (0.1sec) = 20,000,000 seconds
+Total compute (GB-s) = 20,000,000 * 128MB/1024 = 2,500,000 GB-s
+Total Compute – Free tier compute = Monthly billable compute seconds
+2,500,000 GB-s – 400,000 free tier GB-s = 2,100,000 GB-s
+2,100,000 GB-s *  $0.00001667 = 35.007$/month
+</code></pre>
+
+<h3 id="lambda-request">Lambda request</h3>
+
+<p>200 (million reqs) * 0.2$ (per million): 40$</p>
+
+<h3 id="apig-requests">APIG requests</h3>
+
+<p>3.5$ * 200 (million reqs) : 700$/month<br />
+ Data transfer out: should be very small, api returns only http status code. 5$</p>
+
+<h3 id="s3-storage">S3 storage</h3>
+
+<p>37.25 GB/month * 0.023$/GB = 0.86$/month<br />
+Data in: free<br />
+Data out (to athena/glue): free</p>
+
+<p>After a year it'll be about 10$/month.</p>
+
+<h3 id="s3-requests-operations">S3 requests/operations</h3>
+
+<p>Should be negligible.</p>
+
+<h3 id="athena">Athena</h3>
+
+<p>5$/TB of data scanned, 10MB minimum query size.<br />
+1 year of data is approximately 447GB (149GB compressed)<br />
+Cost of scanning entire uncompressed data set once: 2.18$ (0.72$ compressed read)</p>
+
+<p>Realistically, data set can be compressed with snappy and use parquet. Compression should reduce size by a factor of 3. In addition, parquet being a columnar format will further reduce reads by only scanning necessary columns.</p>
+
+<p>Conclusion: depends on query patterns. I'd expect a system using this to implement lots of query caching.</p>
+
+<p>Let's guess at 500TB scanned per month. 500*5: 2500$/month. Probably overkill.</p>
+
+<h3 id="kinesis-firehose">Kinesis firehose</h3>
+
+<p>Data ingested 0.029$/GB ingested, 5KB per record min<br />
+77 records/sec * 5KB/record / 1024 / 1024 = 0.0003671646118 GB/sec * 30 days/month * 86400 sec/day = 951 GB/month<br />
+951 * 0.029 = 27.57$<br />
+(overpaying for kinesis here due to 5kb minimum record size...)</p>
+
+<h3 id="glue-etl">Glue ETL</h3>
+
+<p>I've run the glue ETL to move from JSON to Parquet, and it took about an hour to run @ 10 DPUs and processed about 20 GB of data. I'd expect the Glue costs for the scenario above to probably run at about 10 hours of runtime per month @ 10 DPUs, so let's guess the cost of that at around 10 hours * 0.44$ (dpu-hour) * 10 (DPUs) = 44$/month</p>
+
+<h3 id="quicksight">QuickSight</h3>
+
+<p>TBD</p>
+
+<h2 id="total">Total</h2>
+
+<p>Lambda (35 + 40) + APIG (705) + S3 (10) + Athena (2500) + Kinesis (27.57) + Glue (44) + QuickSight (??) = 3,361.57$/month.</p>
+
+<h1 id="closing-thoughts">Closing thoughts</h1>
+
+<p>If you've followed along, you can now see that we've got a scalable platform for tracking events. A method for querying them, but no fancy dashboard reporting.</p>
+
+<p>It's easy enough to plug Athena into a BI platform (Pentaho, Tableau, etc... via JDBC) or into QuickSight.</p>
+
+<p>This solution appears to cost about 1/10th of most SaaS providers. I'd chalk this up as a win.</p>
+              </section>
+
+              <footer class="post-footer">
+                  <div class="post-tags">
+            
+                  </div>
+                
+                    <div class="post-share">
+                        <a class="fa fa-reddit-alien" href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false">
+                            <span>Reddit</span>
+                        </a>
+                        <a class="fa fa-twitter" href="https://twitter.com/share?text=building%20a%20serverless%20analytics%20platform%20at%20lolscale&url=https%3a%2f%2fwww.control-alt-del.org%2fblog%2fbuilding-a-serverless-analytics-platform-at-lolscale%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span>Twitter</span>
+                        </a>
+                    </div>
+            
+              </footer>
+
+            
+                <aside class="post-comments">
+    
+    
+    
+</aside>
+
+            
+            </div>
+
+            <nav class="post-nav">
+                
+                    <a class="post-nav-item post-nav-next" href="https://www.control-alt-del.org/blog/bash-tips/">
+                        <section class="post-nav-teaser">
+                            <span class="post-nav-icon"><i class="fa fa-chevron-left"></i></span>
+                            <span class="post-nav-info">
+                                <h4 class="post-nav-title">Bash Tips</h4>
+                            </span>
+                        </section>
+                    </a>
+                
+                
+                    <a class="post-nav-item post-nav-prev" href="https://www.control-alt-del.org/blog/2016/02/12/benchmarking-cinched/">
+                        <section class="post-nav-teaser">
+                            <span class="post-nav-icon"><i class="fa fa-chevron-right"></i></span>
+                            <span class="post-nav-info">
+                                <h4 class="post-nav-title">benchmarking cinched</h4>
+                            </span>
+                        </section>
+                    </a>
+                
+                <div class="clear"></div>
+            </nav>
+
+        </div>
+    </article>
+</main>
+
+                <div id="body-class" style="display: none;"></div>
+                <footer id="footer">
+                    <section class="credits">
+                        <span class="credits-license"><i class="fa fa-copyright"></i>2018 Mark Steele
+                    </span>
+                    </section>
+                </footer>
+                
+
+                
+
+                
+                <div class="overlay"></div>
+            </div>
+        </section>
+
+    <script async src="/js/main.js"></script>
+
+
+
+  <noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+</body>
+</html>
+

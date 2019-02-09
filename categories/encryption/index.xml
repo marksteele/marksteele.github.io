@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Encryption on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/encryption/</link>
+    <description>Recent content in Encryption on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Sep 2018 21:56:19 -0400</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/encryption/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>One-time password sharing... securely!</title>
+      <link>https://www.control-alt-del.org/post/one-time-password-sharing-securely/</link>
+      <pubDate>Sat, 08 Sep 2018 21:56:19 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/one-time-password-sharing-securely/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/self-destruct.jpg&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Need to send a friend a password for something? Don&#39;t trust that the man might be reading your emails and SMS messages? Here&#39;s how to setup your own service to share secrets.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Envelope encryption in Lambda functions with DynamoDB and KMS</title>
+      <link>https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</link>
+      <pubDate>Thu, 03 May 2018 10:44:37 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/envelope-encryption.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here&#39;s a quick code snippet on how to implement field level encryption of data stored in DynamoDB using per-record encryption keys and the AWS Key management store (KMS).&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

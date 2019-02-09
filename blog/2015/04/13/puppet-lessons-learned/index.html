@@ -1,0 +1,472 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta property="og:title" content=" puppet lessons learned &middot;  Cogito Interruptus Vulgaris" />
+    <meta property="og:site_name" content="Cogito Interruptus Vulgaris" />
+    <meta property="og:url" content="https://www.control-alt-del.org/blog/2015/04/13/puppet-lessons-learned/" />
+
+    
+    <meta property="og:type" content="article" />
+    <meta property="og:article:published_time" content="2015-04-13T00:00:00Z" />
+    
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@" />
+    <meta name="twitter:creator" content="@" />
+    <meta name="twitter:title" content="puppet lessons learned" />
+    
+    <meta name="twitter:description" content="Over the past couple of years my team has iterated several times on the proper way of managing systems using Puppet. For a while it was a gigantic time sink while we tested and prototyped several different appraoches to configuring things with many frustrating failures. This post will be an exploration of some of the lessons learned.
+Lesson #1: Puppet is not deterministic Yup, that&#39;s right. The tool you&#39;re trying to use to get all your servers to a deterministic state isn&#39;t very deterministic in resolving that state." />
+    <meta name="twitter:url" content="https://www.control-alt-del.org/blog/2015/04/13/puppet-lessons-learned/" />
+    
+
+    <title> puppet lessons learned &middot;  Cogito Interruptus Vulgaris</title>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="preload" href="/js/main.js" as="script" />
+    <link rel="preload" href="/css/main.css" as="style" />
+    
+    
+
+
+    
+    <meta name="description" content="Everything is awesome !" />
+    
+
+    
+    <meta name="p:domain_verify" content=""/>
+    
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+    
+
+    
+    <link href="https://www.control-alt-del.org/index.xml" rel="alternate" type="application/rss+xml" title="Cogito Interruptus Vulgaris" />
+    
+
+    
+    <link rel="canonical" href="https://www.control-alt-del.org/blog/2015/04/13/puppet-lessons-learned/" />
+
+    
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://www.control-alt-del.org/blog/2015/04/13/puppet-lessons-learned/"
+        },
+        "headline": "puppet lessons learned",
+        "description": "",
+        "author": {
+            "@type": "Person",
+            "name": " ",
+            "url": "http://profiles.google.com/?rel=author",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https:",
+              "height": 80,
+              "width": 80
+            }
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://www.control-alt-del.org/",
+          "name": "Cogito Interruptus Vulgaris",
+          "url": "https://www.control-alt-del.org/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https:",
+            "height": 80,
+            "width": 80
+          }
+        },
+        
+        "image": {
+          "@type": "ImageObject",
+          "url": "",
+          "height": 80,
+          "width": 80
+        },
+        "datePublished": "2015-04-13",
+        "dateModified": "2015-04-13",
+        "wordCount": 953,
+        
+    }
+    </script>
+    
+
+    
+    <script type="text/javascript">
+        
+        
+    </script>
+    
+
+    <script type="text/javascript">
+        var config = {
+            baseUrl: "https:\/\/www.control-alt-del.org\/"
+        };
+    </script>
+
+    <style>
+html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,figure,footer,header,main,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figure{margin:1em 40px}a{background-color:transparent;-webkit-text-decoration-skip:objects}img{border-style:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:300;src:local("Merriweather Sans Light"),local(MerriweatherSans-Light),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowY_zIojJi0m4a5Z6tRh6itY.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:400;src:local("Merriweather Sans Regular"),local(MerriweatherSans-Regular),url(//fonts.gstatic.com/s/merriweathersans/v5/AKu1CjQ4qnV8MUltkAX3sL2aU247V0zTzydO4RoO9Ok.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:700;src:local("Merriweather Sans Bold"),local(MerriweatherSans-Bold),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowQfd-b-I5PxxcmB4_-MNcqw.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:normal;font-weight:800;src:local("Merriweather Sans ExtraBold"),local(MerriweatherSans-ExtraBold),url(//fonts.gstatic.com/s/merriweathersans/v5/6LmGj5dOJopQKEkt88GowWT7sFQ1Iz1BbpcuCPlgc9Q.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:300;src:local("Merriweather Sans Light Italic"),local(MerriweatherSans-LightItalic),url(//fonts.gstatic.com/s/merriweathersans/v5/nAqt4hiqwq3tzCecpgPmVX9UU5BmOJGkLxUCVv5VXdc.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:400;src:local("Merriweather Sans Italic"),local(MerriweatherSans-Italic),url(//fonts.gstatic.com/s/merriweathersans/v5/3Mz4hOHzs2npRMG3B1ascf0KIgDhPIHb_R-SWdtqte8.woff) format("woff")}@font-face{font-family:'Merriweather Sans';font-style:italic;font-weight:700;src:local("Merriweather Sans Bold Italic"),local(MerriweatherSans-BoldItalic),url(//fonts.gstatic.com/s/merriweathersans/v5/nAqt4hiqwq3tzCecpgPmVYM8pfYvjMoOxygpzLVILAs.woff) format("woff")}@font-face {font-family: 'Aldrich';font-style: normal;font-weight: 400;src: local('Aldrich Regular'), local('Aldrich-Regular'), url('//fonts.gstatic.com/s/aldrich/v8/j-NnyokbAnhXANS2iZ6Jew.woff2') format('woff2');unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;font-style:normal}[class^="icon-"]:before{font-family:"icons";font-style:normal;font-weight:400;speak:none;display:inline-block;text-decoration:inherit;width:1em;margin-right:.2em;text-align:center;font-variant:normal;text-transform:none;line-height:1em;margin-left:.2em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-arrow-right:before{content:'\e807'}.icon-rss:before{content:'\e808'}body{font:300 1em / 1.5em 'Merriweather Sans',sans-serif;color:#595B66}a{color:inherit;text-decoration:none;font-weight:400}h1,h2{text-rendering:optimizeLegibility;color:#1F2026}h2 a{font-weight:inherit}h1{font-size:2em;line-height:1em;margin:2em 0 -.5em}h2{font-size:1.75em;line-height:1.143em;margin:2.286em 0 -.571em}p{margin:2em auto}i{font-weight:400;font-style:italic;color:#363740}img{display:block;max-width:100%;height:auto;margin:2.5em auto}body{background:#fff}.inner{max-width:48em;margin:0 auto;padding:0 1em}#wrapper{position:relative;box-sizing:border-box;width:100%;min-height:100vh;padding-bottom:6em;background:#F2F3F5}#push{transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#nav{position:relative;background:#fff;z-index:70;transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#nav:after{clear:both;content:'';display:table}#nav .nav-logo{float:left;height:2em;padding:1em;max-width:50%}#nav .nav-logo img{width:auto;max-width:none;height:2em;margin:0;border-radius:5px}#nav .nav-menu{float:right}#nav .nav-menu:after{clear:both;content:'';display:table}#nav .nav-menu a{display:block;width:1em;height:1em;line-height:1em;padding:1.5em;text-align:center;float:left}#nav .nav-menu a i:before{margin:auto}.overlay{display:none;position:fixed;left:0;top:0;width:100%;height:100%;z-index:80;display:none}.overlay:before{content:'';position:absolute;left:0;top:0;width:100%;height:100%;background:#1F2026;opacity:0;transform-style:preserve-3d}#header{position:relative;padding:4em 0}#header .inner{position:relative;z-index:2}#header .header-title{display:block;text-align:center}#header .header-name{font-family: Aldrich, sans-serif;font-weight:700;letter-spacing:-1px;display:block;line-height:1em;font-size:2em;text-decoration:none;color:#1F2026;padding:0;margin:0}#header.has-cover .header-name{color:#fff}#header .header-description{display:block;margin:1em auto 0;color:#9D9FA6;position:relative;font-weight:300}#header .header-description:after{content:'';position:absolute;height:1px;width:100px;margin-left:-50px;left:50%;top:-.5em;background:#D4D5D9}#header.has-cover .header-description{color:#fff}#header.has-cover .header-description:after{background:#fff}#header .header-cover{position:absolute;width:100%;height:100%;top:0;left:0;margin-top:-4em;padding:4em 0;background:no-repeat fixed center 100% / cover;z-index:1}#header .header-cover:before{content:'';position:absolute;width:100%;height:100%;left:0;top:0;background:rgba(0,0,0,0.2)}#header .header-cover:after{content:'';position:absolute;width:100%;left:0;bottom:0;border-bottom:4px solid #19A0D7}#footer{position:absolute;width:100%;left:0;bottom:0;font-size:.75em;line-height:1.334em;background:#1F2026;color:#737580;z-index:20;transform:translate3d(0,0,0);transform-style:preserve-3d;opacity:1}#footer a{color:#9D9FA6;font-weight:400}#footer .credits{text-align:center;font-size:.75em;line-height:1.334em;padding:2.667em;overflow:auto}#footer .credits span{display:block}#footer .credits .credits-theme{float:left}#footer .credits .credits-software{float:right}.post{position:relative;z-index:20}.post .post-image{display:block;margin:0;padding:0}.post .post-image img{display:block;width:100%;height:auto;margin:0;padding:0}.post .post-meta{display:block;font-size:.75em;line-height:1.334em;font-weight:400;margin-bottom:1.334em}.post .post-title{position:relative;color:#000;font-size:2em;line-height:1.375em;font-weight:800;text-indent:-1px;margin:.25em 0 .75em}.post .post-title:before{content:'';position:absolute;left:0;bottom:-.334em;width:1em;margin-bottom:-2px;border-bottom:4px solid #19A0D7}.post .post-title a{text-decoration:none;color:inherit;font-weight:inherit}#post-index{position:relative;max-width:1200px;margin:0 auto 4em;padding:.5em;z-index:10}@keyframes fade{0%{transform:translate3d(0,3em,0);opacity:0}100%{transform:translate3d(0,0,0);opacity:1}}.post-list{position:relative}.post-list .post{float:left;width:33.3%;transform:translate3d(0,3em,0);transform-style:preserve-3d;opacity:0;animation:fade ease-out .5s forwards;animation-delay:1.4s}@media only screen and (max-width: 50em){.post-list .post{width:49.9%}}@media only screen and (max-width: 30em){.post-list .post{width:100%;float:none}}.post-list .post:nth-child(1){animation-delay:.1s}.post-list .post:nth-child(2){animation-delay:.2s}.post-list .post:nth-child(3){animation-delay:.3s}.post-list .post:nth-child(4){animation-delay:.4s}.post-list .post:nth-child(5){animation-delay:.5s}.post-list .post:nth-child(6){animation-delay:.6s}.post-list .post:nth-child(7){animation-delay:.7s}.post-list .post:nth-child(8){animation-delay:.8s}.post-list .post:nth-child(9){animation-delay:.9s}.post-list .post .inner{padding:2em;margin:.5em;max-width:none;background:#fff;box-sizing:border-box;transform:scale(1);transform-style:preserve-3d}@media only screen and (max-width: 50em){.post-list .post .inner{padding:1em}}.post-list .post .post-link{position:absolute;left:0;top:0;width:100%;height:100%;z-index:10}.post-list .post .post-image{position:relative;margin:-2em -2em 0;overflow:hidden;background:#19A0D7}@media only screen and (max-width: 50em){.post-list .post .post-image{margin:-1em -1em 0}}.post-list .post .post-image img{transform:scale(1);transform-style:preserve-3d;opacity:1}.post-list .post .post-image:after{content:'';position:absolute;left:-5%;bottom:-2.5em;width:110%;height:4em;background:#fff;border-top:4px solid #19A0D7;box-shadow:0 0 2em rgba(0,0,0,0.2);transform:rotate(5deg)}.post-list .post .post-title{font-size:1.5em;line-height:1.167em}.post-list .post .post-excerpt{margin:0}.post-list .post .post-more{display:block;margin-top:1.5em}.post-list .post .post-more a{display:inline-block;font-size:.875em;line-height:1.143em;font-weight:400;color:#363740}.post-list .post .post-more a i{color:#0e77a0}.pagination{min-height:3em;margin:4em auto 2em;padding:0;position:relative}.pagination .pagination-item{position:relative;display:block;height:3em;line-height:3em;padding:0 1em;text-align:center;text-decoration:none;font-weight:700;color:#363740;border:1px solid #19A0D7;border-radius:4em;z-index:60}.pagination .pagination-item i{position:relative}@media only screen and (max-width: 30em){.pagination .pagination-item{width:4em;height:4em;line-height:4em;margin-top:-.5em;padding:0!important}.pagination .pagination-item i{font-size:1.5em}.pagination .pagination-item>span{display:none}}.pagination .pagination-prev{float:right}.pagination .pagination-prev i{right:-.05em}.pagination .pagination-info{display:block;left:0;top:0;height:3em;line-height:3em;position:absolute;text-align:center;width:100%;z-index:50;color:#9D9FA6}#loader-wrapper{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000}#loader{display:block;position:relative;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;border:3px solid transparent;border-top-color:#19A0D7;animation:spin 2s linear infinite}#loader:before{content:"";position:absolute;top:5px;left:5px;right:5px;bottom:5px;border-radius:50%;border:3px solid transparent;border-top-color:#0e77a0;animation:spin 3s linear infinite}#loader:after{content:"";position:absolute;top:15px;left:15px;right:15px;bottom:15px;border-radius:50%;border:3px solid transparent;border-top-color:#D4D5D9;animation:spin 1.5s linear infinite}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+</style>
+
+
+</head>
+<body class="home-template">
+<div id="loader-wrapper">
+    <div id="loader"></div>
+</div>
+<section id="wrapper" style="display: none;">
+    <div id="ajax-container">
+        <nav id="nav" class="nav">
+            <div class="nav-logo">
+                <a href="https://www.control-alt-del.org/">
+                    
+                    Cogito Interruptus Vulgaris
+                    
+                </a>
+            </div>
+            <div id="main-menu" class="nav-menu">
+                
+                
+                <a id="search-button" onclick="$('#search-form').toggle();" title="Search"><i class="fa fa-search"></i></a>
+                <form id="search-form" method="get" role="search" action="https://google.com/search">
+                    <input type="hidden" name="as_sitesearch" value="https://www.control-alt-del.org/">
+                    <input type="text" name="q" maxlength="255" placeholder="Search..." class="form-control">
+                    <input type="submit" value="Search">
+                </form>
+                
+                
+                
+                
+            </div>
+        </nav>
+
+
+<main class="content" role="main">
+    <article class="post">
+        <div class="inner">
+
+            <div id="push">
+
+                <header class="post-header">
+                
+                    <span class="post-meta">
+                        <span class="post-date">13 Apr 2015</span> <span class="reading-time">| <span class="estimated-reading-time">5 min.</span> (<span class="word-count">953</span> words)</span></span>
+                    </span>
+                <div class="clear"></div>
+                
+                <h1 class="post-title">puppet lessons learned</h1>
+              </header>
+
+              <section class="post-content">
+                
+                  
+
+<p>Over the past couple of years my team has iterated several times on the proper way of managing systems using Puppet. For a while it was a gigantic time sink while we tested and prototyped several different appraoches to configuring things with many frustrating failures. This post will be an exploration of some of the lessons learned.</p>
+
+<!-- more -->
+
+<h2 id="lesson-1-puppet-is-not-deterministic">Lesson #1: Puppet is not deterministic</h2>
+
+<p>Yup, that's right. The tool you're trying to use to get all your servers to a deterministic state isn't very deterministic in resolving that state. Many times we've had to hack around adding all sorts of dependancies and ordering to puppet manifests to get it to do the right thing.</p>
+
+<p><img src="http://sahajapower.files.wordpress.com/2008/05/dice.jpg" alt="Oh yeah deterministic baby" /></p>
+
+<h2 id="lesson-2-node-classification-with-the-dashboard-sucks">Lesson #2: Node classification with the dashboard sucks.</h2>
+
+<p>One of our initially successful approaches to our puppet deployment made use of the dashboard for all of our classes and variables. This quickly spiralled out of control as managing different environments was next to impossible as there was no clear way to propagate changes to the ENC to the various environments. Eventually this led us to completely scrap the dashboard.</p>
+
+<p><img src="http://weknowmemes.com/wp-content/uploads/2011/11/rage-face-dash-board.jpg" alt="dashboard sucky" /></p>
+
+<h2 id="lesson-3-hierarchical-configuration-is-nice">Lesson #3: Hierarchical configuration is nice</h2>
+
+<p>Hiera is your friend. But managing complex hierarchies is hard. Unless you can extend hierarchies with imports. Cue the custom hiera yaml backend built by my esteemed co-worker Fabio (see code section below for link). Once installed, this allows us to specify complex hierarchies and split out the configuration in an extensible manner.</p>
+
+<p><img src="http://www.markstivers.com/wordpress/comics/2012-08-18-hierarchy-of-nee.gif" alt="hierarchy" /></p>
+
+<h2 id="lesson-4-package-managers-are-sometimes-stupid">Lesson #4: Package managers are sometimes stupid.</h2>
+
+<p>I had to write a custom service handler to prevent packages from auto-starting services on package installation. This is extremely annoying in my book as almost all services are misconfigured with unsafe boilerplate configurations by package maintainers. I get the whole convenience factor, but from a security perspective it's horrible. Not sure if this one is ubuntu specific, probably not...</p>
+
+<p><img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTFzoc6hOiNYebIkF-x7nKh4u2X_LzVguGQPdyhPKZB25U8m9eByA" alt="apt..." /></p>
+
+<h2 id="lesson-5-configure-everything-through-class-parameters-pulled-in-via-hiera-hash-merging-let-the-node-tell-puppet-what-it-is">Lesson #5: Configure everything through class parameters pulled in via hiera hash merging. Let the node tell puppet what it is.</h2>
+
+<p>This one is nice. We only have one file in /etc/puppet/manifests. Everything is done from hiera or facter. Taking this approach, you can have a single instance of puppet running to manage several different environments.</p>
+
+<p><img src="http://www.reactiongifs.com/r/2011/09/mind_blown.gif" alt="mind blown" /></p>
+
+<h2 id="lesson-6-store-everything-in-git-make-your-puppet-master-serve-from-git-repo">Lesson #6: Store everything in Git, make your puppet master serve from git repo</h2>
+
+<p>No brainer here. Much simpler to manage things if puppet's config is running from a git repo checkout.</p>
+
+<h2 id="lesson-7-puppet-is-riddled-with-memory-leaks">Lesson #7: Puppet is riddled with memory leaks.</h2>
+
+<p>Run it under apache/mod_passenger. Even then it's a hog. Make sure you've got MaxRequestsPerChild to a fairly lowish number to try to mitigate it eating up all the RAM. nom nom nom.</p>
+
+<p><img src="http://cdn.meme.am/instances/500x/35849520.jpg" alt="leaky" /></p>
+
+<h2 id="lesson-8-puppet-classes-templates-should-include-all-possible-options-for-the-object-being-configured">Lesson #8: Puppet classes/templates should include ALL possible options for the object being configured</h2>
+
+<p>Do something right, or don't do it at all. The puppet forge is riddled with modules that do a crappy job of configuring services, or only expose a small number of possible settings. A pattern that I've come to often use is where possible make the template configure everything. Example below.</p>
+
+<p><img src="http://memeshare.net/memes/preview/9/8558.png" alt="dammit do it right" /></p>
+
+<h2 id="lesson-9-ansible-is-simple-and-deterministic">Lesson #9: Ansible is simple and deterministic.</h2>
+
+<p>This is possibly one of the most painful lessons given the time we put into Puppet. I haven't personally spent a ton of time with Ansible, but I'm seriously reconsidering my time investment in Puppet. If in doubt, try Ansible first. There, I said it.</p>
+
+<p>--</p>
+
+<p>And now, to some code. Here's a full configuration example to demonstrate how this can all come together.</p>
+
+<p>Puppet master</p>
+
+<p>/etc/puppet/puppet.conf</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#8b008b;font-weight:bold">[main]</span>
+<span style="color:#658b00">logdir</span>=<span style="color:#cd5555">/var/log/puppet</span>
+<span style="color:#658b00">vardir</span>=<span style="color:#cd5555">/var/lib/puppet</span>
+<span style="color:#658b00">ssldir</span>=<span style="color:#cd5555">/var/lib/puppet/ssl</span>
+<span style="color:#658b00">rundir</span>=<span style="color:#cd5555">/var/run/puppet</span>
+<span style="color:#658b00">factpath</span>=<span style="color:#cd5555">$vardir/lib/facter</span>
+
+<span style="color:#8b008b;font-weight:bold">[master]</span>
+<span style="color:#658b00">ssl_client_header</span> = <span style="color:#cd5555">SSL_CLIENT_S_DN</span>
+<span style="color:#658b00">ssl_client_verify_header</span> = <span style="color:#cd5555">SSL_CLIENT_VERIFY</span>
+
+<span style="color:#658b00">enviroment</span> = <span style="color:#cd5555">development</span>
+<span style="color:#658b00">certname</span>   = <span style="color:#cd5555">puppet-master.yourdomain.com</span>
+<span style="color:#658b00">autosign</span>   = <span style="color:#cd5555">true</span></code></pre></div>
+<p>``` plain /etc/puppet/manifests/site.pp<br />
+node &quot;default&quot; {<br />
+    if ( hiera('classes', null) != null ) {<br />
+        hiera_include('classes')<br />
+    }<br />
+}</p>
+
+<pre><code>
+The custom yaml backed for puppet can be found here: https://github.com/instaclick/hiera-ic-yaml
+
+/etc/puppet/hiera.yaml
+```yaml 
++++
+:backends:
+  - 'ic_yaml'
+
+:hierarchy:
+    - %{::environment}/%{::hostname}
+    - %{::environment}/%{::role}
+    - %{::hostname}
+    - %{::role}
+
+:ic_yaml:
+  :datadir: '/etc/puppet/nodes'
+  :parameters_key: 'parameters'
+  :imports_key: 'imports'
+  :cacheable: false
+
+:logger: console
+:merge_behavior: 'deeper'
+</code></pre>
+
+<p>Now let's configure collectd for a node. First, we install the puppet content:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#658b00">cd</span> /etc/puppet/modules
+git clone --recursive https://github.com/marksteele/collectd-puppet.git</code></pre></div>
+<p>First, a base role that all our boxes inherit:</p>
+
+<p>/etc/puppet/nodes/base-role.yaml</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">imports:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;common/collectd.yaml&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - &#34;common/ntp.yaml&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - &#34;common/snmp.yaml&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - &#34;common/dnsmasq.yaml&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - &#34;common/resolvconf.yaml&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - &#34;common/instaclick::apt.yaml&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - &#34;common/instaclick::sshd.yaml&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - &#34;common/instaclick::users.yaml&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - &#34;common/instaclick::sysctl.yaml&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>classes:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>-<span style="color:#bbb"> </span>collectd<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - ntp</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - apt</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - snmp</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - dnsmasq</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - resolvconf</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - instaclick::apt</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - instaclick::bash</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - instaclick::sshd</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - instaclick::users</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - instaclick::sysctl</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - instaclick::timezone</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#228b22">#    - instaclick::logrotate</span></code></pre></div>
+<p>Common configuration for all boxes that have collectd:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir /etc/puppet/nodes/common
+cat <span style="color:#cd5555">&lt;&lt;&#39;EOF&#39; &gt;/etc/puppet/nodes/common/collectd.yaml
+</span><span style="color:#cd5555">collectd::config:
+</span><span style="color:#cd5555">  &#39;Hostname&#39;: &#34;%{::hostname}&#34;
+</span><span style="color:#cd5555">  &#39;FQDNLookup&#39;: &#39;false&#39;
+</span><span style="color:#cd5555">  &#39;Interval&#39;: 10
+</span><span style="color:#cd5555">  &#39;Timeout&#39;: 2
+</span><span style="color:#cd5555">  &#39;ReadThreads&#39;: 5
+</span><span style="color:#cd5555">
+</span><span style="color:#cd5555">collectd::core_plugins:
+</span><span style="color:#cd5555">  &#39;syslog&#39;: ~
+</span><span style="color:#cd5555">  &#39;conntrack&#39;: ~
+</span><span style="color:#cd5555">  &#39;contextswitch&#39;: ~
+</span><span style="color:#cd5555">  &#39;entropy&#39;: ~
+</span><span style="color:#cd5555">  &#39;load&#39;: ~
+</span><span style="color:#cd5555">  &#39;memory&#39;: ~
+</span><span style="color:#cd5555">  &#39;disk&#39;:
+</span><span style="color:#cd5555">    &#39;Disk&#39;: &#39;/^[vhs]d[a-f][0-9]?$/&#39;
+</span><span style="color:#cd5555">    &#39;IgnoreSelected&#39;: &#39;false&#39;
+</span><span style="color:#cd5555">  &#39;df&#39;:
+</span><span style="color:#cd5555">    &#39;MountPoint&#39;: &#39;/&#39;
+</span><span style="color:#cd5555">  &#39;interface&#39;:
+</span><span style="color:#cd5555">    &#39;Interface&#39;: &#39;lo&#39;
+</span><span style="color:#cd5555">    &#39;IgnoreSelected&#39;: &#39;true&#39;
+</span><span style="color:#cd5555">
+</span><span style="color:#cd5555">collectd::perl_engine_config:
+</span><span style="color:#cd5555">  &#39;Globals&#39;: &#39;true&#39;
+</span><span style="color:#cd5555">
+</span><span style="color:#cd5555">collectd::perl_plugin_config:
+</span><span style="color:#cd5555">  &#39;IncludeDir&#39;: &#39;/usr/lib/collectd&#39;
+</span><span style="color:#cd5555">  &#39;BaseName&#39;: &#39;Collectd::Plugins&#39;
+</span><span style="color:#cd5555">
+</span><span style="color:#cd5555">collectd::perl_plugins:
+</span><span style="color:#cd5555">  &#39;CPUSummary&#39;: ~
+</span><span style="color:#cd5555">  &#39;AmqpJsonUdp&#39;:
+</span><span style="color:#cd5555">    &#39;Buffer&#39;: &#39;8196&#39;
+</span><span style="color:#cd5555">    &#39;Host&#39;: &#34;%{::monitoring_ip}&#34;
+</span><span style="color:#cd5555">    &#39;Port&#39;: &#39;9999&#39;
+</span><span style="color:#cd5555">    &#39;Prefix&#39;: &#34;%{::role}&#34;
+</span><span style="color:#cd5555">&#39;EOF</span><span style="color:#a61717;background-color:#e3d2d2">&#39;</span></code></pre></div>
+<p>Setup role specific config (least specific). Let's imagine our role is 'webserver', and we want to install collectd as a service managed by puppet.</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir -p /etc/puppet/nodes/{production,development,qa}/webserver
+cat <span style="color:#cd5555">&lt;&lt;&#39;EOF &#39;&gt;/etc/puppet/nodes/webserver.yaml
+</span><span style="color:#cd5555">imports:
+</span><span style="color:#cd5555">    - &#34;base-role.yaml&#34;
+</span><span style="color:#cd5555">    - &#34;webserver/collectd.yaml&#34;
+</span><span style="color:#cd5555">&#39;EOF</span><span style="color:#a61717;background-color:#e3d2d2">&#39;</span></code></pre></div>
+<p>We'll add to this the generic role config for this role for collectd</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir /etc/puppet/nodes/webserver
+cat <span style="color:#cd5555">&lt;&lt;&#39;EOF&#39; &gt;/etc/puppet/nodes/webserver/collectd.yaml
+</span><span style="color:#cd5555">collectd::core_plugins:
+</span><span style="color:#cd5555">  &#39;apache&#39;:
+</span><span style="color:#cd5555">    &#39;apache80&#39;:
+</span><span style="color:#cd5555">      &#39;URL&#39;: &#39;http://localhost/server-status?auto&#39;
+</span><span style="color:#cd5555">&#39;EOF</span><span style="color:#a61717;background-color:#e3d2d2">&#39;</span></code></pre></div>
+<p>We want our parameters for various environments to potentially be different. Let's do that here:</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat <span style="color:#cd5555">&lt;&lt;&#39;EOF&#39; &gt;/etc/puppet/nodes/production/webserver.yaml
+</span><span style="color:#cd5555">parameters:
+</span><span style="color:#cd5555">    monitoring_ip: &#34;1.2.3.4&#34;
+</span><span style="color:#cd5555">&#39;EOF</span><span style="color:#cd5555">&#39;
+</span><span style="color:#cd5555">cat &lt;&lt;&#39;</span>EOF<span style="color:#cd5555">&#39; &gt;/etc/puppet/nodes/development/webserver.yaml
+</span><span style="color:#cd5555">parameters:
+</span><span style="color:#cd5555">    monitoring_ip: &#34;127.0.0.1&#34;
+</span><span style="color:#cd5555">&#39;</span>EOF<span style="color:#cd5555">&#39;
+</span><span style="color:#cd5555">cat &lt;&lt;&#39;</span>EOF<span style="color:#cd5555">&#39; &gt;/etc/puppet/nodes/qa/webserver.yaml
+</span><span style="color:#cd5555">parameters:
+</span><span style="color:#cd5555">    monitoring_ip: &#34;3.4.2.1&#34;
+</span><span style="color:#cd5555">&#39;</span>EOF<span style="color:#a61717;background-color:#e3d2d2">&#39;</span></code></pre></div>
+<p>Managed node</p>
+
+<p>/etc/facter/facts.d/node.yaml</p>
+<div class="highlight"><pre style="background-color:#eed;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">role:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;webserver&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb"></span>environment:<span style="color:#bbb"> </span><span style="color:#cd5555">&#34;production&#34;</span></code></pre></div>
+<p>So what we've implemented here is a bottom up approach, where we first load the least specific configs, working our way backwards to more specific configs by merging them together. We have the ability to specificy different classes or parameters based on roles, environments, or specific nodes. Parameters are loaded from both hiera and facter, allowing for maximum flexibility.</p>
+
+              </section>
+
+              <footer class="post-footer">
+                  <div class="post-tags">
+            
+                  </div>
+                
+                    <div class="post-share">
+                        <a class="fa fa-reddit-alien" href="//www.reddit.com/submit" onclick="window.location = '//www.reddit.com/submit?url=' + encodeURIComponent(window.location); return false">
+                            <span>Reddit</span>
+                        </a>
+                        <a class="fa fa-twitter" href="https://twitter.com/share?text=puppet%20lessons%20learned&url=https%3a%2f%2fwww.control-alt-del.org%2fblog%2f2015%2f04%2f13%2fpuppet-lessons-learned%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                            <span>Twitter</span>
+                        </a>
+                    </div>
+            
+              </footer>
+
+            
+                <aside class="post-comments">
+    
+    
+    
+</aside>
+
+            
+            </div>
+
+            <nav class="post-nav">
+                
+                    <a class="post-nav-item post-nav-next" href="https://www.control-alt-del.org/blog/2015/11/13/security-advice-for-the-average-joe/">
+                        <section class="post-nav-teaser">
+                            <span class="post-nav-icon"><i class="fa fa-chevron-left"></i></span>
+                            <span class="post-nav-info">
+                                <h4 class="post-nav-title">security advice for the average joe</h4>
+                            </span>
+                        </section>
+                    </a>
+                
+                
+                    <a class="post-nav-item post-nav-prev" href="https://www.control-alt-del.org/blog/2015/03/19/meshed-vpn-using-tinc/">
+                        <section class="post-nav-teaser">
+                            <span class="post-nav-icon"><i class="fa fa-chevron-right"></i></span>
+                            <span class="post-nav-info">
+                                <h4 class="post-nav-title">meshed vpn using tinc</h4>
+                            </span>
+                        </section>
+                    </a>
+                
+                <div class="clear"></div>
+            </nav>
+
+        </div>
+    </article>
+</main>
+
+                <div id="body-class" style="display: none;"></div>
+                <footer id="footer">
+                    <section class="credits">
+                        <span class="credits-license"><i class="fa fa-copyright"></i>2018 Mark Steele
+                    </span>
+                    </section>
+                </footer>
+                
+
+                
+
+                
+                <div class="overlay"></div>
+            </div>
+        </section>
+
+    <script async src="/js/main.js"></script>
+
+
+
+  <noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+</body>
+</html>
+

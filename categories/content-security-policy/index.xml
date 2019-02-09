@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Content Security Policy on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/content-security-policy/</link>
+    <description>Recent content in Content Security Policy on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Apr 2018 11:40:02 -0400</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/content-security-policy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Serverless content security policy</title>
+      <link>https://www.control-alt-del.org/post/serverless-content-security-policy/</link>
+      <pubDate>Fri, 27 Apr 2018 11:40:02 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/serverless-content-security-policy/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/csp_shield_logo.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Add content security policy (CSP) to your site without changing your backends (or when you don&#39;t have backends and are using static site origins). Here&#39;s how!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

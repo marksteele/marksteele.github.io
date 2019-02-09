@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloudfront on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/cloudfront/</link>
+    <description>Recent content in Cloudfront on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Apr 2018 11:40:02 -0400</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/cloudfront/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Serverless content security policy</title>
+      <link>https://www.control-alt-del.org/post/serverless-content-security-policy/</link>
+      <pubDate>Fri, 27 Apr 2018 11:40:02 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/serverless-content-security-policy/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/csp_shield_logo.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Add content security policy (CSP) to your site without changing your backends (or when you don&#39;t have backends and are using static site origins). Here&#39;s how!&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Invalidate CloudFront with Lambda</title>
+      <link>https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/</link>
+      <pubDate>Thu, 26 Apr 2018 13:48:12 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/</guid>
+      <description>I&#39;ve written a little Serverless app that uses API Gateway and Lambda to expose an API to invalidate a CloudFront distribution.
+Handy to have something like this in a build pipeline.
+Code here</description>
+    </item>
+    
+    <item>
+      <title>Programatically associating Lambda@Edge with a CloudFront distribution</title>
+      <link>https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/</link>
+      <pubDate>Thu, 26 Apr 2018 12:10:31 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/marksteele/lambdaAtEdgeToCloudFront&#34;&gt;Here&#39;s a little script &lt;/a&gt;which can be used to programatically associate Lambda@Edge functions with CloudFront.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/lambda-cf.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

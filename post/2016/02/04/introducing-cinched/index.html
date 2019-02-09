@@ -1,0 +1,2699 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head><style>
+body {
+	display: block;
+	--colorBG: "#40e0d0, #ff8c00, #ff0080";
+		background-image: var(--bgImage) !important;
+	
+}
+</style><title>
+introducing cinched
+</title><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="author" content="Mark Steele" />
+	<meta name="description" content="Given the frequency of rather embarrassing data breaches recently, I&#39;ve had the opportunity to spend some time thinking about how to help developers protect the data they are storing.
+Getting encryption right is hard, and designing cryptographic applications is not something web developers typically have lots of experience with. To (hopefully) help bridge this knowledge gap, I&#39;ve written a microservice which provides encryption and key management services.
+It&#39;s a cinch to use, and will keep your data cinched." />
+<meta name="generator" content="Hugo 0.48" />
+
+<link rel="shortcut icon" href="/img/defaultFav.ico">
+
+<link rel="canonical" href="https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/" />
+<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/><link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+<style>
+body.pushable {
+	display: block;
+		background-image: var(--bgImage) !important;
+	 ;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/site.css">
+<script>
+	var colorBG =  false 
+	var enabledPost = true
+	var isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+	console.log("The client device is a "+(isMobile?"mobile":"PC")+".")
+</script>
+</head>
+
+<body><script>
+var prevBgIndex = 0;
+var bodyBgSwitchIndex = 0;
+		var bgImage = "url(" + "/images/IMG_1191.jpg" + ")"
+	
+	console.log("Current background: " + bgImage.substring(bgImage.indexOf("bg"), bgImage.length));
+	document.body.style.setProperty('--blurEff',"0px");
+	document.body.style.setProperty('--bgImage', bgImage);
+
+	function getRandomInt(min, max) {
+	  min = Math.ceil(min)
+	  max = Math.floor(max)
+	  var random
+	  while (1) {
+	    random = Math.floor(Math.random() * (max - min)) + min
+	    if (random !== prevBgIndex) {
+	      prevBgIndex = random
+	      break
+	    }
+	  }
+	  return random
+	}
+
+	function connect(arr) {
+	  var str = ''
+	  for (var i = 0; i < arr.length; i++) {
+	    if (i !== arr.length - 1) {
+	      str += arr[i] + ', '
+	    } else {
+	      str += arr[i]
+	    }
+	  }
+	  return str
+	}
+</script><div class="blur-overlay"></div><div id="sidebar" class="ui sidebar inverted vertical menu">
+	<section id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
+	<img src="/images/mark.jpg">
+</div>
+<h3 class="ui header">Mark Steele
+	<div class="sub header">Cogito Interruptus Vulgaris</div>
+</h3>
+</section><section class="ui attached inverted segment sidebar-dream-categories both flexbox">
+		<div class="ui inverted accordion">
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/3d-printing">3d-printing</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/3d-printing-safety-fire-detection-relay/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>3d Printing Safety - Fire detection relay</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/analytics">analytics</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a datawarehouse for testing</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/api-gateway">api-gateway</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/athena">athena</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/aws">aws</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/cep">cep</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/cloudfront">cloudfront</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/content-security-policy">content-security-policy</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/devops">devops</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>puppet lessons learned</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/04/17/cloning-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>cloning systems</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/dropbucket">dropbucket</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/dynamodb">dynamodb</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/encryption">encryption</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/esper">esper</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/etl">etl</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>pdi bag of tricks...</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a datawarehouse for testing</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/file-sharing">file-sharing</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/github">github</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/glue">glue</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/image-gallery">image-gallery</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/gallery-2015/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Image gallery 2015</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kids">kids</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/look-ma-no-training-wheels/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Look &#39;Ma, no training wheels...</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kinesis">kinesis</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kms">kms</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/lambda">lambda</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/lambdaedge">lambdaedge</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/linux">linux</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>introducing cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>puppet lessons learned</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/mysql">mysql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/string-set-manipulation-functions-for-mysql/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>String set manipulation functions for MySQL</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/netlify-cms">netlify-cms</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/networking">networking</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security advice for the average joe</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/24/tcpdump-tip-viewing-a-packet-stream-data-payload/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>tcpdump tip viewing a packet stream data payload</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/23/i-see-packets-dot-dot-dot/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>i see packets...</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>port scanning wihtout a port scanner</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>remote shell without any tools</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>validating ip addresses in php</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/news">news</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/summer-2018/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Summer 2018</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/nosql">nosql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>fun with bloom filters using riak mapreduce</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/php">php</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/10/unserializing-php-from-pdi/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>unserializing php from pdi</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>validating ip addresses in php</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/quicksight">quicksight</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/riak">riak</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>fun with bloom filters using riak mapreduce</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/s3">s3</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/safety">safety</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/3d-printing-safety-fire-detection-relay/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>3d Printing Safety - Fire detection relay</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/security">security</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/12/benchmarking-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>benchmarking cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>introducing cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/01/30/setting-up-a-ca/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>setting up a ca</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security advice for the average joe</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>port scanning wihtout a port scanner</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>remote shell without any tools</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/serverless">serverless</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/software">software</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/sql">sql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2012/08/22/calculating-distances-between-coordinates-in-sql/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>calculating distances between coordinates in sql</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/travisci">travisci</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+</div>
+	</section>
+	
+	
+	<section id="footer" class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
+    </section>
+</div>
+<div class="pusher">
+		<div class="flipper">
+			<div class="front">
+<nav class="ui top secondary menu bar">
+	<div class="item">
+		<i class="inverted big link bullseye icon dream-flip-toggle" title="About Me"></i>
+	</div><div class="item">
+		<a href="/">
+			<i class="inverted big link home icon" title="Home"></i>
+		</a>
+	</div>
+	<div class="item">
+		<a href="/post">
+			<i class="inverted big link archive icon" title="Archive"></i>
+		</a>
+	</div>
+	<div class="item">
+		<a href="/categories">
+			<i class="inverted big link cubes icon" title="All Categories"></i>
+		</a>
+    </div>
+	<div class="ui container tablet computer only grid">
+		<div class="item" onClick="$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');">
+			<i class="inverted big link sidebar icon" title="Show Sidebar"></i>
+		</div>
+	</div>
+	
+</nav>
+
+<div class="ui centered grid">
+	<div class="sixteen wide mobile only column"><div class="ui inverted accordion">
+	<div id="header" class="ui inverted segment column box">
+		<header id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
+	<img src="/images/mark.jpg">
+</div>
+<h3 class="ui header">Mark Steele
+	<div class="sub header">Cogito Interruptus Vulgaris</div>
+</h3>
+</header>
+		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">		
+				<i class="hand point icon down"title="Click this to pop tags and categories"></i>		
+			</div></div>
+		<div id="tag-category" class=" content"><section class="ui attached inverted segment dream-categories both flexbox">
+			<div class="inverted accordion">
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/3d-printing">3d-printing</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/3d-printing-safety-fire-detection-relay/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>3d Printing Safety - Fire detection relay</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/analytics">analytics</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a datawarehouse for testing</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/api-gateway">api-gateway</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/athena">athena</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/aws">aws</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/cep">cep</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/cloudfront">cloudfront</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/content-security-policy">content-security-policy</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/devops">devops</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>puppet lessons learned</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/04/17/cloning-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>cloning systems</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/dropbucket">dropbucket</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/dynamodb">dynamodb</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/encryption">encryption</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/esper">esper</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/etl">etl</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>pdi bag of tricks...</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a datawarehouse for testing</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/file-sharing">file-sharing</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/github">github</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/glue">glue</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/image-gallery">image-gallery</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/gallery-2015/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Image gallery 2015</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kids">kids</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/look-ma-no-training-wheels/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Look &#39;Ma, no training wheels...</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kinesis">kinesis</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kms">kms</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/lambda">lambda</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/lambdaedge">lambdaedge</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/linux">linux</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>introducing cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>puppet lessons learned</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/mysql">mysql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/string-set-manipulation-functions-for-mysql/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>String set manipulation functions for MySQL</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/netlify-cms">netlify-cms</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/networking">networking</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security advice for the average joe</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/24/tcpdump-tip-viewing-a-packet-stream-data-payload/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>tcpdump tip viewing a packet stream data payload</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/23/i-see-packets-dot-dot-dot/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>i see packets...</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>port scanning wihtout a port scanner</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>remote shell without any tools</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>validating ip addresses in php</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/news">news</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/summer-2018/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Summer 2018</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/nosql">nosql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>fun with bloom filters using riak mapreduce</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/php">php</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/10/unserializing-php-from-pdi/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>unserializing php from pdi</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>validating ip addresses in php</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/quicksight">quicksight</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/riak">riak</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>fun with bloom filters using riak mapreduce</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/s3">s3</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/safety">safety</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/3d-printing-safety-fire-detection-relay/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>3d Printing Safety - Fire detection relay</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/security">security</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/12/benchmarking-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>benchmarking cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>introducing cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/01/30/setting-up-a-ca/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>setting up a ca</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security advice for the average joe</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>port scanning wihtout a port scanner</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>remote shell without any tools</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/serverless">serverless</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/software">software</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/sql">sql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2012/08/22/calculating-distances-between-coordinates-in-sql/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>calculating distances between coordinates in sql</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/travisci">travisci</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+</div>
+			</section></div>
+		<footer class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
+    </footer>
+	</div>
+</div></div>
+	<div class="sixteen wide mobile fifteen wide tablet twelve wide computer column post-list">
+		<section class="ui secondary top attached black segment post-head">
+			<h1 class="post-title">introducing cinched</h1>
+			<div class="sub header">
+					<div><span><i class="calendar outline icon"></i>Feb 4, 2016</span></div>
+					<div><span><i class="clock outline icon"></i>10 min read</span></div>
+					<div><span><i class="angle double up icon"></i>Last updated on Feb 4, 2016</span></div>
+			</div>
+			<hr><div class="toc"><nav id="TableOfContents">
+<ul>
+<li><a href="#overview">Overview</a>
+<ul>
+<li><a href="#cluster">Cluster</a></li>
+<li><a href="#encryption">Encryption</a></li>
+<li><a href="#certificates">Certificates</a></li>
+<li><a href="#encryption-keys">Encryption Keys</a>
+<ul>
+<li><a href="#operator-key">Operator key</a></li>
+<li><a href="#service-key">Service key</a></li>
+<li><a href="#master-keys">Master keys</a></li>
+<li><a href="#data-keys">Data keys</a></li>
+</ul></li>
+<li><a href="#storage">Storage</a></li>
+</ul></li>
+<li><a href="#api">API</a>
+<ul>
+<li><a href="#generate-a-data-key">Generate a data key</a></li>
+<li><a href="#encrypt-something">Encrypt something</a></li>
+<li><a href="#decrypting-data">Decrypting data</a></li>
+</ul></li>
+<li><a href="#notes-for-using-cinched">Notes for using Cinched</a></li>
+<li><a href="#attack-vectors">Attack vectors</a></li>
+<li><a href="#future-direction">Future direction</a></li>
+<li><a href="#in-closing">In closing...</a></li>
+</ul>
+</nav></div>
+			
+			
+			<article class="post-content twemoji">
+				
+
+<p>Given the frequency of rather embarrassing data breaches recently, I've had the opportunity to spend some time thinking about how to help developers protect the data they are storing.</p>
+
+<p>Getting encryption right is hard, and designing cryptographic applications is not something web developers typically have lots of experience with. To (hopefully) help bridge this knowledge gap, I've written a microservice which provides encryption and key management services.</p>
+
+<p>It's a cinch to use, and will keep your data cinched. It's also called Cinched. Get it?</p>
+
+<p>I've released version 0.0.1, a preview to gather feedback. Some of the key features are:</p>
+
+<ul>
+<li>An easy to use RESTful API<br /></li>
+<li>Clustered highly available service<br /></li>
+<li>Sane strong encryption defaults<br /></li>
+<li>All stored data is encrypted at rest<br /></li>
+<li>OS level mandatory access control using SELinux type enforcement<br /></li>
+<li>Tamper resistant and encrypted audit logging<br />
+<br /></li>
+</ul>
+
+<!-- more -->
+
+<p><a href="https://github.com/marksteele/cinched">Official documentation</a></p>
+
+<h1 id="overview">Overview</h1>
+
+<h2 id="cluster">Cluster</h2>
+
+<p>Cinched is built using Erlang/OTP and leverages Erlang's clustering capabilities.</p>
+
+<p>Nodes in a Cinched cluster establish a mesh network, with inter-node communication encrypted via TLS1.2.</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/NetworkTopology-FullyConnected.png" alt="Mesh" /></p>
+
+<p>Node peer authentication uses a shared secret, and the mesh only accepts peers which reside on the same subnet.</p>
+
+<p>Cinched clusters are master-less, that is that each node can accept client requests, there are no special roles.</p>
+
+<h2 id="encryption">Encryption</h2>
+
+<p>This service uses authenticated symmetrical encryption implemented via Erlang bindings to libsodium. The algorithms used are Salsa20 for encryption/decryption, and Poly1305 for message authentication.</p>
+
+<h2 id="certificates">Certificates</h2>
+
+<p>Cinched relies on public key infrastructure (PKI) heavily for both securing intra-cluster communication, as well as authorizing client API calls.</p>
+
+<p>Before using Cinched, you'll need to have access to a certificate authority (CA) to generate certificates as well as provide online certificate status protocol (OCSP) and certificate revocation list (CRL) distribution points.</p>
+
+<p>For running a CA on CentOS 7, I've put together a very quick guide <a href="http://www.control-alt-del.org/blog/2016/01/30/setting-up-a-ca/">here</a>.</p>
+
+<p>The certificates you'll need (all PEM encoded):</p>
+
+<ul>
+<li>The CA certificate<br /></li>
+<li>The node certificate(s) (used to secure intra-cluster communication as well as client API calls)<br /></li>
+<li>Client certificates (used by API clients).<br />
+<br /></li>
+</ul>
+
+<p>Cinched performs certificate validation on all incoming requests, and both the server and client certificates must be signed by the same certificate authority.</p>
+
+<p>It is crucial to understand that certificate validation is the only form of authentication that Cinched supports, so make sure you keep your private keys safe (this in itself is a hard problem)</p>
+
+<p>On Cinched nodes, certificate private keys are protected with SELinux policy and regular DAC controls. With policy locked down, even root can't get at any of the protected information.</p>
+
+<h2 id="encryption-keys">Encryption Keys</h2>
+
+<p>All keys in Cinched are randomly generated. There are four different types of keys that serve different purposes.</p>
+
+<p>Visually:</p>
+
+<pre><code> Operator key -- encrypts/decrypts --&gt; Service key
+
+ Service key (stored) -- encrypts/decrypts --&gt; Master keys
+
+ Master keys (stored) -- encrypts/decrypts --&gt; Data keys
+
+ Data keys -- encrypt/decrypt --&gt; client supplied data.
+
+</code></pre>
+
+<p>Before diving into the details, a quick analogy on how these keys work.</p>
+
+<p>Let's imagine we're running a bank that provides safety deposit boxes.</p>
+
+<p>We're going to want to make sure at least two people are involved in opening up the bank in the morning, to make sure there's no collusion.<br />
+So we'll give one set of bank employees the keys to open the front door, and another set of employees the pin code to disable the alarm.<br />
+In order to start the day, we'll need one person from each group available to open up for the day. (these are the operator key shards described below).</p>
+
+<p>Next, we have a vault room. The vault room is rigged to sensors on the door as well as to the alarm system. When both the door is open and the alarm system is disarmed, the vault door can be opened. (this is the service key, described below)</p>
+
+<p>In order to enter the vault room, our customers must present a valid ID card issued by our security department (the client certificate).</p>
+
+<p>Our bank is special. Our safety deposit boxes are built on demand. In our bank, we employ a master locksmith who helps us build our lock-boxes.</p>
+
+<p>On a daily basis, the locksmith builds one master key that we store inside the vault.</p>
+
+<p>The locks on our boxes are designed to require two keys to be unlocked. One is the master key for the date at which they are built, and the other is a key that is unique to the box. (the data key).</p>
+
+<p>When a customer orders a box, we build it and give him the only copy of the box-specific key.</p>
+
+<p>Both the master key AND the box-specific key are required to open a box. The box, keys, and locks are made in such a clever way that there is currently no known way of opening the box without being inside the vault with the proper keys.</p>
+
+<p>Since our boxes are so good we do not store the box. We want to save space, so we give the boxes to our customers. If they want to open it, they must come inside the vault with their key and box.</p>
+
+<h3 id="operator-key">Operator key</h3>
+
+<p>The operator key (<code>OK</code>), is created during the initialization of the cluster. It is split into a set of shards using a cryptographic technique known as <a href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing">Shamir secret sharing</a>.</p>
+
+<p>By default ten shards are created from the operator key, with a threshold of three shards being required to reconstruct the original key. So if you distribute 2 shards to 5 people, you ensure that no single person can start the service, plus you get some redundancy to make sure there's always enough people around to unlock things.</p>
+
+<p>This technique prevents a single rogue operator from possessing sufficient information to compromise the system.</p>
+
+<p>There are two scenarios where the <code>OK</code> is used:</p>
+
+<ul>
+<li>Cluster initialization: When a cluster is initialized, the <code>OK</code> is used to encrypt the service key (<code>SK</code>), more on that later. During initialization, the key shards are output to the terminal of the operator initializing the cluster.<br /></li>
+<li>Node startup: Whenever an operator wants to bring a cluster node online, sufficient shards must be provided by the shard custodians to reconstruct the <code>OK</code> in order to decrypt the service key (<code>SK</code>).<br />
+<br /></li>
+</ul>
+
+<p>After cluster initialization or node startup, it is discarded from memory.</p>
+
+<p>It is possible to rotate the <code>OK</code> and generate new sets of key shards.</p>
+
+<h3 id="service-key">Service key</h3>
+
+<p>The service key (<code>SK</code>) is created during the initialization of the cluster.</p>
+
+<p>It is encrypted using the <code>OK</code> and persisted to the storage subsystem, and held in RAM unencrypted.</p>
+
+<p>This key is used to encrypt/decrypt master keys (<code>MK</code>) as well as being the seed for the rotating encryption key of the audit logs.</p>
+
+<p>It is currently not possible to rotate the <code>SK</code>.</p>
+
+<h3 id="master-keys">Master keys</h3>
+
+<p>Master keys (<code>MK</code>) are generated once per day and are associated with a crypto-period, which is an integer representing the number of days since the start of the UNIX epoch.</p>
+
+<p>The keys are generated on demand, and are used to encrypt/decrypt data keys.</p>
+
+<p>When generated, master keys are stored encrypted with the <code>SK</code> at rest in the storage subsystem.</p>
+
+<p>They are also held unencrypted in memory in a LRU cache with a default lifetime of 1 day.</p>
+
+<h3 id="data-keys">Data keys</h3>
+
+<p>Data keys (<code>DK</code>) are generated either via the key API or whenever an encryption API call does not provide a data key via the HTTP headers.</p>
+
+<p>The key is encrypted with the <code>MK</code> for the day it is generated, and returned to the calling application.</p>
+
+<p><code>DK</code>'s are not stored in Cinched, it is assumed that the calling application will store the <code>DK</code>s.</p>
+
+<h2 id="storage">Storage</h2>
+
+<p>Master keys are identified by the crypto-period for which they are generated, and the key name space is mapped to a consistent hash ring.</p>
+
+<p>The hash ring is split into a number of partitions, and each partition is assigned to a group of cluster nodes. This grouping of nodes represents a partition's replication group.</p>
+
+<p>Replication in Cinched is accomplished via a multi-paxos consensus algorithm, ensuring immediate consistency in the cluster.</p>
+
+<p>The overall storage system is therefore resilient to node failures, as long as a quorum of replicas remain online the service can continue to operate.</p>
+
+<p>Increasing the replication factor makes the system more fault tolerant at the expense of slower writes, which happen infrequently (once per day at most during master key generation).</p>
+
+<h1 id="api">API</h1>
+
+<p>The official documentation has a more comprehensive set of examples and covers more functionality (document API, blob API, etc...), however here's a quick example of using Cinched.</p>
+
+<h2 id="generate-a-data-key">Generate a data key</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl -s <span class="se">\
+</span><span class="se"></span>-X POST --cert fixtures/cert.pem --key fixtures/key.pem <span class="se">\
+</span><span class="se"></span>--cacert fixtures/cacert.pem --tlsv1.2  <span class="se">\
+</span><span class="se"></span>https://dev1.control-alt-del.org:55443/key/data-key <span class="p">|</span> jq
+<span class="o">{</span>
+  <span class="s2">&#34;dataKey&#34;</span>: <span class="s2">&#34;g2gEZA9rZXliAABBk&lt;snip&gt;XA4WglqFGSzDA2H3FI2uXYu0bqGthAQ==&#34;</span>,
+  <span class="s2">&#34;cryptoPeriod&#34;</span>: <span class="m">16786</span>
+<span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Store this information somewhere, we'll need it to decrypt the data later on.</p>
+
+<h2 id="encrypt-something">Encrypt something</h2>
+
+<p>Let's imagine we have a JSON document that looks like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+ <span class="nt">&#34;foo&#34;</span><span class="p">:</span> <span class="s2">&#34;bar&#34;</span><span class="p">,</span>
+ <span class="nt">&#34;favoriteBar&#34;</span><span class="p">:</span><span class="s2">&#34;baz&#39;s emporium of fine spirits&#34;</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>And let's further suppose we want to encrypt the field 'favoriteBar', as that's confidential.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl -s <span class="se">\
+</span><span class="se"></span>  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s1">&#39;Accept: application/json&#39;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;x-cinched-data-key: g2gEZA9rZXliAABBk&lt;snip&gt;XA4WglqFGSzDA2H3FI2uXYu0bqGthAQ==&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;x-cinched-metadata: foobar&#34;</span> <span class="se">\
+</span><span class="se"></span>  -X POST -d <span class="s2">&#34;{\&#34;foo\&#34;:\&#34;bar\&#34;,\&#34;favoriteBar\&#34;:\&#34;baz&#39;s emporium of fine spirits\&#34;}&#34;</span> <span class="se">\
+</span><span class="se"></span>  --cert fixtures/cert.pem --key fixtures/key.pem <span class="se">\
+</span><span class="se"></span>  --cacert fixtures/cacert.pem <span class="se">\
+</span><span class="se"></span>  --tlsv1.2 <span class="se">\
+</span><span class="se"></span>  https://dev1.control-alt-del.org:55443/doc/encrypt?fields<span class="o">=</span><span class="se">\(</span>favoriteBar<span class="se">\)</span>
+<span class="o">{</span><span class="s2">&#34;foo&#34;</span>: <span class="s2">&#34;bar&#34;</span>,<span class="s2">&#34;favoriteBar&#34;</span>: <span class="s2">&#34;A9rZXliAABBk&lt;snip&gt;XA4WglqFGSzD&#34;</span><span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Success! Now we can safely store this document somewhere. Should a nefarious ne'er do well steal it, they won't know the location of our favorite dive.</p>
+
+<h2 id="decrypting-data">Decrypting data</h2>
+
+<p>To read the data back:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">curl -s <span class="se">\
+</span><span class="se"></span>  -H <span class="s1">&#39;Content-Type: application/json&#39;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s1">&#39;Accept: application/json&#39;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;x-cinched-data-key: g2gEZA9rZXliAABBk&lt;snip&gt;XA4WglqFGSzDA2H3FI2uXYu0bqGthAQ==&#34;</span> <span class="se">\
+</span><span class="se"></span>  -H <span class="s2">&#34;x-cinched-metadata: foobar&#34;</span> <span class="se">\
+</span><span class="se"></span>  -X POST -d <span class="s2">&#34;{\&#34;foo\&#34;:\&#34;bar\&#34;,\&#34;bar\&#34;:\&#34;A9rZXliAABBk&lt;snip&gt;XA4WglqFGSzD\&#34;}&#34;</span> <span class="se">\
+</span><span class="se"></span>  --cert fixtures/cert.pem --key fixtures/key.pem <span class="se">\
+</span><span class="se"></span>  --cacert fixtures/cacert.pem <span class="se">\
+</span><span class="se"></span>  --tlsv1.2 <span class="se">\
+</span><span class="se"></span>  https://dev1.control-alt-del.org:55443/doc/decrypt?fields<span class="o">=</span><span class="se">\(</span>favoriteBar<span class="se">\)</span>
+<span class="o">{</span><span class="s2">&#34;foo&#34;</span>: <span class="s2">&#34;bar&#34;</span>,<span class="s2">&#34;favoriteBar&#34;</span>: <span class="s2">&#34;baz&#39;s emporium of fine spirits&#34;</span><span class="o">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Well done! Now we know where to go grab a brew.</p>
+
+<h1 id="notes-for-using-cinched">Notes for using Cinched</h1>
+
+<p>If possible, establish long-lived persistent connections to amortize the cost of the TCP/TLS session negotiation.</p>
+
+<p>Store the data keys separately from the encrypted data (with different access credentials).</p>
+
+<p>If possible, keep your certificate private keys encrypted with a passphrase, or leverage a TPM chip. Other ideas for doing this are to provide the decryption keys out of band to the service loading the key (eg: passphrase prompt, environment variables). If all else fails, it's not that hard to write some SELinux policy to lock down filesystem access to a confined domain. Look at Cinched's policy if you need a sample.</p>
+
+<h1 id="attack-vectors">Attack vectors</h1>
+
+<p>Assuming the system is configured as recommended, I can't see too many ways to compromise the security of the system. That's not to say that it's proof against everything...</p>
+
+<p>The SELinux policy should defend against several attack vectors such as reading values from RAM as well as protect the filesystem.</p>
+
+<p>That being said, once root level compromise happens on a system, things get very very difficult to defend against comprehensively without introducing a ton of operator friction.</p>
+
+<p>Some recommendations:</p>
+
+<ul>
+<li>Remove simple password based authentication if you can (2FA, Kerberos, key-based are all superior).<br /></li>
+<li>Don't allow direct root-level ssh<br /></li>
+<li>Segment your network, keep Cinched in it's own subnet<br /></li>
+<li>Have host-based firewalls on all Cinched nodes, with DENY rules by default for both ingress and egress traffic. Explicitly allow only what you need. Even better if you can make this a hardware firewall.<br /></li>
+<li>Lock down the policy when prompted by the cinched setup wizard if this is a production deployment.<br /></li>
+<li>Compile a custom kernel that does not support dynamic loading of kernel modules and lock that down when prompted by the Cinched setup wizard.<br /></li>
+<li>You really really need to be on top of properly managing your PKI. If you can properly control who has access to your certificates and private keys, it will go a long way to protecting the integrity of Cinched as the certificates control access to the service.<br />
+<br /></li>
+</ul>
+
+<h1 id="future-direction">Future direction</h1>
+
+<p>I'd really like to start leveraging TPM with the Linux integrity subsystem for key storage and system attestation. I could foresee a future version of Cinched leveraging TPM across the stack for both intra-cluster integrity as well as client side integrity. It should be possible to build a system that is proof against stealing the secret keys using this type of setup.</p>
+
+<p>One of the hard problems in getting this all to work is the management burden of maintaining the integrity chain in a fast-moving environment. Will require experimentation...</p>
+
+<h1 id="in-closing">In closing...</h1>
+
+<p>I enjoy canceled vacations, crazy unpaid overtime doing incident response, calls in the middle of the night from anxious execs, fending off reporters and so on just as much as the next sec/dev/ops guys.... Oh wait, not so much.</p>
+
+<p>Go forth! Encrypt that sensitive data! Just make sure you're doing it right. Customer trust is a currency that's hard to acquire and even harder to regain once squandered.</p>
+
+			</article>
+		</section>
+		<section class="ui secondary attached segment dream-tags">
+			<span>No Tag</span>
+			
+		</section><section class="ui secondary bottom attached segment share row box"><div class="author"><img class="avatar" src="https://www.control-alt-del.org//images/mark.jpg">
+	
+</div>
+<div class="info grow flexbox"><a href="https://twitter.com/markrsteele">
+	
+	<p class="name">Mark Steele</p></a>
+	
+	<p class="desc">Cogito Interruptus Vulgaris</p>		
+</div>
+<section class="buttons row box">
+	<div class="facebook none flexbox" href="#" onclick="window.open(
+			'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+			'facebook-share-dialog',
+			'width=626,height=436'); return false;">
+		<button class="ui facebook button"><i class="facebook icon"></i>Share</button>
+	</div>
+	<div class="twitter none flexbox" onclick="window.open('https://twitter.com/intent/tweet?text=Read &quot;introducing cinched &quot; by @markrsteele https:\/\/www.control-alt-del.org\/post\/2016\/02\/04\/introducing-cinched\/','_self')">
+		<button class="ui twitter button"><i class="twitter icon"></i>Tweet</button>
+	</div>
+</section>
+</section>
+		
+	</div>
+</div>
+
+			</div>
+			<div class="back"><nav class="ui top secondary menu bar">
+	<div class="item">
+		<i class="inverted big link bullseye icon dream-flip-toggle" title="About Me"></i>
+	</div><div class="item">
+	<a href="https://github.com/marksteele" target="_blank">
+		<i id="ico" class="inverted big link github icon" title="GitHub"></i>
+	</a>
+</div>
+<div class="item">
+	<a href="mailto:mark@control-alt-del.org">
+		<i id="ico" class="inverted big link mail icon" title="Email"></i>
+	</a>
+</div>
+<div class="item">
+	<a href="https://twitter.com/markrsteele" target="_blank">
+		<i id="ico" class="inverted big link twitter icon" title="Twitter"></i>
+	</a>
+</div>
+
+</nav>
+<div class="ui centered grid about">
+	<div class="sixteen wide mobile fifteen wide tablet fifteen wide computer column about">
+		<section class="ui stacked segments"><div class="ui inverted segment">
+	<article class="twemoji">Father, Mentor, Crime Fighter, Inventor and Slayer of Chipmunks.</article>
+</div>
+</section>
+	</div>
+</div></div>
+		</div>
+	</div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script>
+<script src="/js/twemoji.min.js"></script>
+
+<script>
+	(function () {
+	  console.log("Twemoji up and making stuff colourful!");
+	  for (var b = document.getElementsByClassName("twemoji"), a = 0; a < b.length; a++) {
+		twemoji.parse(b[a]);
+	  }
+	})();
+</script>
+
+<script>
+		anchors.add('.post-content h1');
+		anchors.add('.post-content h2');
+		anchors.add('.post-content h3');
+</script></body>
+
+</html>

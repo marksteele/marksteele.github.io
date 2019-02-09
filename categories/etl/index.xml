@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Etl on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/etl/</link>
+    <description>Recent content in Etl on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Jan 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/etl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>pdi bag of tricks...</title>
+      <link>https://www.control-alt-del.org/post/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/</link>
+      <pubDate>Mon, 20 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/</guid>
+      <description>&lt;p&gt;After using PDI for a while, you start to encounter some common problems. PDI crashes, databases die, connections get reset, all sorts of&lt;br /&gt;
+interesting things can happen in complex systems.&lt;/p&gt;
+
+&lt;p&gt;As a general rule, when building PDI jobs that should behave monotonically I always strive to find a way to make a job re-playable and&lt;br /&gt;
+idempotent. This can be tricky given an unlimited input set over time.&lt;/p&gt;
+
+&lt;p&gt;Probabilistic data structures to the rescue!&lt;/p&gt;
+
+&lt;p&gt;To do this, at work we created a PDI bloom filter step (thanks &lt;a href=&#34;https://github.com/FabioBatSilva&#34;&gt;Fabio!&lt;/a&gt;). This article will go over how it works and it&#39;s use cases.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>building a datawarehouse for testing</title>
+      <link>https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/</link>
+      <pubDate>Sat, 04 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;A common problem when starting a new project is getting fixtures in place to facilitate testing of reporting functionality and refining data models. To ease this, I&#39;ve created a PDI job that creates the dimension tables, and populates a fact table.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

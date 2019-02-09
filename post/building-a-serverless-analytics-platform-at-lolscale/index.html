@@ -1,0 +1,3320 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head><style>
+body {
+	display: block;
+	--colorBG: "#40e0d0, #ff8c00, #ff0080";
+		background-image: var(--bgImage) !important;
+	
+}
+</style><title>
+building a serverless analytics platform at lolscale
+</title><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="author" content="Mark Steele" />
+	<meta name="description" content="Hundreds of millions of events per month on the cheap In this post, I&#39;m going to go over the setup of infrastructure for creating an analytics platform capable of handling hundreds of millions of events per month. All without spinning up a single server.
+
+" />
+<meta name="generator" content="Hugo 0.48" />
+
+<link rel="shortcut icon" href="/img/defaultFav.ico">
+
+<link rel="canonical" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/" />
+<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/><link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+<style>
+body.pushable {
+	display: block;
+		background-image: var(--bgImage) !important;
+	 ;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="/css/site.css">
+<script>
+	var colorBG =  false 
+	var enabledPost = true
+	var isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+	console.log("The client device is a "+(isMobile?"mobile":"PC")+".")
+</script>
+</head>
+
+<body><script>
+var prevBgIndex = 0;
+var bodyBgSwitchIndex = 0;
+		var bgImage = "url(" + "/images/IMG_1191.jpg" + ")"
+	
+	console.log("Current background: " + bgImage.substring(bgImage.indexOf("bg"), bgImage.length));
+	document.body.style.setProperty('--blurEff',"0px");
+	document.body.style.setProperty('--bgImage', bgImage);
+
+	function getRandomInt(min, max) {
+	  min = Math.ceil(min)
+	  max = Math.floor(max)
+	  var random
+	  while (1) {
+	    random = Math.floor(Math.random() * (max - min)) + min
+	    if (random !== prevBgIndex) {
+	      prevBgIndex = random
+	      break
+	    }
+	  }
+	  return random
+	}
+
+	function connect(arr) {
+	  var str = ''
+	  for (var i = 0; i < arr.length; i++) {
+	    if (i !== arr.length - 1) {
+	      str += arr[i] + ', '
+	    } else {
+	      str += arr[i]
+	    }
+	  }
+	  return str
+	}
+</script><div class="blur-overlay"></div><div id="sidebar" class="ui sidebar inverted vertical menu">
+	<section id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
+	<img src="/images/mark.jpg">
+</div>
+<h3 class="ui header">Mark Steele
+	<div class="sub header">Cogito Interruptus Vulgaris</div>
+</h3>
+</section><section class="ui attached inverted segment sidebar-dream-categories both flexbox">
+		<div class="ui inverted accordion">
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/3d-printing">3d-printing</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/3d-printing-safety-fire-detection-relay/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>3d Printing Safety - Fire detection relay</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/analytics">analytics</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a datawarehouse for testing</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/api-gateway">api-gateway</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/athena">athena</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/aws">aws</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/cep">cep</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/cloudfront">cloudfront</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/content-security-policy">content-security-policy</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/devops">devops</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>puppet lessons learned</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/04/17/cloning-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>cloning systems</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/dropbucket">dropbucket</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/dynamodb">dynamodb</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/encryption">encryption</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/esper">esper</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/etl">etl</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>pdi bag of tricks...</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a datawarehouse for testing</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/file-sharing">file-sharing</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/github">github</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/glue">glue</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/image-gallery">image-gallery</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/gallery-2015/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Image gallery 2015</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kids">kids</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/look-ma-no-training-wheels/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Look &#39;Ma, no training wheels...</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kinesis">kinesis</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kms">kms</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/lambda">lambda</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/lambdaedge">lambdaedge</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/linux">linux</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>introducing cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>puppet lessons learned</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/mysql">mysql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/string-set-manipulation-functions-for-mysql/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>String set manipulation functions for MySQL</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/netlify-cms">netlify-cms</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/networking">networking</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security advice for the average joe</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/24/tcpdump-tip-viewing-a-packet-stream-data-payload/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>tcpdump tip viewing a packet stream data payload</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/23/i-see-packets-dot-dot-dot/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>i see packets...</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>port scanning wihtout a port scanner</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>remote shell without any tools</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>validating ip addresses in php</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/news">news</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/summer-2018/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Summer 2018</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/nosql">nosql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>fun with bloom filters using riak mapreduce</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/php">php</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/10/unserializing-php-from-pdi/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>unserializing php from pdi</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>validating ip addresses in php</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/quicksight">quicksight</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/riak">riak</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>fun with bloom filters using riak mapreduce</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/s3">s3</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/safety">safety</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/3d-printing-safety-fire-detection-relay/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>3d Printing Safety - Fire detection relay</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/security">security</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/12/benchmarking-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>benchmarking cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>introducing cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/01/30/setting-up-a-ca/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>setting up a ca</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security advice for the average joe</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>port scanning wihtout a port scanner</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>remote shell without any tools</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/serverless">serverless</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/software">software</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/sql">sql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2012/08/22/calculating-distances-between-coordinates-in-sql/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>calculating distances between coordinates in sql</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/travisci">travisci</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+</div>
+	</section>
+	
+	
+	<section id="footer" class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
+    </section>
+</div>
+<div class="pusher">
+		<div class="flipper">
+			<div class="front">
+<nav class="ui top secondary menu bar">
+	<div class="item">
+		<i class="inverted big link bullseye icon dream-flip-toggle" title="About Me"></i>
+	</div><div class="item">
+		<a href="/">
+			<i class="inverted big link home icon" title="Home"></i>
+		</a>
+	</div>
+	<div class="item">
+		<a href="/post">
+			<i class="inverted big link archive icon" title="Archive"></i>
+		</a>
+	</div>
+	<div class="item">
+		<a href="/categories">
+			<i class="inverted big link cubes icon" title="All Categories"></i>
+		</a>
+    </div>
+	<div class="ui container tablet computer only grid">
+		<div class="item" onClick="$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');">
+			<i class="inverted big link sidebar icon" title="Show Sidebar"></i>
+		</div>
+	</div>
+	
+</nav>
+
+<div class="ui centered grid">
+	<div class="sixteen wide mobile only column"><div class="ui inverted accordion">
+	<div id="header" class="ui inverted segment column box">
+		<header id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
+	<img src="/images/mark.jpg">
+</div>
+<h3 class="ui header">Mark Steele
+	<div class="sub header">Cogito Interruptus Vulgaris</div>
+</h3>
+</header>
+		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">		
+				<i class="hand point icon down"title="Click this to pop tags and categories"></i>		
+			</div></div>
+		<div id="tag-category" class=" content"><section class="ui attached inverted segment dream-categories both flexbox">
+			<div class="inverted accordion">
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/3d-printing">3d-printing</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/3d-printing-safety-fire-detection-relay/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>3d Printing Safety - Fire detection relay</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/analytics">analytics</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a datawarehouse for testing</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/api-gateway">api-gateway</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/athena">athena</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/aws">aws</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/cep">cep</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/cloudfront">cloudfront</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/content-security-policy">content-security-policy</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/devops">devops</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>puppet lessons learned</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/04/17/cloning-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>cloning systems</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/dropbucket">dropbucket</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/dynamodb">dynamodb</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/encryption">encryption</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/esper">esper</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing to detect click fraud</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit part deux</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>complex event processing for fun and profit</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>sample esp queries</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/etl">etl</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>pdi bag of tricks...</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a datawarehouse for testing</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/file-sharing">file-sharing</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/github">github</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/glue">glue</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/image-gallery">image-gallery</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/gallery-2015/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Image gallery 2015</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kids">kids</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/look-ma-no-training-wheels/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Look &#39;Ma, no training wheels...</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kinesis">kinesis</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/kms">kms</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/lambda">lambda</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/lambdaedge">lambdaedge</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/programatically-associating-lambda-edge-with-a-cloudfront-distribution/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Programatically associating Lambda@Edge with a CloudFront distribution</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/linux">linux</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>introducing cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>puppet lessons learned</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/mysql">mysql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/string-set-manipulation-functions-for-mysql/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>String set manipulation functions for MySQL</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/netlify-cms">netlify-cms</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/networking">networking</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security advice for the average joe</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/24/tcpdump-tip-viewing-a-packet-stream-data-payload/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>tcpdump tip viewing a packet stream data payload</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/10/23/i-see-packets-dot-dot-dot/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>i see packets...</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>port scanning wihtout a port scanner</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>remote shell without any tools</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>validating ip addresses in php</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/news">news</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/summer-2018/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Summer 2018</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/nosql">nosql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>fun with bloom filters using riak mapreduce</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/php">php</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2014/01/10/unserializing-php-from-pdi/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>unserializing php from pdi</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>validating ip addresses in php</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/quicksight">quicksight</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/riak">riak</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>fun with bloom filters using riak mapreduce</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/s3">s3</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/safety">safety</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/3d-printing-safety-fire-detection-relay/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>3d Printing Safety - Fire detection relay</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/security">security</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/one-time-password-sharing-securely/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>One-time password sharing... securely!</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/12/benchmarking-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>benchmarking cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>introducing cinched</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2016/01/30/setting-up-a-ca/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>setting up a ca</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security advice for the average joe</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>meshed vpn using tinc</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>geo blocking with iptables/ipset</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>creating forensic images</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building secure linux systems</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>port scanning wihtout a port scanner</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>remote shell without any tools</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>security policy templates</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/serverless">serverless</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Envelope encryption in Lambda functions with DynamoDB and KMS</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-content-security-policy/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless content security policy</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Invalidate CloudFront with Lambda</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>building a serverless analytics platform at lolscale</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/software">software</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/dropbucket/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>DropBucket</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/sql">sql</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>compressing mysql binary logs</p>
+		</div>
+	</a>
+
+	<a class="item" href="https://www.control-alt-del.org/post/2012/08/22/calculating-distances-between-coordinates-in-sql/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>calculating distances between coordinates in sql</p>
+		</div>
+	</a>
+
+</div>
+
+<div class="title">
+	<i class="dropdown icon"></i>
+	<a class="link" href="/categories/travisci">travisci</a>
+</div>
+<div class="content">
+
+	<a class="item" href="https://www.control-alt-del.org/post/serverless-blog-howto/">
+		<div>
+			<i class="cocktail icon"></i>
+			<p>Serverless blog HOWTO</p>
+		</div>
+	</a>
+
+</div>
+
+</div>
+			</section></div>
+		<footer class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
+    </footer>
+	</div>
+</div></div>
+	<div class="sixteen wide mobile fifteen wide tablet twelve wide computer column post-list">
+		<section class="ui secondary top attached black segment post-head">
+			<h1 class="post-title">building a serverless analytics platform at lolscale</h1>
+			<div class="sub header">
+					<div><span><i class="calendar outline icon"></i>Apr 4, 2018</span></div>
+					<div><span><i class="clock outline icon"></i>14 min read</span></div>
+					<div><span><i class="angle double up icon"></i>Last updated on Apr 4, 2018</span></div>
+			</div>
+			<hr><div class="toc"><nav id="TableOfContents">
+<ul>
+<li><a href="#hundreds-of-millions-of-events-per-month-on-the-cheap">Hundreds of millions of events per month on the cheap</a>
+<ul>
+<li><a href="#dramatis-personae">Dramatis personae</a></li>
+<li><a href="#high-level-overview">High level overview</a></li>
+<li><a href="#implementation-data-ingestion">Implementation - Data ingestion</a>
+<ul>
+<li><a href="#make-a-place-to-store-the-data">Make a place to store the data.</a></li>
+<li><a href="#create-iam-role-for-event-delivery">Create IAM role for event delivery</a></li>
+<li><a href="#setup-the-firehose">Setup the firehose</a></li>
+<li><a href="#http-api">HTTP API</a></li>
+<li><a href="#check-your-progress">Check your progress</a></li>
+</ul></li>
+<li><a href="#implementation-data-schema-discovery-and-optimization">Implementation - Data/Schema discovery and optimization</a>
+<ul>
+<li><a href="#create-glue-db">Create Glue DB</a></li>
+<li><a href="#create-glue-crawlers-for-raw-data">Create Glue crawlers for raw data</a></li>
+<li><a href="#create-etl-job-to-transform-raw-json-files-to-parquet">Create ETL job to transform raw json files to parquet</a></li>
+<li><a href="#create-a-crawler-for-the-parquet-files">Create a crawler for the Parquet files</a></li>
+</ul></li>
+<li><a href="#review-of-what-we-have-so-far">Review of what we have so far...</a></li>
+<li><a href="#querying-the-data">Querying the data</a></li>
+<li><a href="#building-dashboards-in-quisksight">Building dashboards in QuiskSight</a></li>
+</ul></li>
+<li><a href="#cost-analysis">Cost analysis</a>
+<ul>
+<li><a href="#assumptions">Assumptions</a>
+<ul>
+<li><a href="#lambda-compute">Lambda compute</a></li>
+<li><a href="#lambda-request">Lambda request</a></li>
+<li><a href="#apig-requests">APIG requests</a></li>
+<li><a href="#s3-storage">S3 storage</a></li>
+<li><a href="#s3-requests-operations">S3 requests/operations</a></li>
+<li><a href="#athena">Athena</a></li>
+<li><a href="#kinesis-firehose">Kinesis firehose</a></li>
+<li><a href="#glue-etl">Glue ETL</a></li>
+<li><a href="#quicksight">QuickSight</a></li>
+</ul></li>
+<li><a href="#total">Total</a></li>
+</ul></li>
+<li><a href="#closing-thoughts">Closing thoughts</a></li>
+</ul>
+</nav></div>
+			
+			
+			<article class="post-content twemoji">
+				<h1 id="hundreds-of-millions-of-events-per-month-on-the-cheap">Hundreds of millions of events per month on the cheap</h1>
+
+<p>In this post, I'm going to go over the setup of infrastructure for creating an analytics platform capable of handling hundreds of millions of events per month. All without spinning up a single server.</p>
+
+<p><img src="/images/Serverless-Analytics.png" alt="Serverless Analytics" /></p>
+
+<p></p>
+
+<p>I've recently had the opportunity to glimpse at how much some companies charge for this type of service, and it is shocking. For example, <a href="https://mixpanel.com/pricing/">150$ per 1 million data points</a>. At 200 million events/month, that would be a 30,000$/month bill. Ouch!</p>
+
+<p>Let's see if we can do better. Better-ish. I'm not going to tackle any sort of advanced reporting in this article. Arguably, that's the big value add that you get when you pay a SaaS provider for this kind of solution. Obivously you'll have to spend some time tinkering on building the reports you need. Even if you have to spin up a dev team to do so, at large scale it's probably cheaper than most SaaS offerings.</p>
+
+<p>If you've already got a BI solution in your organization, this might be an easy win as integrating this into most BI suites shouldn't be too hard to do.</p>
+
+<h2 id="dramatis-personae">Dramatis personae</h2>
+
+<ul>
+<li>Lambda: Serverless computing framework. This is where the code lives.<br /></li>
+<li>API Gateway: The API interface that exposes the Lambda code to an HTTPS endpoint.<br /></li>
+<li>Kinesis Firehose: Data ingestion pipeline. Buffers incoming data, and writes it out periodically to S3.<br /></li>
+<li>S3: The file storage backend.<br /></li>
+<li>Glue: The ETL processing framework.<br /></li>
+<li>Athena: The data query layer<br /></li>
+<li>Quicksight: The reporting layer.<br />
+<br /></li>
+</ul>
+
+<h2 id="high-level-overview">High level overview</h2>
+
+<p>Client code invokes the HTTP API endpoint that lives on API Gateway.</p>
+
+<p>API Gateway, passes along the event to the Lambda function.</p>
+
+<p>The Lambda function queues the data up in Kinesis firehose.</p>
+
+<p>Kinesis firehose periodically dumps the data (in compressed form) to S3.</p>
+
+<p>On file creation in S3, a Lambda function is invoked to rename the file (to follow Athena paritioning naming conventions).</p>
+
+<p>On a regular schedule, a Glue ETL is kicked off to transform the JSON files in S3 into the Parquet format, which is better suited for querying it in Athena.</p>
+
+<p>Finally, data can be queried via Athena, and dashboards can be built using QuickSight.</p>
+
+<p>Along the way, we'll also setup some crawlers in Glue to map out the data schema.</p>
+
+<h2 id="implementation-data-ingestion">Implementation - Data ingestion</h2>
+
+<h3 id="make-a-place-to-store-the-data">Make a place to store the data.</h3>
+
+<p>From the AWS console, let's create an S3 bucket. Choose the region of your choice, and give your bucket a memorable name.</p>
+
+<p>If you want to, setup some lifecycle hooks to periodically delete old data.</p>
+
+<p>I'd recommend you don't set the bucket permissions to public, that's just a bad idea. Once you're setup, time to move on.</p>
+
+<h3 id="create-iam-role-for-event-delivery">Create IAM role for event delivery</h3>
+
+<p>Create an IAM role called firehose_delivery_role, with the following permissions (replace YOUR_FIREHOSE_NAME, YOUR_BUCKET_NAME, YOUR_AWS_ACCOUNT_NUMBER_HERE):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;Version&#34;</span><span class="p">:</span> <span class="s2">&#34;2012-10-17&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;Statement&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;Sid&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Effect&#34;</span><span class="p">:</span> <span class="s2">&#34;Allow&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Action&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;glue:GetTableVersions&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;Resource&#34;</span><span class="p">:</span> <span class="s2">&#34;*&#34;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;Sid&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Effect&#34;</span><span class="p">:</span> <span class="s2">&#34;Allow&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Action&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;s3:AbortMultipartUpload&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;s3:GetBucketLocation&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;s3:GetObject&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;s3:ListBucket&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;s3:ListBucketMultipartUploads&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;s3:PutObject&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;Resource&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;arn:aws:s3:::YOUR_BUCKET_NAME&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;arn:aws:s3:::YOUR_BUCKET_NAME/*&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;arn:aws:s3:::%FIREHOSE_BUCKET_NAME%&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;arn:aws:s3:::%FIREHOSE_BUCKET_NAME%/*&#34;</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;Sid&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Effect&#34;</span><span class="p">:</span> <span class="s2">&#34;Allow&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Action&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;lambda:InvokeFunction&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;lambda:GetFunctionConfiguration&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;Resource&#34;</span><span class="p">:</span> <span class="s2">&#34;arn:aws:lambda:us-east-1:YOUR_AWS_ACCOUNT_NUMBER_HERE:function:%FIREHOSE_DEFAULT_FUNCTION%:%FIREHOSE_DEFAULT_VERSION%&#34;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;Sid&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Effect&#34;</span><span class="p">:</span> <span class="s2">&#34;Allow&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Action&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;logs:PutLogEvents&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;Resource&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;arn:aws:logs:us-east-1:YOUR_AWS_ACCOUNT_NUMBER_HERE:log-group:/aws/kinesisfirehose/YOUR_FIREHOSE_NAME_HERE:log-stream:*&#34;</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;Sid&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Effect&#34;</span><span class="p">:</span> <span class="s2">&#34;Allow&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Action&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;kinesis:DescribeStream&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;kinesis:GetShardIterator&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;kinesis:GetRecords&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;Resource&#34;</span><span class="p">:</span> <span class="s2">&#34;arn:aws:kinesis:us-east-1:YOUR_AWS_ACCOUNT_NUMBER_HERE:stream/%FIREHOSE_STREAM_NAME%&#34;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;Effect&#34;</span><span class="p">:</span> <span class="s2">&#34;Allow&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;Action&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;kms:Decrypt&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;Resource&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;arn:aws:kms:region:accountid:key/%SSE_KEY_ARN%&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;Condition&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;StringEquals&#34;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&#34;kms:ViaService&#34;</span><span class="p">:</span> <span class="s2">&#34;kinesis.%REGION_NAME%.amazonaws.com&#34;</span>
+                <span class="p">},</span>
+                <span class="nt">&#34;StringLike&#34;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&#34;kms:EncryptionContext:aws:kinesis:arn&#34;</span><span class="p">:</span> <span class="s2">&#34;arn:aws:kinesis:%REGION_NAME%:YOUR_AWS_ACCOUNT_NUMBER_HERE:stream/%FIREHOSE_STREAM_NAME%&#34;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="setup-the-firehose">Setup the firehose</h3>
+
+<p>Head on over to Kinesis firehose, and setup your firehose. Use the following settings (make sure you change the firehose name and the bucket name):</p>
+
+<pre><code>Stream name: YOUR_FIREHOSE_NAME_HERE
+Source: Direct put
+S3 bucket output: YOUR_BUCKET_NAME_HERE
+S3 prefix: analytics_raw
+IAM role: firehose_delivery_role
+Data transform: disabled
+Source record backup: disabled
+S3 buffer size (MB): 128
+S3 buffer interval: 900
+S3 compression: GZIP
+S3 encryption: No encryption
+</code></pre>
+
+<p>This instructs Kinesis do dump your data in 128MB chunks, or every 15 minutes whichever comes first.</p>
+
+<h3 id="http-api">HTTP API</h3>
+
+<p>For the HTTP API, we'll use API Gateway and Lambda. I'm going to use the <a href="https://serverless.com">serverless</a> framework which will take care of things like orchestrating the deployment of the Lambda, associating events to API Gateway and S3.</p>
+
+<p>To start, let's get the serverless framework installed:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm i serverless -g</code></pre></td></tr></table>
+</div>
+</div>
+<p>Next, we'll create a file for package dependancies and the serverless framework config (make sure you change the firehose name and the bucket name):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mkdir serverless-analytics
+<span class="nb">cd</span> serverless-analytics</code></pre></td></tr></table>
+</div>
+</div>
+<p>Create the config file serverless.yml:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">service<span class="p">:</span><span class="w"> </span>serverless-analytics<span class="w">
+</span><span class="w"></span>provider<span class="p">:</span><span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>aws<span class="w">
+</span><span class="w">  </span>runtime<span class="p">:</span><span class="w"> </span>nodejs6.<span class="m">10</span><span class="w">
+</span><span class="w">  </span>stage<span class="p">:</span><span class="w"> </span>${opt<span class="p">:</span>stage<span class="p">,</span><span class="w"> </span>self<span class="p">:</span>custom.defaultStage}<span class="w">
+</span><span class="w">  </span>apiKeys<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;ClientAPIKey-${opt:stage, self:provider.stage}&#34;</span><span class="w">
+</span><span class="w">  </span>environment<span class="p">:</span><span class="w">
+</span><span class="w">    </span>TZ<span class="p">:</span><span class="w"> </span><span class="s2">&#34;utc&#34;</span><span class="w">
+</span><span class="w">    </span>KINESIS_FIREHOSE_STREAM_NAME<span class="p">:</span><span class="w"> </span><span class="s2">&#34;YOUR_FIREHOSE_NAME_HERE&#34;</span><span class="w">
+</span><span class="w">  </span>iamRoleStatements<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>Effect<span class="p">:</span><span class="w"> </span>Allow<span class="w">
+</span><span class="w">      </span>Action<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>firehose<span class="p">:</span>PutRecord<span class="w">
+</span><span class="w">      </span>Resource<span class="p">:</span><span class="w"> </span><span class="s2">&#34;arn:aws:firehose:${opt:region, self:provider.region}:*:deliverystream/${self:provider.environment.KINESIS_FIREHOSE_STREAM_NAME}&#34;</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>Effect<span class="p">:</span><span class="w"> </span>Allow<span class="w">
+</span><span class="w">      </span>Action<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>s3<span class="p">:</span>*<span class="w">
+</span><span class="w">      </span>Resource<span class="p">:</span><span class="w"> </span><span class="s2">&#34;arn:aws:s3:::YOUR_BUCKET_NAME_HERE/*&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span>custom<span class="p">:</span><span class="w">
+</span><span class="w">  </span>defaultStage<span class="p">:</span><span class="w"> </span>dev<span class="w">
+</span><span class="w">
+</span><span class="w"></span>functions<span class="p">:</span><span class="w">
+</span><span class="w">  </span>track<span class="p">:</span><span class="w">
+</span><span class="w">    </span>handler<span class="p">:</span><span class="w"> </span>track.track<span class="w">
+</span><span class="w">    </span>memorySize<span class="p">:</span><span class="w"> </span><span class="m">128</span><span class="w">
+</span><span class="w">    </span>timeout<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">    </span>events<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>http<span class="p">:</span><span class="w">
+</span><span class="w">          </span>path<span class="p">:</span><span class="w"> </span>/track<span class="w">
+</span><span class="w">          </span>method<span class="p">:</span><span class="w"> </span>post<span class="w">
+</span><span class="w">          </span>private<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">          </span>cors<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">               
+</span><span class="w">  </span>mover<span class="p">:</span><span class="w">
+</span><span class="w">    </span>handler<span class="p">:</span><span class="w"> </span>s3mover.mover<span class="w">
+</span><span class="w">    </span>memorySize<span class="p">:</span><span class="w"> </span><span class="m">512</span><span class="w">
+</span><span class="w">    </span>timeout<span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="w">    </span>events<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span>existingS3<span class="p">:</span><span class="w">
+</span><span class="w">          </span>bucket<span class="p">:</span><span class="w"> </span>YOUR_BUCKET_NAME_HERE<span class="w">
+</span><span class="w">          </span>events<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>s3<span class="p">:</span>ObjectCreated<span class="p">:</span>*<span class="w">
+</span><span class="w">          </span>rules<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>prefix<span class="p">:</span><span class="w"> </span>analytics_raw<span class="w">
+</span><span class="w"></span>plugins<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>serverless-plugin-optimize<span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>serverless-plugin-existing-s3<span class="w">
+</span><span class="w">
+</span><span class="w"></span>package<span class="p">:</span><span class="w">
+</span><span class="w">  </span>individually<span class="p">:</span><span class="w"> </span><span class="kc">true</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>The package config file: package.json</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;serverless-analytics&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;1.0.0&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;serverless-analytics&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;repository&#34;</span><span class="p">:</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;author&#34;</span><span class="p">:</span> <span class="s2">&#34;Mark Steele &lt;mark@control-alt-del.org&gt;&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;license&#34;</span><span class="p">:</span> <span class="s2">&#34;GPL&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;private&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nt">&#34;dependencies&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;npm&#34;</span><span class="p">:</span> <span class="s2">&#34;^5.7.1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;serverless-plugin-existing-s3&#34;</span><span class="p">:</span> <span class="s2">&#34;^2.0.3&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;devDependencies&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;aws-sdk&#34;</span><span class="p">:</span> <span class="s2">&#34;^2.12.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;aws-sdk-mock&#34;</span><span class="p">:</span> <span class="s2">&#34;^1.6.1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;babel-preset-es2015&#34;</span><span class="p">:</span> <span class="s2">&#34;^6.24.1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;chai&#34;</span><span class="p">:</span> <span class="s2">&#34;^4.0.2&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;eslint&#34;</span><span class="p">:</span> <span class="s2">&#34;^4.17.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;eslint-config-airbnb-base&#34;</span><span class="p">:</span> <span class="s2">&#34;^12.1.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;eslint-plugin-import&#34;</span><span class="p">:</span> <span class="s2">&#34;^2.8.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;eslint-plugin-mocha&#34;</span><span class="p">:</span> <span class="s2">&#34;^4.11.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;eslint-plugin-node&#34;</span><span class="p">:</span> <span class="s2">&#34;^6.0.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;eslint-plugin-promise&#34;</span><span class="p">:</span> <span class="s2">&#34;^3.6.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;mocha&#34;</span><span class="p">:</span> <span class="s2">&#34;^3.2.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;nyc&#34;</span><span class="p">:</span> <span class="s2">&#34;^11.2.1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;serverless-plugin-optimize&#34;</span><span class="p">:</span> <span class="s2">&#34;^1.0.0-rc.15&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;sinon&#34;</span><span class="p">:</span> <span class="s2">&#34;^2.1.0&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;scripts&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;test&#34;</span><span class="p">:</span> <span class="s2">&#34;IS_TEST=1 mocha&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;coverage&#34;</span><span class="p">:</span> <span class="s2">&#34;IS_TEST=1 nyc --check-coverage --lines 75 --per-file mocha&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;coverage-report&#34;</span><span class="p">:</span> <span class="s2">&#34;IS_TEST=1 nyc --check-coverage --report -r html mocha&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;lint&#34;</span><span class="p">:</span> <span class="s2">&#34;node node_modules/eslint/bin/eslint.js --color .&#34;</span>
+  <span class="p">},</span>
+  <span class="nt">&#34;standard&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;env&#34;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&#34;mocha&#34;</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Install the deps:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">npm i</code></pre></td></tr></table>
+</div>
+</div>
+<p>Code for file s3mover.js:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="cm">/* eslint-disable no-console */</span>
+<span class="k">const</span> <span class="nx">AWS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;aws-sdk&#39;</span><span class="p">);</span> <span class="c1">// eslint-disable-line import/no-extraneous-dependencies
+</span><span class="c1"></span>
+<span class="k">const</span> <span class="nx">s3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AWS</span><span class="p">.</span><span class="nx">S3</span><span class="p">();</span>
+
+<span class="c1">// Moves files written by firehose into partition path format.
+</span><span class="c1"></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">mover</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">pathRegex</span> <span class="o">=</span> <span class="sr">/^analytics_raw\/(\d+)\/(\d+)\/(\d+)\/\d+\/(.*)$/</span><span class="p">;</span>
+  <span class="k">const</span> <span class="nx">srcKey</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Records</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">s3</span><span class="p">.</span><span class="nx">object</span><span class="p">.</span><span class="nx">key</span><span class="p">;</span>
+  <span class="k">const</span> <span class="nx">bucket</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Records</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">s3</span><span class="p">.</span><span class="nx">bucket</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+  <span class="k">const</span> <span class="nx">matches</span> <span class="o">=</span> <span class="nx">pathRegex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">srcKey</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">e</span><span class="p">));</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">matches</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="nx">newKey</span> <span class="o">=</span> <span class="sb">`partitioned_analytics_raw/year=</span><span class="si">${</span><span class="nx">matches</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="sb">/month=</span><span class="si">${</span><span class="nx">matches</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="sb">/day=</span><span class="si">${</span><span class="nx">matches</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">matches</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+    <span class="nx">s3</span><span class="p">.</span><span class="nx">getObject</span><span class="p">({</span> <span class="nx">Bucket</span><span class="o">:</span> <span class="nx">bucket</span><span class="p">,</span> <span class="nx">Key</span><span class="o">:</span> <span class="nx">srcKey</span> <span class="p">}).</span><span class="nx">promise</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span>
+        <span class="nx">s3</span><span class="p">.</span><span class="nx">putObject</span><span class="p">({</span> <span class="nx">Bucket</span><span class="o">:</span> <span class="nx">bucket</span><span class="p">,</span> <span class="nx">Key</span><span class="o">:</span> <span class="nx">newKey</span><span class="p">,</span> <span class="nx">Body</span><span class="o">:</span> <span class="nx">response</span><span class="p">.</span><span class="nx">Body</span> <span class="p">}).</span><span class="nx">promise</span><span class="p">())</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">s3</span><span class="p">.</span><span class="nx">deleteObject</span><span class="p">({</span> <span class="nx">Bucket</span><span class="o">:</span> <span class="nx">bucket</span><span class="p">,</span> <span class="nx">Key</span><span class="o">:</span> <span class="nx">srcKey</span> <span class="p">}).</span><span class="nx">promise</span><span class="p">())</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="sb">`Moved </span><span class="si">${</span><span class="nx">srcKey</span><span class="si">}</span><span class="sb"> to </span><span class="si">${</span><span class="nx">newKey</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+      <span class="p">})</span>
+      <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error moving/deleting file&#39;</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`SRC: </span><span class="si">${</span><span class="nx">srcKey</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">err</span><span class="p">));</span>
+        <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s1">&#39;Error&#39;</span><span class="p">);</span>
+      <span class="p">});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="sb">`No match on key </span><span class="si">${</span><span class="nx">srcKey</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Code for track.js:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">AWS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;aws-sdk&#39;</span><span class="p">);</span> <span class="c1">// eslint-disable-line import/no-extraneous-dependencies
+</span><span class="c1"></span>
+<span class="k">const</span> <span class="nx">firehose</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AWS</span><span class="p">.</span><span class="nx">Firehose</span><span class="p">();</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">.</span><span class="nx">track</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">DeliveryStreamName</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">KINESIS_FIREHOSE_STREAM_NAME</span><span class="p">,</span>
+    <span class="nx">Record</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">Data</span><span class="o">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">};</span>
+  <span class="nx">firehose</span><span class="p">.</span><span class="nx">putRecord</span><span class="p">(</span><span class="nx">params</span><span class="p">).</span><span class="nx">promise</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">statusCode</span><span class="o">:</span> <span class="mi">204</span><span class="p">,</span>
+      <span class="p">});</span>
+    <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
+      <span class="nx">cb</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">statusCode</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
+        <span class="nx">body</span><span class="o">:</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>Deploy the code</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">sls deploy -s prod --aws-profile YOURPROFILE
+sls s3deploy</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="check-your-progress">Check your progress</h3>
+
+<p>If everything went well, you now have a data ingestion pipeline setup that can receive nearly limitless amounts of inbound data, efficiently pushing it to an S3 bucket.</p>
+
+<p>Let's test it out. Here's a little script you can run to hit your API and push some random events in.<br />
+(replace the URL and API key as per the output of sls deploy)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">cpan HTTP::Request LWP LWP::UserAgent Date::Format</code></pre></td></tr></table>
+</div>
+</div>
+<p>Create a file datagenerator.pl:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-perl" data-lang="perl"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-perl" data-lang="perl"><span class="ch">#!/usr/bin/perl</span>
+<span class="k">use</span> <span class="nn">HTTP::Request</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">LWP::UserAgent</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">Date::Format</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">$url</span> <span class="o">=</span> <span class="s">&#39;https://URLGOESHERE/prod/track&#39;</span><span class="p">;</span>
+<span class="k">my</span> <span class="nv">$apiKey</span> <span class="o">=</span> <span class="s">&#39;APIKEYGOESHERE&#39;</span><span class="p">;</span>
+<span class="k">my</span> <span class="nv">@NAMES</span> <span class="o">=</span> <span class="sx">qw(joe mary john suzy mark zoe shelly barry smelly sneezy doofy derpy sally dave harry mikey kimmy sarah rae shae bae)</span><span class="p">;</span>
+<span class="k">my</span> <span class="nv">$ua</span> <span class="o">=</span> <span class="nn">LWP::UserAgent</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">;</span>
+<span class="k">while</span><span class="p">(</span><span class="n">true</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">my</span> <span class="nv">$output</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">100</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">my</span> <span class="nv">$randName</span> <span class="o">=</span> <span class="nv">$NAMES</span><span class="p">[</span><span class="nb">rand</span> <span class="nv">@NAMES</span><span class="p">]</span> <span class="o">.</span> <span class="nb">int</span><span class="p">(</span><span class="nb">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>
+    <span class="nv">$output</span> <span class="o">.=</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s">&#39;{&#34;event&#34;:&#34;LOGIN&#34;,&#34;userId&#34;:&#34;%s&#34;,&#34;dateTime&#34;:&#34;%s&#34;}&#39;</span><span class="p">,</span><span class="nv">$randName</span><span class="p">,</span><span class="n">time2str</span><span class="p">(</span><span class="s">&#34;%Y-%m-%d %H:%M:%S&#34;</span><span class="p">,</span><span class="nb">time</span><span class="p">()))</span> <span class="o">.</span> <span class="s">&#34;\n&#34;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">my</span> <span class="nv">$req</span> <span class="o">=</span> <span class="nn">HTTP::Request</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">(</span> <span class="s">&#39;POST&#39;</span><span class="p">,</span> <span class="nv">$url</span><span class="p">);</span>
+  <span class="nv">$req</span><span class="o">-&gt;</span><span class="n">header</span><span class="p">(</span><span class="s">&#39;x-api-key&#39;</span> <span class="o">=&gt;</span> <span class="nv">$apiKey</span><span class="p">);</span>
+  <span class="nv">$req</span><span class="o">-&gt;</span><span class="n">content</span><span class="p">(</span><span class="nv">$output</span><span class="p">);</span>
+  <span class="nv">$ua</span><span class="o">-&gt;</span><span class="n">request</span><span class="p">(</span><span class="nv">$req</span><span class="p">);</span>
+  <span class="k">print</span> <span class="nv">$output</span><span class="p">;</span>
+  <span class="nb">select</span><span class="p">(</span><span class="nb">undef</span><span class="p">,</span><span class="nb">undef</span><span class="p">,</span><span class="nb">undef</span><span class="p">,</span><span class="mf">0.25</span><span class="p">);</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>And run it</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">perl datagenerator.pl</code></pre></td></tr></table>
+</div>
+</div>
+<p>If all went well, you should see some output being printed out to the screen. Wait about 15 minutes and go have a look at your S3 bucket, you should see some data files.</p>
+
+<h2 id="implementation-data-schema-discovery-and-optimization">Implementation - Data/Schema discovery and optimization</h2>
+
+<h3 id="create-glue-db">Create Glue DB</h3>
+
+<p>Head over to the Glue console, and create a database. Just enter DB name that you'd like. (eg: YOUR_ANALYTICS_DB_NAME)</p>
+
+<h3 id="create-glue-crawlers-for-raw-data">Create Glue crawlers for raw data</h3>
+
+<p>Head to crawlers, and create a new one. The parameters are:</p>
+
+<pre><code>Name: raw_discovery
+db: YOUR_ANALYTICS_DB_NAME
+table prefix: 
+ServiceRole: create one, needs to have AWSGlueServiceRole- as the name prefix
+Selected classifiers:
+Data store: S3
+Include path: s3://YOUR_BUCKET_NAME_HERE/partitioned_analytics_raw
+</code></pre>
+
+<p>Save/Run it. Will create a table in your Glue DB</p>
+
+<p>Create a trigger to schedule the crawler to run once an hour, this will keep the Athena meta-data up to date with the partition list.</p>
+
+<h3 id="create-etl-job-to-transform-raw-json-files-to-parquet">Create ETL job to transform raw json files to parquet</h3>
+
+<p>Here's a python script that will transform your raw json files to Parquet. When creating the ETL, make sure you enable job bookmarks in the advanced settings. Make sure you change YOUR_BUCKET_NAME_HERE and YOUR_ANALYTICS_DB_NAME to match what your settings.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">awsglue.transforms</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">awsglue.utils</span> <span class="kn">import</span> <span class="n">getResolvedOptions</span>
+<span class="kn">from</span> <span class="nn">pyspark.context</span> <span class="kn">import</span> <span class="n">SparkContext</span>
+<span class="kn">from</span> <span class="nn">awsglue.context</span> <span class="kn">import</span> <span class="n">GlueContext</span>
+<span class="kn">from</span> <span class="nn">awsglue.job</span> <span class="kn">import</span> <span class="n">Job</span>
+
+<span class="n">args</span> <span class="o">=</span> <span class="n">getResolvedOptions</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;JOB_NAME&#39;</span><span class="p">])</span>
+
+<span class="n">sc</span> <span class="o">=</span> <span class="n">SparkContext</span><span class="p">()</span>
+<span class="n">glueContext</span> <span class="o">=</span> <span class="n">GlueContext</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+<span class="n">spark</span> <span class="o">=</span> <span class="n">glueContext</span><span class="o">.</span><span class="n">spark_session</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">Job</span><span class="p">(</span><span class="n">glueContext</span><span class="p">)</span>
+<span class="n">job</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;JOB_NAME&#39;</span><span class="p">],</span> <span class="n">args</span><span class="p">)</span>
+<span class="n">datasource0</span> <span class="o">=</span> <span class="n">glueContext</span><span class="o">.</span><span class="n">create_dynamic_frame</span><span class="o">.</span><span class="n">from_catalog</span><span class="p">(</span><span class="n">database</span> <span class="o">=</span> <span class="s2">&#34;YOUR_ANALYTICS_DB_NAME&#34;</span><span class="p">,</span> <span class="n">table_name</span> <span class="o">=</span> <span class="s2">&#34;partitioned_analytics_raw&#34;</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&#34;datasource0&#34;</span><span class="p">)</span>
+<span class="n">datasource0</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">applymapping1</span> <span class="o">=</span> <span class="n">ApplyMapping</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">datasource0</span><span class="p">,</span> <span class="n">mappings</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&#34;event&#34;</span><span class="p">,</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span> <span class="s2">&#34;event&#34;</span><span class="p">,</span> <span class="s2">&#34;string&#34;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&#34;userid&#34;</span><span class="p">,</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span> <span class="s2">&#34;userid&#34;</span><span class="p">,</span> <span class="s2">&#34;string&#34;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&#34;datetime&#34;</span><span class="p">,</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span> <span class="s2">&#34;datetime&#34;</span><span class="p">,</span> <span class="s2">&#34;timestamp&#34;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&#34;year&#34;</span><span class="p">,</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span> <span class="s2">&#34;year&#34;</span><span class="p">,</span> <span class="s2">&#34;string&#34;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&#34;month&#34;</span><span class="p">,</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span> <span class="s2">&#34;month&#34;</span><span class="p">,</span> <span class="s2">&#34;string&#34;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&#34;day&#34;</span><span class="p">,</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span> <span class="s2">&#34;day&#34;</span><span class="p">,</span> <span class="s2">&#34;string&#34;</span><span class="p">)],</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&#34;applymapping1&#34;</span><span class="p">)</span>
+<span class="n">resolvechoice2</span> <span class="o">=</span> <span class="n">ResolveChoice</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">applymapping1</span><span class="p">,</span> <span class="n">choice</span> <span class="o">=</span> <span class="s2">&#34;make_struct&#34;</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&#34;resolvechoice2&#34;</span><span class="p">)</span>
+<span class="n">dropnullfields3</span> <span class="o">=</span> <span class="n">DropNullFields</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">resolvechoice2</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&#34;dropnullfields3&#34;</span><span class="p">)</span>
+<span class="n">datasink4</span> <span class="o">=</span> <span class="n">glueContext</span><span class="o">.</span><span class="n">write_dynamic_frame</span><span class="o">.</span><span class="n">from_options</span><span class="p">(</span><span class="n">frame</span> <span class="o">=</span> <span class="n">dropnullfields3</span><span class="p">,</span> <span class="n">connection_type</span> <span class="o">=</span> <span class="s2">&#34;s3&#34;</span><span class="p">,</span> <span class="n">connection_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;path&#34;</span><span class="p">:</span> <span class="s2">&#34;s3://YOUR_BUCKET_NAME_HERE/analytics_data&#34;</span><span class="p">,</span><span class="s2">&#34;partitionKeys&#34;</span><span class="p">:[</span><span class="s2">&#34;year&#34;</span><span class="p">,</span><span class="s2">&#34;month&#34;</span><span class="p">,</span><span class="s2">&#34;day&#34;</span><span class="p">]},</span> <span class="n">format</span> <span class="o">=</span> <span class="s2">&#34;parquet&#34;</span><span class="p">,</span> <span class="n">transformation_ctx</span> <span class="o">=</span> <span class="s2">&#34;datasink4&#34;</span><span class="p">)</span>
+<span class="n">job</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Run the job, you should now see a new path in your S3 bucket that contains partitioned Parquet files.</p>
+
+<p>Probably a good time to create a trigger to have the job run every hour or day.</p>
+
+<h3 id="create-a-crawler-for-the-parquet-files">Create a crawler for the Parquet files</h3>
+
+<p>Head to crawlers, and create a new one. The parameters are:</p>
+
+<pre><code>Name: parquet_discovery
+db: YOUR_ANALYTICS_DB_NAME
+table prefix: 
+ServiceRole: create one, needs to have AWSGlueServiceRole- as the name prefix
+Selected classifiers:
+Data store: S3
+Include path: s3://YOUR_BUCKET_NAME_HERE/analytics_data
+</code></pre>
+
+<p>Save/Run it. Will create a table in your Glue DB</p>
+
+<p>Create a trigger to schedule the crawler to run once an hour, this will keep the Athena meta-data up to date with the partition list.</p>
+
+<h2 id="review-of-what-we-have-so-far">Review of what we have so far...</h2>
+
+<p>You're almost done. At this point you have a data pipeline that is ingesting data from an HTTP api, and pushing it into a query friendly format.</p>
+
+<p>This pipeline should scale to just about any size, as all the pieces of the puzzle auto-scale based on throughput.</p>
+
+<p>(assuming you've set the limits in your AWS account accordingly).</p>
+
+<h2 id="querying-the-data">Querying the data</h2>
+
+<p>We can now query the data using AWS Athena. Head on over to the Athena console, and you'll find a database with two tables.</p>
+
+<p>On table queries against the partitioned JSON files, and one queries against the Parquet format files.</p>
+
+<p>To test things out, I've populated S3 with a year's worth of data similar to the data produced by my test script above.</p>
+
+<p>The size of the data set is 20GB of compressed JSON files, partitioned over year/month/day. It represents the equivalent of having ingested data at a rate of 200,000,000 events per month (or about 77 events per second) for a year.</p>
+
+<p>Let's try something simple first. We'll grab the distinct count of users for 1 month:</p>
+
+<p><img src="/images/athena-query1.png" alt="Athena query 1" /></p>
+
+<p>Not exactly blazing speed here at 8 seconds compared to an RDBM, but keep in mind we're not running any servers here. Also, this is all brute force with no indexes, query caches, etc...</p>
+
+<p>As you can see, the scan only read 1.48 GB of data. From this we can see that our partitioning is working correctly.</p>
+
+<p>Next, let's see what kind of gains we've made by using the Parquet file format and query across all partitions for a single column.</p>
+
+<p><img src="/images/athena-query2.png" alt="Athena query 2" /></p>
+
+<p>Pretty neat. We've gone over all partitions in 4 seconds, and got the event count for all of them. This time, we had to only read out 1.14 GB of data.</p>
+
+<p>Finally, let's look at the speed when we have to read everything. This query gets the distinct count of users by year and month.</p>
+
+<p><img src="/images/athena-query3.png" alt="Athena query 3" /></p>
+
+<p>For this query, it took 28 seconds, and scanned almost the entire data set with 17GB of data read.</p>
+
+<h2 id="building-dashboards-in-quisksight">Building dashboards in QuiskSight</h2>
+
+<p>Adding reports on top of this is very straightforward with Quicksight.</p>
+
+<p>Head on over to the Quicksight console.</p>
+
+<ul>
+<li>From the manage quicksight menu, go to account settings<br /></li>
+<li>Click on Edit AWS permissions<br /></li>
+<li>Make sure you grant access to Athena, as well as to the S3 bucket you've created to store the data<br /></li>
+<li>Create a new data set of type Athena.<br /></li>
+<li>Type in the Athena database name, click create data source<br />
+<br /></li>
+</ul>
+
+<p>At this point you can optionally import the data into Spice, which will essentially load everything into RAM. Making queries much faster, but also costing more money. Your choice!</p>
+
+<p>Create some reports!</p>
+
+<p><img src="/images/Quicksight-1.png" alt="Quicksight 1" /></p>
+
+<p><img src="/images/Quicksight-2.png" alt="Quicksight 2" /></p>
+
+<p><img src="/images/Quicksight-3.png" alt="Quicksight 3" /></p>
+
+<h1 id="cost-analysis">Cost analysis</h1>
+
+<h2 id="assumptions">Assumptions</h2>
+
+<p>200 byte payload per event<br />
+200,000,000 events per month<br />
+200*200,000,000 = 37.25 GB/month<br />
+200,000,000/30 (days)/86400 (seconds per day) = 77 requests/sec<br />
+200 bytes per event * 77 requests/sec = 15 KB/sec raw throughput</p>
+
+<h3 id="lambda-compute">Lambda compute</h3>
+
+<p>The compute costs of moving the files around in s3 should be negligible.</p>
+
+<pre><code>200,000,000 lambda invocations per month with 128MB memory @ 100ms runtime.
+The monthly compute price is $0.00001667 per GB-s and the free tier provides 400,000 GB-s.
+Total compute (seconds) = 200M * (0.1sec) = 20,000,000 seconds
+Total compute (GB-s) = 20,000,000 * 128MB/1024 = 2,500,000 GB-s
+Total Compute – Free tier compute = Monthly billable compute seconds
+2,500,000 GB-s – 400,000 free tier GB-s = 2,100,000 GB-s
+2,100,000 GB-s *  $0.00001667 = 35.007$/month
+</code></pre>
+
+<h3 id="lambda-request">Lambda request</h3>
+
+<p>200 (million reqs) * 0.2$ (per million): 40$</p>
+
+<h3 id="apig-requests">APIG requests</h3>
+
+<p>3.5$ * 200 (million reqs) : 700$/month<br />
+ Data transfer out: should be very small, api returns only http status code. 5$</p>
+
+<h3 id="s3-storage">S3 storage</h3>
+
+<p>37.25 GB/month * 0.023$/GB = 0.86$/month<br />
+Data in: free<br />
+Data out (to athena/glue): free</p>
+
+<p>After a year it'll be about 10$/month.</p>
+
+<h3 id="s3-requests-operations">S3 requests/operations</h3>
+
+<p>Should be negligible.</p>
+
+<h3 id="athena">Athena</h3>
+
+<p>5$/TB of data scanned, 10MB minimum query size.<br />
+1 year of data is approximately 447GB (149GB compressed)<br />
+Cost of scanning entire uncompressed data set once: 2.18$ (0.72$ compressed read)</p>
+
+<p>Realistically, data set can be compressed with snappy and use parquet. Compression should reduce size by a factor of 3. In addition, parquet being a columnar format will further reduce reads by only scanning necessary columns.</p>
+
+<p>Conclusion: depends on query patterns. I'd expect a system using this to implement lots of query caching.</p>
+
+<p>Let's guess at 500TB scanned per month. 500*5: 2500$/month. Probably overkill.</p>
+
+<h3 id="kinesis-firehose">Kinesis firehose</h3>
+
+<p>Data ingested 0.029$/GB ingested, 5KB per record min<br />
+77 records/sec * 5KB/record / 1024 / 1024 = 0.0003671646118 GB/sec * 30 days/month * 86400 sec/day = 951 GB/month<br />
+951 * 0.029 = 27.57$<br />
+(overpaying for kinesis here due to 5kb minimum record size...)</p>
+
+<h3 id="glue-etl">Glue ETL</h3>
+
+<p>I've run the glue ETL to move from JSON to Parquet, and it took about an hour to run @ 10 DPUs and processed about 20 GB of data. I'd expect the Glue costs for the scenario above to probably run at about 10 hours of runtime per month @ 10 DPUs, so let's guess the cost of that at around 10 hours * 0.44$ (dpu-hour) * 10 (DPUs) = 44$/month</p>
+
+<h3 id="quicksight">QuickSight</h3>
+
+<p>TBD</p>
+
+<h2 id="total">Total</h2>
+
+<p>Lambda (35 + 40) + APIG (705) + S3 (10) + Athena (2500) + Kinesis (27.57) + Glue (44) + QuickSight (??) = 3,361.57$/month.</p>
+
+<h1 id="closing-thoughts">Closing thoughts</h1>
+
+<p>If you've followed along, you can now see that we've got a scalable platform for tracking events. A method for querying them, but no fancy dashboard reporting.</p>
+
+<p>It's easy enough to plug Athena into a BI platform (Pentaho, Tableau, etc... via JDBC) or into QuickSight.</p>
+
+<p>This solution appears to cost about 1/10th of most SaaS providers. I'd chalk this up as a win.</p>
+			</article>
+		</section>
+		<section class="ui secondary attached segment dream-tags">
+			<span>No Tag</span>
+			
+		</section><section class="ui secondary bottom attached segment share row box"><div class="author"><img class="avatar" src="https://www.control-alt-del.org//images/mark.jpg">
+	
+</div>
+<div class="info grow flexbox"><a href="https://twitter.com/markrsteele">
+	
+	<p class="name">Mark Steele</p></a>
+	
+	<p class="desc">Cogito Interruptus Vulgaris</p>		
+</div>
+<section class="buttons row box">
+	<div class="facebook none flexbox" href="#" onclick="window.open(
+			'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+			'facebook-share-dialog',
+			'width=626,height=436'); return false;">
+		<button class="ui facebook button"><i class="facebook icon"></i>Share</button>
+	</div>
+	<div class="twitter none flexbox" onclick="window.open('https://twitter.com/intent/tweet?text=Read &quot;building a serverless analytics platform at lolscale &quot; by @markrsteele https:\/\/www.control-alt-del.org\/post\/building-a-serverless-analytics-platform-at-lolscale\/','_self')">
+		<button class="ui twitter button"><i class="twitter icon"></i>Tweet</button>
+	</div>
+</section>
+</section>
+		
+	</div>
+</div>
+
+			</div>
+			<div class="back"><nav class="ui top secondary menu bar">
+	<div class="item">
+		<i class="inverted big link bullseye icon dream-flip-toggle" title="About Me"></i>
+	</div><div class="item">
+	<a href="https://github.com/marksteele" target="_blank">
+		<i id="ico" class="inverted big link github icon" title="GitHub"></i>
+	</a>
+</div>
+<div class="item">
+	<a href="mailto:mark@control-alt-del.org">
+		<i id="ico" class="inverted big link mail icon" title="Email"></i>
+	</a>
+</div>
+<div class="item">
+	<a href="https://twitter.com/markrsteele" target="_blank">
+		<i id="ico" class="inverted big link twitter icon" title="Twitter"></i>
+	</a>
+</div>
+
+</nav>
+<div class="ui centered grid about">
+	<div class="sixteen wide mobile fifteen wide tablet fifteen wide computer column about">
+		<section class="ui stacked segments"><div class="ui inverted segment">
+	<article class="twemoji">Father, Mentor, Crime Fighter, Inventor and Slayer of Chipmunks.</article>
+</div>
+</section>
+	</div>
+</div></div>
+		</div>
+	</div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script>
+<script src="/js/twemoji.min.js"></script>
+
+<script>
+	(function () {
+	  console.log("Twemoji up and making stuff colourful!");
+	  for (var b = document.getElementsByClassName("twemoji"), a = 0; a < b.length; a++) {
+		twemoji.parse(b[a]);
+	  }
+	})();
+</script>
+
+<script>
+		anchors.add('.post-content h1');
+		anchors.add('.post-content h2');
+		anchors.add('.post-content h3');
+</script></body>
+
+</html>
