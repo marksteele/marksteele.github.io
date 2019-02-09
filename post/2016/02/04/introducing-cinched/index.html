@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
 <head><style>
 body {
 	display: block;
@@ -8,7 +7,14 @@ body {
 		background-image: var(--bgImage) !important;
 	
 }
-</style><title>
+
+body, body.pushable {
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover !important;
+}
+</style>
+<title>
 introducing cinched
 </title><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +28,8 @@ It&#39;s a cinch to use, and will keep your data cinched." />
 <link rel="shortcut icon" href="/img/defaultFav.ico">
 
 <link rel="canonical" href="https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/" />
-<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/><link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
 <style>
 body.pushable {
 	display: block;
@@ -38,7 +45,6 @@ body.pushable {
 	console.log("The client device is a "+(isMobile?"mobile":"PC")+".")
 </script>
 </head>
-
 <body><script>
 var prevBgIndex = 0;
 var bodyBgSwitchIndex = 0;
@@ -75,7 +81,7 @@ var bodyBgSwitchIndex = 0;
 	}
 </script><div class="blur-overlay"></div><div id="sidebar" class="ui sidebar inverted vertical menu">
 	<section id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
@@ -1146,7 +1152,6 @@ var bodyBgSwitchIndex = 0;
 </div>
 	</section>
 	
-	
 	<section id="footer" class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </section>
 </div>
@@ -1157,43 +1162,49 @@ var bodyBgSwitchIndex = 0;
 	<div class="item">
 		<i class="inverted big link bullseye icon dream-flip-toggle" title="About Me"></i>
 	</div><div class="item">
-		<a href="/">
-			<i class="inverted big link home icon" title="Home"></i>
-		</a>
-	</div>
+			<a href="/">
+				<i class="inverted big link home icon" title="Home"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/post">
-			<i class="inverted big link archive icon" title="Archive"></i>
-		</a>
-	</div>
+			<a href="/post">
+				<i class="inverted big link archive icon" title="Archive"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/categories">
-			<i class="inverted big link cubes icon" title="All Categories"></i>
-		</a>
-    </div>
+			<a href="/categories">
+				<i class="inverted big link cubes icon" title="All Categories"></i>
+			</a>
+    	</div>
 	<div class="ui container tablet computer only grid">
 		<div class="item" onClick="$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');">
 			<i class="inverted big link sidebar icon" title="Show Sidebar"></i>
 		</div>
 	</div>
+	<div class="item right">
+		<a href="/index.xml">
+			<i class="inverted big link rss icon" title="RSS Feed"></i>
+		</a>
+	</div>
 	
 </nav>
+
 
 <div class="ui centered grid">
 	<div class="sixteen wide mobile only column"><div class="ui inverted accordion">
 	<div id="header" class="ui inverted segment column box">
 		<header id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
 </h3>
 </header>
-		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">		
-				<i class="hand point icon down"title="Click this to pop tags and categories"></i>		
+		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">
+				<i class="hand point icon down"title="Click this to pop tags and categories"></i>
 			</div></div>
 		<div id="tag-category" class=" content"><section class="ui attached inverted segment dream-categories both flexbox">
-			<div class="inverted accordion">
+					<div class="inverted accordion">
 <div class="title">
 	<i class="dropdown icon"></i>
 	<a class="link" href="/categories/3d-printing">3d-printing</a>
@@ -2256,14 +2267,17 @@ var bodyBgSwitchIndex = 0;
 </div>
 
 </div>
-			</section></div>
+				</section></div>
 		<footer class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </footer>
 	</div>
-</div></div>
+</div>
+</div>
 	<div class="sixteen wide mobile fifteen wide tablet twelve wide computer column post-list">
 		<section class="ui secondary top attached black segment post-head">
-			<h1 class="post-title">introducing cinched</h1>
+			<h1 class="post-title">
+				introducing cinched
+			</h1>
 			<div class="sub header">
 					<div><span><i class="calendar outline icon"></i>Feb 4, 2016</span></div>
 					<div><span><i class="clock outline icon"></i>10 min read</span></div>
@@ -2298,7 +2312,6 @@ var bodyBgSwitchIndex = 0;
 </ul>
 </nav></div>
 			
-			
 			<article class="post-content twemoji">
 				
 
@@ -2324,9 +2337,9 @@ var bodyBgSwitchIndex = 0;
 
 <p><a href="https://github.com/marksteele/cinched">Official documentation</a></p>
 
-<h1 id="overview">Overview</h1>
+<h1 id="overview">Overview&nbsp;<a class="anchor" href="#overview"><i class="small linkify icon"></i></a> </h1>
 
-<h2 id="cluster">Cluster</h2>
+<h2 id="cluster">Cluster&nbsp;<a class="anchor" href="#cluster"><i class="small linkify icon"></i></a> </h2>
 
 <p>Cinched is built using Erlang/OTP and leverages Erlang's clustering capabilities.</p>
 
@@ -2338,11 +2351,11 @@ var bodyBgSwitchIndex = 0;
 
 <p>Cinched clusters are master-less, that is that each node can accept client requests, there are no special roles.</p>
 
-<h2 id="encryption">Encryption</h2>
+<h2 id="encryption">Encryption&nbsp;<a class="anchor" href="#encryption"><i class="small linkify icon"></i></a> </h2>
 
 <p>This service uses authenticated symmetrical encryption implemented via Erlang bindings to libsodium. The algorithms used are Salsa20 for encryption/decryption, and Poly1305 for message authentication.</p>
 
-<h2 id="certificates">Certificates</h2>
+<h2 id="certificates">Certificates&nbsp;<a class="anchor" href="#certificates"><i class="small linkify icon"></i></a> </h2>
 
 <p>Cinched relies on public key infrastructure (PKI) heavily for both securing intra-cluster communication, as well as authorizing client API calls.</p>
 
@@ -2365,7 +2378,7 @@ var bodyBgSwitchIndex = 0;
 
 <p>On Cinched nodes, certificate private keys are protected with SELinux policy and regular DAC controls. With policy locked down, even root can't get at any of the protected information.</p>
 
-<h2 id="encryption-keys">Encryption Keys</h2>
+<h2 id="encryption-keys">Encryption Keys&nbsp;<a class="anchor" href="#encryption-keys"><i class="small linkify icon"></i></a> </h2>
 
 <p>All keys in Cinched are randomly generated. There are four different types of keys that serve different purposes.</p>
 
@@ -2405,7 +2418,7 @@ In order to start the day, we'll need one person from each group available to op
 
 <p>Since our boxes are so good we do not store the box. We want to save space, so we give the boxes to our customers. If they want to open it, they must come inside the vault with their key and box.</p>
 
-<h3 id="operator-key">Operator key</h3>
+<h3 id="operator-key">Operator key&nbsp;<a class="anchor" href="#operator-key"><i class="small linkify icon"></i></a> </h3>
 
 <p>The operator key (<code>OK</code>), is created during the initialization of the cluster. It is split into a set of shards using a cryptographic technique known as <a href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing">Shamir secret sharing</a>.</p>
 
@@ -2425,7 +2438,7 @@ In order to start the day, we'll need one person from each group available to op
 
 <p>It is possible to rotate the <code>OK</code> and generate new sets of key shards.</p>
 
-<h3 id="service-key">Service key</h3>
+<h3 id="service-key">Service key&nbsp;<a class="anchor" href="#service-key"><i class="small linkify icon"></i></a> </h3>
 
 <p>The service key (<code>SK</code>) is created during the initialization of the cluster.</p>
 
@@ -2435,7 +2448,7 @@ In order to start the day, we'll need one person from each group available to op
 
 <p>It is currently not possible to rotate the <code>SK</code>.</p>
 
-<h3 id="master-keys">Master keys</h3>
+<h3 id="master-keys">Master keys&nbsp;<a class="anchor" href="#master-keys"><i class="small linkify icon"></i></a> </h3>
 
 <p>Master keys (<code>MK</code>) are generated once per day and are associated with a crypto-period, which is an integer representing the number of days since the start of the UNIX epoch.</p>
 
@@ -2445,7 +2458,7 @@ In order to start the day, we'll need one person from each group available to op
 
 <p>They are also held unencrypted in memory in a LRU cache with a default lifetime of 1 day.</p>
 
-<h3 id="data-keys">Data keys</h3>
+<h3 id="data-keys">Data keys&nbsp;<a class="anchor" href="#data-keys"><i class="small linkify icon"></i></a> </h3>
 
 <p>Data keys (<code>DK</code>) are generated either via the key API or whenever an encryption API call does not provide a data key via the HTTP headers.</p>
 
@@ -2453,7 +2466,7 @@ In order to start the day, we'll need one person from each group available to op
 
 <p><code>DK</code>'s are not stored in Cinched, it is assumed that the calling application will store the <code>DK</code>s.</p>
 
-<h2 id="storage">Storage</h2>
+<h2 id="storage">Storage&nbsp;<a class="anchor" href="#storage"><i class="small linkify icon"></i></a> </h2>
 
 <p>Master keys are identified by the crypto-period for which they are generated, and the key name space is mapped to a consistent hash ring.</p>
 
@@ -2465,11 +2478,11 @@ In order to start the day, we'll need one person from each group available to op
 
 <p>Increasing the replication factor makes the system more fault tolerant at the expense of slower writes, which happen infrequently (once per day at most during master key generation).</p>
 
-<h1 id="api">API</h1>
+<h1 id="api">API&nbsp;<a class="anchor" href="#api"><i class="small linkify icon"></i></a> </h1>
 
 <p>The official documentation has a more comprehensive set of examples and covers more functionality (document API, blob API, etc...), however here's a quick example of using Cinched.</p>
 
-<h2 id="generate-a-data-key">Generate a data key</h2>
+<h2 id="generate-a-data-key">Generate a data key&nbsp;<a class="anchor" href="#generate-a-data-key"><i class="small linkify icon"></i></a> </h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
@@ -2494,7 +2507,7 @@ In order to start the day, we'll need one person from each group available to op
 </div>
 <p>Store this information somewhere, we'll need it to decrypt the data later on.</p>
 
-<h2 id="encrypt-something">Encrypt something</h2>
+<h2 id="encrypt-something">Encrypt something&nbsp;<a class="anchor" href="#encrypt-something"><i class="small linkify icon"></i></a> </h2>
 
 <p>Let's imagine we have a JSON document that looks like this:</p>
 <div class="highlight"><div class="chroma">
@@ -2542,7 +2555,7 @@ In order to start the day, we'll need one person from each group available to op
 </div>
 <p>Success! Now we can safely store this document somewhere. Should a nefarious ne'er do well steal it, they won't know the location of our favorite dive.</p>
 
-<h2 id="decrypting-data">Decrypting data</h2>
+<h2 id="decrypting-data">Decrypting data&nbsp;<a class="anchor" href="#decrypting-data"><i class="small linkify icon"></i></a> </h2>
 
 <p>To read the data back:</p>
 <div class="highlight"><div class="chroma">
@@ -2575,7 +2588,7 @@ In order to start the day, we'll need one person from each group available to op
 </div>
 <p>Well done! Now we know where to go grab a brew.</p>
 
-<h1 id="notes-for-using-cinched">Notes for using Cinched</h1>
+<h1 id="notes-for-using-cinched">Notes for using Cinched&nbsp;<a class="anchor" href="#notes-for-using-cinched"><i class="small linkify icon"></i></a> </h1>
 
 <p>If possible, establish long-lived persistent connections to amortize the cost of the TCP/TLS session negotiation.</p>
 
@@ -2583,7 +2596,7 @@ In order to start the day, we'll need one person from each group available to op
 
 <p>If possible, keep your certificate private keys encrypted with a passphrase, or leverage a TPM chip. Other ideas for doing this are to provide the decryption keys out of band to the service loading the key (eg: passphrase prompt, environment variables). If all else fails, it's not that hard to write some SELinux policy to lock down filesystem access to a confined domain. Look at Cinched's policy if you need a sample.</p>
 
-<h1 id="attack-vectors">Attack vectors</h1>
+<h1 id="attack-vectors">Attack vectors&nbsp;<a class="anchor" href="#attack-vectors"><i class="small linkify icon"></i></a> </h1>
 
 <p>Assuming the system is configured as recommended, I can't see too many ways to compromise the security of the system. That's not to say that it's proof against everything...</p>
 
@@ -2604,31 +2617,33 @@ In order to start the day, we'll need one person from each group available to op
 <br /></li>
 </ul>
 
-<h1 id="future-direction">Future direction</h1>
+<h1 id="future-direction">Future direction&nbsp;<a class="anchor" href="#future-direction"><i class="small linkify icon"></i></a> </h1>
 
 <p>I'd really like to start leveraging TPM with the Linux integrity subsystem for key storage and system attestation. I could foresee a future version of Cinched leveraging TPM across the stack for both intra-cluster integrity as well as client side integrity. It should be possible to build a system that is proof against stealing the secret keys using this type of setup.</p>
 
 <p>One of the hard problems in getting this all to work is the management burden of maintaining the integrity chain in a fast-moving environment. Will require experimentation...</p>
 
-<h1 id="in-closing">In closing...</h1>
+<h1 id="in-closing">In closing...&nbsp;<a class="anchor" href="#in-closing"><i class="small linkify icon"></i></a> </h1>
 
 <p>I enjoy canceled vacations, crazy unpaid overtime doing incident response, calls in the middle of the night from anxious execs, fending off reporters and so on just as much as the next sec/dev/ops guys.... Oh wait, not so much.</p>
 
 <p>Go forth! Encrypt that sensitive data! Just make sure you're doing it right. Customer trust is a currency that's hard to acquire and even harder to regain once squandered.</p>
+
 
 			</article>
 		</section>
 		<section class="ui secondary attached segment dream-tags">
 			<span>No Tag</span>
 			
-		</section><section class="ui secondary bottom attached segment share row box"><div class="author"><img class="avatar" src="https://www.control-alt-del.org//images/mark.jpg">
+		</section><section class="ui secondary bottom attached segment share row box"><div class="author">
+	<img class="avatar" src="/images/mark.jpg">
 	
 </div>
 <div class="info grow flexbox"><a href="https://twitter.com/markrsteele">
 	
 	<p class="name">Mark Steele</p></a>
 	
-	<p class="desc">Cogito Interruptus Vulgaris</p>		
+	<p class="desc">Cogito Interruptus Vulgaris</p>
 </div>
 <section class="buttons row box">
 	<div class="facebook none flexbox" href="#" onclick="window.open(
@@ -2642,6 +2657,10 @@ In order to start the day, we'll need one person from each group available to op
 	</div>
 </section>
 </section>
+		<section class="ui secondary attached segment copyright">
+			
+
+		</section>
 		
 	</div>
 </div>
@@ -2674,12 +2693,11 @@ In order to start the day, we'll need one person from each group available to op
 </div>
 </section>
 	</div>
-</div></div>
+</div>
+</div>
 		</div>
-	</div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/site.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script>
-<script src="/js/twemoji.min.js"></script>
+	</div><script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.js"></script>
 
 <script>
 	(function () {
@@ -2690,10 +2708,5 @@ In order to start the day, we'll need one person from each group available to op
 	})();
 </script>
 
-<script>
-		anchors.add('.post-content h1');
-		anchors.add('.post-content h2');
-		anchors.add('.post-content h3');
-</script></body>
-
+</body>
 </html>

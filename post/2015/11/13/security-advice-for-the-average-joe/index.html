@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
 <head><style>
 body {
 	display: block;
@@ -8,7 +7,14 @@ body {
 		background-image: var(--bgImage) !important;
 	
 }
-</style><title>
+
+body, body.pushable {
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover !important;
+}
+</style>
+<title>
 security advice for the average joe
 </title><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +28,8 @@ While the use cases never cease to increase, one aspect of Internet usage that i
 <link rel="shortcut icon" href="/img/defaultFav.ico">
 
 <link rel="canonical" href="https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/" />
-<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/><link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
 <style>
 body.pushable {
 	display: block;
@@ -38,7 +45,6 @@ body.pushable {
 	console.log("The client device is a "+(isMobile?"mobile":"PC")+".")
 </script>
 </head>
-
 <body><script>
 var prevBgIndex = 0;
 var bodyBgSwitchIndex = 0;
@@ -75,7 +81,7 @@ var bodyBgSwitchIndex = 0;
 	}
 </script><div class="blur-overlay"></div><div id="sidebar" class="ui sidebar inverted vertical menu">
 	<section id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
@@ -1146,7 +1152,6 @@ var bodyBgSwitchIndex = 0;
 </div>
 	</section>
 	
-	
 	<section id="footer" class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </section>
 </div>
@@ -1157,43 +1162,49 @@ var bodyBgSwitchIndex = 0;
 	<div class="item">
 		<i class="inverted big link bullseye icon dream-flip-toggle" title="About Me"></i>
 	</div><div class="item">
-		<a href="/">
-			<i class="inverted big link home icon" title="Home"></i>
-		</a>
-	</div>
+			<a href="/">
+				<i class="inverted big link home icon" title="Home"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/post">
-			<i class="inverted big link archive icon" title="Archive"></i>
-		</a>
-	</div>
+			<a href="/post">
+				<i class="inverted big link archive icon" title="Archive"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/categories">
-			<i class="inverted big link cubes icon" title="All Categories"></i>
-		</a>
-    </div>
+			<a href="/categories">
+				<i class="inverted big link cubes icon" title="All Categories"></i>
+			</a>
+    	</div>
 	<div class="ui container tablet computer only grid">
 		<div class="item" onClick="$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');">
 			<i class="inverted big link sidebar icon" title="Show Sidebar"></i>
 		</div>
 	</div>
+	<div class="item right">
+		<a href="/index.xml">
+			<i class="inverted big link rss icon" title="RSS Feed"></i>
+		</a>
+	</div>
 	
 </nav>
+
 
 <div class="ui centered grid">
 	<div class="sixteen wide mobile only column"><div class="ui inverted accordion">
 	<div id="header" class="ui inverted segment column box">
 		<header id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
 </h3>
 </header>
-		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">		
-				<i class="hand point icon down"title="Click this to pop tags and categories"></i>		
+		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">
+				<i class="hand point icon down"title="Click this to pop tags and categories"></i>
 			</div></div>
 		<div id="tag-category" class=" content"><section class="ui attached inverted segment dream-categories both flexbox">
-			<div class="inverted accordion">
+					<div class="inverted accordion">
 <div class="title">
 	<i class="dropdown icon"></i>
 	<a class="link" href="/categories/3d-printing">3d-printing</a>
@@ -2256,14 +2267,17 @@ var bodyBgSwitchIndex = 0;
 </div>
 
 </div>
-			</section></div>
+				</section></div>
 		<footer class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </footer>
 	</div>
-</div></div>
+</div>
+</div>
 	<div class="sixteen wide mobile fifteen wide tablet twelve wide computer column post-list">
 		<section class="ui secondary top attached black segment post-head">
-			<h1 class="post-title">security advice for the average joe</h1>
+			<h1 class="post-title">
+				security advice for the average joe
+			</h1>
 			<div class="sub header">
 					<div><span><i class="calendar outline icon"></i>Nov 13, 2015</span></div>
 					<div><span><i class="clock outline icon"></i>10 min read</span></div>
@@ -2299,11 +2313,10 @@ var bodyBgSwitchIndex = 0;
 </ul>
 </nav></div>
 			
-			
 			<article class="post-content twemoji">
 				
 
-<h1 id="introduction">Introduction</h1>
+<h1 id="introduction">Introduction&nbsp;<a class="anchor" href="#introduction"><i class="small linkify icon"></i></a> </h1>
 
 <p>A computer lets you make more mistakes faster than any invention in human history - with the possible exception of handguns and tequila. --Mitch Ratliff</p>
 
@@ -2324,11 +2337,11 @@ var bodyBgSwitchIndex = 0;
 
 <p>In this post I will review various ways that can help keep your online life safe.</p>
 
-<h1 id="passwords-now-entering-the-danger-zone">Passwords, now entering the  DANGER ZONE!!!</h1>
+<h1 id="passwords-now-entering-the-danger-zone">Passwords, now entering the  DANGER ZONE!!!&nbsp;<a class="anchor" href="#passwords-now-entering-the-danger-zone"><i class="small linkify icon"></i></a> </h1>
 
 <p><img src="/images/dangerzone.png" alt="DangerZone" /></p>
 
-<h2 id="fact-1">Fact #1</h2>
+<h2 id="fact-1">Fact #1&nbsp;<a class="anchor" href="#fact-1"><i class="small linkify icon"></i></a> </h2>
 
 <p>The majority of the population is terrible at choosing good passwords.</p>
 
@@ -2336,11 +2349,11 @@ var bodyBgSwitchIndex = 0;
 
 <p><img src="/images/password2.jpg" alt="Password fail" /></p>
 
-<h2 id="fact-2">Fact #2</h2>
+<h2 id="fact-2">Fact #2&nbsp;<a class="anchor" href="#fact-2"><i class="small linkify icon"></i></a> </h2>
 
 <p>Bad actors love to break into things by attacking password based authentication systems. Why? See Fact #1</p>
 
-<h2 id="brute-force">Brute force</h2>
+<h2 id="brute-force">Brute force&nbsp;<a class="anchor" href="#brute-force"><i class="small linkify icon"></i></a> </h2>
 
 <p>Here's some math to help everyone understand.</p>
 
@@ -2357,7 +2370,7 @@ var bodyBgSwitchIndex = 0;
 
 <p>Now that may seem like alot, but an average home PC can calculate about 4 billion combinations per second, so this hard to remember password will take about 5 hours to break. Ok, so that's bad, however that's not to say that this type of attack is feasible against all systems. After all, first the bad guys need to somehow grab a list of password hashes then try to crack them using brute force. Which leads us to...</p>
 
-<h2 id="dictionary-attacks">Dictionary attacks</h2>
+<h2 id="dictionary-attacks">Dictionary attacks&nbsp;<a class="anchor" href="#dictionary-attacks"><i class="small linkify icon"></i></a> </h2>
 
 <p>Remember Fact #1? Well here's the thing. Since people are terrible at choosing passwords, the bad guys often don't have to steal a database of passwords. By simply trying commonly used passwords, it's often possisble to break into systems. To make things worse, over the years even hard to guess passwords have been broken by brute force techniques, and databases of passwords that are re-used have been created. So your 15 character password which could take a billion years to break using brute force, may already be part of a password dictionary attack that could break into your account in seconds.</p>
 
@@ -2365,7 +2378,7 @@ var bodyBgSwitchIndex = 0;
 
 <p>This is both an indication of a lack of complexity as well as password re-use.</p>
 
-<h2 id="rules-for-passwords-that-don-t-suck">Rules for passwords that don't suck</h2>
+<h2 id="rules-for-passwords-that-don-t-suck">Rules for passwords that don't suck&nbsp;<a class="anchor" href="#rules-for-passwords-that-don-t-suck"><i class="small linkify icon"></i></a> </h2>
 
 <ol>
 <li>The best passwords are randomly generated. Here's a good one: <strong>&quot;SD#$5fdgxvn w5436 sw345ZDCVQ#$%SEW$Dgfhy4q5oretuzkfdjgnzksjdhl(iw3q45ypa4rtz&quot;</strong>. Don't use this one.<br /></li>
@@ -2385,7 +2398,7 @@ var bodyBgSwitchIndex = 0;
 <br /></li>
 </ul>
 
-<h2 id="password-managers-to-the-rescue">Password Managers to the Rescue</h2>
+<h2 id="password-managers-to-the-rescue">Password Managers to the Rescue&nbsp;<a class="anchor" href="#password-managers-to-the-rescue"><i class="small linkify icon"></i></a> </h2>
 
 <p>It's simply not possible to follow all of the above rules without using a tool to manage passwords. The gigantic advantage of using a password manager is that it frees you from having to remember <em>ALL BUT ONE</em> password.</p>
 
@@ -2412,9 +2425,9 @@ var bodyBgSwitchIndex = 0;
 <br /></li>
 </ul>
 
-<h1 id="beyond-passwords-multi-factor-authentication">Beyond Passwords: Multi-factor authentication</h1>
+<h1 id="beyond-passwords-multi-factor-authentication">Beyond Passwords: Multi-factor authentication&nbsp;<a class="anchor" href="#beyond-passwords-multi-factor-authentication"><i class="small linkify icon"></i></a> </h1>
 
-<h2 id="not-just-for-spies-anymore">Not just for spies anymore!</h2>
+<h2 id="not-just-for-spies-anymore">Not just for spies anymore!&nbsp;<a class="anchor" href="#not-just-for-spies-anymore"><i class="small linkify icon"></i></a> </h2>
 
 <p>Even the safest, most impossible to decrypt password in the universe is not immune to programming errors. On average, developers typically have at best rudimentary knowledge of security concepts. Coupled with the fact the software development is an extremely challenging profession to master, it comes as no surprise that bugs happen. Security bugs may completely compromise or disclose a password.</p>
 
@@ -2442,7 +2455,7 @@ var bodyBgSwitchIndex = 0;
 <br /></li>
 </ul>
 
-<h2 id="i-m-sold-how-can-i-get-this">I'm sold! How can I get this?</h2>
+<h2 id="i-m-sold-how-can-i-get-this">I'm sold! How can I get this?&nbsp;<a class="anchor" href="#i-m-sold-how-can-i-get-this"><i class="small linkify icon"></i></a> </h2>
 
 <p>Easy peasy. Go <a href="https://twofactorauth.org/">here</a>. It's a website that tracks sites that have implemented two-factor authentication.</p>
 
@@ -2459,7 +2472,7 @@ var bodyBgSwitchIndex = 0;
 
 <p>Just as a side note, many of these sites will allow you to setup a recovery email/phone number, please do so. This will allow you to reset things if someone steals your phone/token.</p>
 
-<h1 id="mobile-security">Mobile Security</h1>
+<h1 id="mobile-security">Mobile Security&nbsp;<a class="anchor" href="#mobile-security"><i class="small linkify icon"></i></a> </h1>
 
 <p>There is a ton of sensitive information on your phone that could be used against you or is valuable to you.</p>
 
@@ -2478,7 +2491,7 @@ var bodyBgSwitchIndex = 0;
 
 <p>If possible, setup a remote find/wipe application that will allow you to remotely wipe all the information on your phone in the case where it is stolen or lost. Another thing to configure is to setup automatic wipe of the phone if a pin/password is incorrectly entered too many times. Keep in mind that if you have kids/cats they might inadvertently wipe your phone while trying to guess your password or mistyping it.</p>
 
-<h1 id="usb-drives">USB drives</h1>
+<h1 id="usb-drives">USB drives&nbsp;<a class="anchor" href="#usb-drives"><i class="small linkify icon"></i></a> </h1>
 
 <p>These great little portable devices are a great way of propagating viruses, malware or even worse!</p>
 
@@ -2500,9 +2513,9 @@ var bodyBgSwitchIndex = 0;
 
 <p>In fact, as a general rule, it is not always safe to assume that even a factory sealed device may be free of threats as there have been several cases of devices being shipped with malware onboard. Break out your tin hats!</p>
 
-<h1 id="basic-internet-hygiene">Basic Internet Hygiene</h1>
+<h1 id="basic-internet-hygiene">Basic Internet Hygiene&nbsp;<a class="anchor" href="#basic-internet-hygiene"><i class="small linkify icon"></i></a> </h1>
 
-<h2 id="email">Email</h2>
+<h2 id="email">Email&nbsp;<a class="anchor" href="#email"><i class="small linkify icon"></i></a> </h2>
 
 <p>Don't do this:</p>
 
@@ -2535,15 +2548,15 @@ var bodyBgSwitchIndex = 0;
 <br /></li>
 </ul>
 
-<h2 id="operating-system-patching">Operating system patching</h2>
+<h2 id="operating-system-patching">Operating system patching&nbsp;<a class="anchor" href="#operating-system-patching"><i class="small linkify icon"></i></a> </h2>
 
 <p>Keep your operating system up to date with patches from the vendor. Over time software vendors patch their systems for known security holes, and if you aren't keeping everything up to date, you're exposing your system to the risk of exploitation.</p>
 
-<h2 id="anti-virus">Anti-Virus</h2>
+<h2 id="anti-virus">Anti-Virus&nbsp;<a class="anchor" href="#anti-virus"><i class="small linkify icon"></i></a> </h2>
 
 <p>Install a decent anti-virus. Almost all vendors offer free versions for home users. I use <a href="http://www.bitdefender.com/">BitDefender</a> which appears to have a decent detection rate.</p>
 
-<h2 id="firewall">Firewall</h2>
+<h2 id="firewall">Firewall&nbsp;<a class="anchor" href="#firewall"><i class="small linkify icon"></i></a> </h2>
 
 <p>Configure your host-based firewall.</p>
 
@@ -2560,25 +2573,27 @@ wf.msc
 
 <p>For MacOS: <a href="https://support.apple.com/en-ca/HT201642">https://support.apple.com/en-ca/HT201642</a></p>
 
-<h2 id="secure-your-communications-using-https">Secure your communications using HTTPS</h2>
+<h2 id="secure-your-communications-using-https">Secure your communications using HTTPS&nbsp;<a class="anchor" href="#secure-your-communications-using-https"><i class="small linkify icon"></i></a> </h2>
 
 <p>Go through your bookmarks, try all of them using https instead of http. If it works, you should edit your bookmark to only connect via https. There is even some browser extensions that try to do this for you.</p>
 
 <p>For example: <a href="https://www.eff.org/https-everywhere">https://www.eff.org/https-everywhere</a></p>
+
 
 			</article>
 		</section>
 		<section class="ui secondary attached segment dream-tags">
 			<span>No Tag</span>
 			
-		</section><section class="ui secondary bottom attached segment share row box"><div class="author"><img class="avatar" src="https://www.control-alt-del.org//images/mark.jpg">
+		</section><section class="ui secondary bottom attached segment share row box"><div class="author">
+	<img class="avatar" src="/images/mark.jpg">
 	
 </div>
 <div class="info grow flexbox"><a href="https://twitter.com/markrsteele">
 	
 	<p class="name">Mark Steele</p></a>
 	
-	<p class="desc">Cogito Interruptus Vulgaris</p>		
+	<p class="desc">Cogito Interruptus Vulgaris</p>
 </div>
 <section class="buttons row box">
 	<div class="facebook none flexbox" href="#" onclick="window.open(
@@ -2592,6 +2607,10 @@ wf.msc
 	</div>
 </section>
 </section>
+		<section class="ui secondary attached segment copyright">
+			
+
+		</section>
 		
 	</div>
 </div>
@@ -2624,12 +2643,11 @@ wf.msc
 </div>
 </section>
 	</div>
-</div></div>
+</div>
+</div>
 		</div>
-	</div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/site.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script>
-<script src="/js/twemoji.min.js"></script>
+	</div><script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.js"></script>
 
 <script>
 	(function () {
@@ -2640,10 +2658,5 @@ wf.msc
 	})();
 </script>
 
-<script>
-		anchors.add('.post-content h1');
-		anchors.add('.post-content h2');
-		anchors.add('.post-content h3');
-</script></body>
-
+</body>
 </html>

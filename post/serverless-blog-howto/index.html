@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
 <head><style>
 body {
 	display: block;
@@ -8,7 +7,14 @@ body {
 		background-image: var(--bgImage) !important;
 	
 }
-</style><title>
+
+body, body.pushable {
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover !important;
+}
+</style>
+<title>
 Serverless blog HOWTO
 </title><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +30,8 @@ It&#39;s also highly secure, as there is virtually no attack surface for the bad
 <link rel="shortcut icon" href="/img/defaultFav.ico">
 
 <link rel="canonical" href="https://www.control-alt-del.org/post/serverless-blog-howto/" />
-<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/><link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
 <style>
 body.pushable {
 	display: block;
@@ -40,7 +47,6 @@ body.pushable {
 	console.log("The client device is a "+(isMobile?"mobile":"PC")+".")
 </script>
 </head>
-
 <body><script>
 var prevBgIndex = 0;
 var bodyBgSwitchIndex = 0;
@@ -77,7 +83,7 @@ var bodyBgSwitchIndex = 0;
 	}
 </script><div class="blur-overlay"></div><div id="sidebar" class="ui sidebar inverted vertical menu">
 	<section id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
@@ -1148,7 +1154,6 @@ var bodyBgSwitchIndex = 0;
 </div>
 	</section>
 	
-	
 	<section id="footer" class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </section>
 </div>
@@ -1159,43 +1164,49 @@ var bodyBgSwitchIndex = 0;
 	<div class="item">
 		<i class="inverted big link bullseye icon dream-flip-toggle" title="About Me"></i>
 	</div><div class="item">
-		<a href="/">
-			<i class="inverted big link home icon" title="Home"></i>
-		</a>
-	</div>
+			<a href="/">
+				<i class="inverted big link home icon" title="Home"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/post">
-			<i class="inverted big link archive icon" title="Archive"></i>
-		</a>
-	</div>
+			<a href="/post">
+				<i class="inverted big link archive icon" title="Archive"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/categories">
-			<i class="inverted big link cubes icon" title="All Categories"></i>
-		</a>
-    </div>
+			<a href="/categories">
+				<i class="inverted big link cubes icon" title="All Categories"></i>
+			</a>
+    	</div>
 	<div class="ui container tablet computer only grid">
 		<div class="item" onClick="$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');">
 			<i class="inverted big link sidebar icon" title="Show Sidebar"></i>
 		</div>
 	</div>
+	<div class="item right">
+		<a href="/index.xml">
+			<i class="inverted big link rss icon" title="RSS Feed"></i>
+		</a>
+	</div>
 	
 </nav>
+
 
 <div class="ui centered grid">
 	<div class="sixteen wide mobile only column"><div class="ui inverted accordion">
 	<div id="header" class="ui inverted segment column box">
 		<header id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
 </h3>
 </header>
-		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">		
-				<i class="hand point icon down"title="Click this to pop tags and categories"></i>		
+		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">
+				<i class="hand point icon down"title="Click this to pop tags and categories"></i>
 			</div></div>
 		<div id="tag-category" class=" content"><section class="ui attached inverted segment dream-categories both flexbox">
-			<div class="inverted accordion">
+					<div class="inverted accordion">
 <div class="title">
 	<i class="dropdown icon"></i>
 	<a class="link" href="/categories/3d-printing">3d-printing</a>
@@ -2258,14 +2269,17 @@ var bodyBgSwitchIndex = 0;
 </div>
 
 </div>
-			</section></div>
+				</section></div>
 		<footer class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </footer>
 	</div>
-</div></div>
+</div>
+</div>
 	<div class="sixteen wide mobile fifteen wide tablet twelve wide computer column post-list">
 		<section class="ui secondary top attached black segment post-head">
-			<h1 class="post-title">Serverless blog HOWTO</h1>
+			<h1 class="post-title">
+				Serverless blog HOWTO
+			</h1>
 			<div class="sub header">
 					<div><span><i class="calendar outline icon"></i>Apr 22, 2018</span></div>
 					<div><span><i class="clock outline icon"></i>9 min read</span></div>
@@ -2297,9 +2311,8 @@ var bodyBgSwitchIndex = 0;
 </ul>
 </nav></div>
 			
-			
 			<article class="post-content twemoji">
-				<h1 id="serverless-content-management">Serverless content management</h1>
+				<h1 id="serverless-content-management">Serverless content management&nbsp;<a class="anchor" href="#serverless-content-management"><i class="small linkify icon"></i></a> </h1>
 
 <p>In this post, I will go over how to setup a completely serverless blog that runs with no servers and is for all intents and purposes free to run!</p>
 
@@ -2311,7 +2324,7 @@ var bodyBgSwitchIndex = 0;
 
 <p></p>
 
-<h1 id="moving-parts">Moving parts</h1>
+<h1 id="moving-parts">Moving parts&nbsp;<a class="anchor" href="#moving-parts"><i class="small linkify icon"></i></a> </h1>
 
 <ul>
 <li><a href="https://gohugo.io">Hugo</a>: Static site generator<br /></li>
@@ -2322,7 +2335,7 @@ var bodyBgSwitchIndex = 0;
 <br /></li>
 </ul>
 
-<h2 id="static-site-generator-hugo">Static Site Generator - Hugo</h2>
+<h2 id="static-site-generator-hugo">Static Site Generator - Hugo&nbsp;<a class="anchor" href="#static-site-generator-hugo"><i class="small linkify icon"></i></a> </h2>
 
 <p>I chose to leverage a static content site generator for this, as I wanted to keep things as simple as possible as well as ensure that the site will load fast and be cacheable.</p>
 
@@ -2361,7 +2374,7 @@ PygmentsStyle = &quot;perldoc&quot;
     featuredpost = &quot;true&quot;
 </code></pre>
 
-<h2 id="setup-some-github-repositories">Setup some Github repositories</h2>
+<h2 id="setup-some-github-repositories">Setup some Github repositories&nbsp;<a class="anchor" href="#setup-some-github-repositories"><i class="small linkify icon"></i></a> </h2>
 
 <p>Next we'll want to create a couple Github repositories to store the source and published sites. For the source site, create a repo. Mine's called 'blog'.</p>
 
@@ -2369,7 +2382,7 @@ PygmentsStyle = &quot;perldoc&quot;
 
 <p>Read on <a href="https://pages.github.com/">here</a> for more details on Github pages.</p>
 
-<h2 id="set-origins">Set origins</h2>
+<h2 id="set-origins">Set origins&nbsp;<a class="anchor" href="#set-origins"><i class="small linkify icon"></i></a> </h2>
 
 <p>Head on over to your blog source (~/blog in this example), and set the origin. Something like this:</p>
 <div class="highlight"><div class="chroma">
@@ -2481,23 +2494,23 @@ git commit -m <span class="s1">&#39;initial import&#39;</span>
 git push origin master</code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="setup-api-keys-in-github">Setup API keys in Github</h2>
+<h2 id="setup-api-keys-in-github">Setup API keys in Github&nbsp;<a class="anchor" href="#setup-api-keys-in-github"><i class="small linkify icon"></i></a> </h2>
 
 <p>Head on over to Github, in the Settings page -&gt; Developer settings, you'll find a menu for personal access tokens. Create a token, call it something meaningful (eg: TravisCI), and give the token access to everything in the 'repo' ACL section. Copy paste that somewhere for later.</p>
 
-<h2 id="setup-travisci">Setup TravisCI</h2>
+<h2 id="setup-travisci">Setup TravisCI&nbsp;<a class="anchor" href="#setup-travisci"><i class="small linkify icon"></i></a> </h2>
 
 <p>Head on over to <a href="https://travis-ci.org">Travis</a> and login. Give Travis access to your repositories. Next, navigate to the blog repo in the Travis UI, and click on the settings tab. You want to add two variables: GITHUB_USER and GITHUB_API_KEY. The GITHUB_API_KEY is the key you just created, and the GITHUB_USER is your github username.</p>
 
 <p><img src="/images/travis-settings.png" alt="null" /></p>
 
-<h2 id="checkpoint-what-we-have-so-far">Checkpoint - What we have so far</h2>
+<h2 id="checkpoint-what-we-have-so-far">Checkpoint - What we have so far&nbsp;<a class="anchor" href="#checkpoint-what-we-have-so-far"><i class="small linkify icon"></i></a> </h2>
 
 <p>If all went well, at this point we should have Travis automatically triggering every time something is pushed to the blog repo, and pushing changes after running Hugo to the publishing repo.</p>
 
 <p>But why stop here? Let's create a UI to make this easier for non technical folks to update content.</p>
 
-<h2 id="authentication">Authentication</h2>
+<h2 id="authentication">Authentication&nbsp;<a class="anchor" href="#authentication"><i class="small linkify icon"></i></a> </h2>
 
 <p>Before setting up the CMS, we'll want to setup an OAuth2 middle-man to hold our secrets.</p>
 
@@ -2509,7 +2522,7 @@ git push origin master</code></pre></td></tr></table>
 
 <p>I usually setup an AWS profile in my ~/.aws/credentials file. See <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html">here</a> for details.</p>
 
-<h3 id="setup-lambda-function">Setup Lambda function</h3>
+<h3 id="setup-lambda-function">Setup Lambda function&nbsp;<a class="anchor" href="#setup-lambda-function"><i class="small linkify icon"></i></a> </h3>
 
 <p>Clone the git repository, install dependancies</p>
 <div class="highlight"><div class="chroma">
@@ -2591,13 +2604,13 @@ functions:
 </div>
 <p>Take note of the URLs that ends with /oauth/auth and /oauth/callback, we'll need those in a second.</p>
 
-<h3 id="create-an-oauth2-client-id-secret-in-github">Create an OAuth2 client id/secret in Github</h3>
+<h3 id="create-an-oauth2-client-id-secret-in-github">Create an OAuth2 client id/secret in Github&nbsp;<a class="anchor" href="#create-an-oauth2-client-id-secret-in-github"><i class="small linkify icon"></i></a> </h3>
 
 <p>Head on over to Github settings -&gt; developer settings and create an OAuth2 app. The callback URL is the URL we just created (the one with /oauth/callback).</p>
 
 <p>Take note of the OAuth2 client id and secret. We'll need those in a second.</p>
 
-<h3 id="setup-secrets-in-the-aws-parameter-store">Setup secrets in the AWS parameter store</h3>
+<h3 id="setup-secrets-in-the-aws-parameter-store">Setup secrets in the AWS parameter store&nbsp;<a class="anchor" href="#setup-secrets-in-the-aws-parameter-store"><i class="small linkify icon"></i></a> </h3>
 
 <p>Now let's configure our code to use the right parameters. Being good security conscious folks, we don't hardcode passwords or secrets anywhere and instead leverage an encrypted parameter store to store our secrets. In this case, we'll use the AWS SSM parameter store, which keeps things encrypted using KMS.</p>
 
@@ -2616,7 +2629,7 @@ functions:
 <br /></li>
 </ul>
 
-<h2 id="content-management">Content management</h2>
+<h2 id="content-management">Content management&nbsp;<a class="anchor" href="#content-management"><i class="small linkify icon"></i></a> </h2>
 
 <p>Netlify CMS is a content management system built as a React web app, which integrates into Github to allow you to edit content straight from your browser. Setting it up is as easy as dropping an HTML page into your site.</p>
 <div class="highlight"><div class="chroma">
@@ -2708,7 +2721,7 @@ git push origin master</code></pre></td></tr></table>
 
 <p><img src="/images/netlify2.png" alt="Editorial workflow" /></p>
 
-<h1 id="closing-thoughts">Closing thoughts</h1>
+<h1 id="closing-thoughts">Closing thoughts&nbsp;<a class="anchor" href="#closing-thoughts"><i class="small linkify icon"></i></a> </h1>
 
 <p>So I lied a little bit in this post. In order to get the OAuth2 authentication to work, I had to edit the code of the CMS to fix a bug in how it was appending URL paths in the OAuth2 flow.</p>
 
@@ -2722,24 +2735,26 @@ git push origin master</code></pre></td></tr></table>
 
 <p>-M</p>
 
-<h2 id="update">Update</h2>
+<h2 id="update">Update&nbsp;<a class="anchor" href="#update"><i class="small linkify icon"></i></a> </h2>
 
 <p>Since writing this post, the PR has been merged to fix the OAuth2 flow, and that's working just fine.</p>
 
 <p>I've also setup a Lambda function to be triggered by Travis whenever the build succeeds which invalidates CloudFront. Read more <a href="/post/invalidate-cloudfront-with-lambda/">here</a>. Here's the <a href="https://github.com/marksteele/blog/blob/master/.travis.yml">travis config</a>.</p>
+
 			</article>
 		</section>
 		<section class="ui secondary attached segment dream-tags">
 			<span>No Tag</span>
 			
-		</section><section class="ui secondary bottom attached segment share row box"><div class="author"><img class="avatar" src="https://www.control-alt-del.org//images/mark.jpg">
+		</section><section class="ui secondary bottom attached segment share row box"><div class="author">
+	<img class="avatar" src="/images/mark.jpg">
 	
 </div>
 <div class="info grow flexbox"><a href="https://twitter.com/markrsteele">
 	
 	<p class="name">Mark Steele</p></a>
 	
-	<p class="desc">Cogito Interruptus Vulgaris</p>		
+	<p class="desc">Cogito Interruptus Vulgaris</p>
 </div>
 <section class="buttons row box">
 	<div class="facebook none flexbox" href="#" onclick="window.open(
@@ -2753,6 +2768,10 @@ git push origin master</code></pre></td></tr></table>
 	</div>
 </section>
 </section>
+		<section class="ui secondary attached segment copyright">
+			
+
+		</section>
 		
 	</div>
 </div>
@@ -2785,12 +2804,11 @@ git push origin master</code></pre></td></tr></table>
 </div>
 </section>
 	</div>
-</div></div>
+</div>
+</div>
 		</div>
-	</div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/site.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script>
-<script src="/js/twemoji.min.js"></script>
+	</div><script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.js"></script>
 
 <script>
 	(function () {
@@ -2801,10 +2819,5 @@ git push origin master</code></pre></td></tr></table>
 	})();
 </script>
 
-<script>
-		anchors.add('.post-content h1');
-		anchors.add('.post-content h2');
-		anchors.add('.post-content h3');
-</script></body>
-
+</body>
 </html>

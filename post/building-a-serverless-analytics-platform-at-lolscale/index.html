@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
 <head><style>
 body {
 	display: block;
@@ -8,7 +7,14 @@ body {
 		background-image: var(--bgImage) !important;
 	
 }
-</style><title>
+
+body, body.pushable {
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover !important;
+}
+</style>
+<title>
 building a serverless analytics platform at lolscale
 </title><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +28,8 @@ building a serverless analytics platform at lolscale
 <link rel="shortcut icon" href="/img/defaultFav.ico">
 
 <link rel="canonical" href="https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/" />
-<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/><link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
 <style>
 body.pushable {
 	display: block;
@@ -38,7 +45,6 @@ body.pushable {
 	console.log("The client device is a "+(isMobile?"mobile":"PC")+".")
 </script>
 </head>
-
 <body><script>
 var prevBgIndex = 0;
 var bodyBgSwitchIndex = 0;
@@ -75,7 +81,7 @@ var bodyBgSwitchIndex = 0;
 	}
 </script><div class="blur-overlay"></div><div id="sidebar" class="ui sidebar inverted vertical menu">
 	<section id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
@@ -1146,7 +1152,6 @@ var bodyBgSwitchIndex = 0;
 </div>
 	</section>
 	
-	
 	<section id="footer" class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </section>
 </div>
@@ -1157,43 +1162,49 @@ var bodyBgSwitchIndex = 0;
 	<div class="item">
 		<i class="inverted big link bullseye icon dream-flip-toggle" title="About Me"></i>
 	</div><div class="item">
-		<a href="/">
-			<i class="inverted big link home icon" title="Home"></i>
-		</a>
-	</div>
+			<a href="/">
+				<i class="inverted big link home icon" title="Home"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/post">
-			<i class="inverted big link archive icon" title="Archive"></i>
-		</a>
-	</div>
+			<a href="/post">
+				<i class="inverted big link archive icon" title="Archive"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/categories">
-			<i class="inverted big link cubes icon" title="All Categories"></i>
-		</a>
-    </div>
+			<a href="/categories">
+				<i class="inverted big link cubes icon" title="All Categories"></i>
+			</a>
+    	</div>
 	<div class="ui container tablet computer only grid">
 		<div class="item" onClick="$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');">
 			<i class="inverted big link sidebar icon" title="Show Sidebar"></i>
 		</div>
 	</div>
+	<div class="item right">
+		<a href="/index.xml">
+			<i class="inverted big link rss icon" title="RSS Feed"></i>
+		</a>
+	</div>
 	
 </nav>
+
 
 <div class="ui centered grid">
 	<div class="sixteen wide mobile only column"><div class="ui inverted accordion">
 	<div id="header" class="ui inverted segment column box">
 		<header id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
 </h3>
 </header>
-		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">		
-				<i class="hand point icon down"title="Click this to pop tags and categories"></i>		
+		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">
+				<i class="hand point icon down"title="Click this to pop tags and categories"></i>
 			</div></div>
 		<div id="tag-category" class=" content"><section class="ui attached inverted segment dream-categories both flexbox">
-			<div class="inverted accordion">
+					<div class="inverted accordion">
 <div class="title">
 	<i class="dropdown icon"></i>
 	<a class="link" href="/categories/3d-printing">3d-printing</a>
@@ -2256,14 +2267,17 @@ var bodyBgSwitchIndex = 0;
 </div>
 
 </div>
-			</section></div>
+				</section></div>
 		<footer class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </footer>
 	</div>
-</div></div>
+</div>
+</div>
 	<div class="sixteen wide mobile fifteen wide tablet twelve wide computer column post-list">
 		<section class="ui secondary top attached black segment post-head">
-			<h1 class="post-title">building a serverless analytics platform at lolscale</h1>
+			<h1 class="post-title">
+				building a serverless analytics platform at lolscale
+			</h1>
 			<div class="sub header">
 					<div><span><i class="calendar outline icon"></i>Apr 4, 2018</span></div>
 					<div><span><i class="clock outline icon"></i>14 min read</span></div>
@@ -2314,9 +2328,8 @@ var bodyBgSwitchIndex = 0;
 </ul>
 </nav></div>
 			
-			
 			<article class="post-content twemoji">
-				<h1 id="hundreds-of-millions-of-events-per-month-on-the-cheap">Hundreds of millions of events per month on the cheap</h1>
+				<h1 id="hundreds-of-millions-of-events-per-month-on-the-cheap">Hundreds of millions of events per month on the cheap&nbsp;<a class="anchor" href="#hundreds-of-millions-of-events-per-month-on-the-cheap"><i class="small linkify icon"></i></a> </h1>
 
 <p>In this post, I'm going to go over the setup of infrastructure for creating an analytics platform capable of handling hundreds of millions of events per month. All without spinning up a single server.</p>
 
@@ -2330,7 +2343,7 @@ var bodyBgSwitchIndex = 0;
 
 <p>If you've already got a BI solution in your organization, this might be an easy win as integrating this into most BI suites shouldn't be too hard to do.</p>
 
-<h2 id="dramatis-personae">Dramatis personae</h2>
+<h2 id="dramatis-personae">Dramatis personae&nbsp;<a class="anchor" href="#dramatis-personae"><i class="small linkify icon"></i></a> </h2>
 
 <ul>
 <li>Lambda: Serverless computing framework. This is where the code lives.<br /></li>
@@ -2343,7 +2356,7 @@ var bodyBgSwitchIndex = 0;
 <br /></li>
 </ul>
 
-<h2 id="high-level-overview">High level overview</h2>
+<h2 id="high-level-overview">High level overview&nbsp;<a class="anchor" href="#high-level-overview"><i class="small linkify icon"></i></a> </h2>
 
 <p>Client code invokes the HTTP API endpoint that lives on API Gateway.</p>
 
@@ -2361,9 +2374,9 @@ var bodyBgSwitchIndex = 0;
 
 <p>Along the way, we'll also setup some crawlers in Glue to map out the data schema.</p>
 
-<h2 id="implementation-data-ingestion">Implementation - Data ingestion</h2>
+<h2 id="implementation-data-ingestion">Implementation - Data ingestion&nbsp;<a class="anchor" href="#implementation-data-ingestion"><i class="small linkify icon"></i></a> </h2>
 
-<h3 id="make-a-place-to-store-the-data">Make a place to store the data.</h3>
+<h3 id="make-a-place-to-store-the-data">Make a place to store the data.&nbsp;<a class="anchor" href="#make-a-place-to-store-the-data"><i class="small linkify icon"></i></a> </h3>
 
 <p>From the AWS console, let's create an S3 bucket. Choose the region of your choice, and give your bucket a memorable name.</p>
 
@@ -2371,7 +2384,7 @@ var bodyBgSwitchIndex = 0;
 
 <p>I'd recommend you don't set the bucket permissions to public, that's just a bad idea. Once you're setup, time to move on.</p>
 
-<h3 id="create-iam-role-for-event-delivery">Create IAM role for event delivery</h3>
+<h3 id="create-iam-role-for-event-delivery">Create IAM role for event delivery&nbsp;<a class="anchor" href="#create-iam-role-for-event-delivery"><i class="small linkify icon"></i></a> </h3>
 
 <p>Create an IAM role called firehose_delivery_role, with the following permissions (replace YOUR_FIREHOSE_NAME, YOUR_BUCKET_NAME, YOUR_AWS_ACCOUNT_NUMBER_HERE):</p>
 <div class="highlight"><div class="chroma">
@@ -2534,7 +2547,7 @@ var bodyBgSwitchIndex = 0;
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="setup-the-firehose">Setup the firehose</h3>
+<h3 id="setup-the-firehose">Setup the firehose&nbsp;<a class="anchor" href="#setup-the-firehose"><i class="small linkify icon"></i></a> </h3>
 
 <p>Head on over to Kinesis firehose, and setup your firehose. Use the following settings (make sure you change the firehose name and the bucket name):</p>
 
@@ -2553,7 +2566,7 @@ S3 encryption: No encryption
 
 <p>This instructs Kinesis do dump your data in 128MB chunks, or every 15 minutes whichever comes first.</p>
 
-<h3 id="http-api">HTTP API</h3>
+<h3 id="http-api">HTTP API&nbsp;<a class="anchor" href="#http-api"><i class="small linkify icon"></i></a> </h3>
 
 <p>For the HTTP API, we'll use API Gateway and Lambda. I'm going to use the <a href="https://serverless.com">serverless</a> framework which will take care of things like orchestrating the deployment of the Lambda, associating events to API Gateway and S3.</p>
 
@@ -2921,7 +2934,7 @@ S3 encryption: No encryption
 sls s3deploy</code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="check-your-progress">Check your progress</h3>
+<h3 id="check-your-progress">Check your progress&nbsp;<a class="anchor" href="#check-your-progress"><i class="small linkify icon"></i></a> </h3>
 
 <p>If everything went well, you now have a data ingestion pipeline setup that can receive nearly limitless amounts of inbound data, efficiently pushing it to an S3 bucket.</p>
 
@@ -2997,13 +3010,13 @@ sls s3deploy</code></pre></td></tr></table>
 </div>
 <p>If all went well, you should see some output being printed out to the screen. Wait about 15 minutes and go have a look at your S3 bucket, you should see some data files.</p>
 
-<h2 id="implementation-data-schema-discovery-and-optimization">Implementation - Data/Schema discovery and optimization</h2>
+<h2 id="implementation-data-schema-discovery-and-optimization">Implementation - Data/Schema discovery and optimization&nbsp;<a class="anchor" href="#implementation-data-schema-discovery-and-optimization"><i class="small linkify icon"></i></a> </h2>
 
-<h3 id="create-glue-db">Create Glue DB</h3>
+<h3 id="create-glue-db">Create Glue DB&nbsp;<a class="anchor" href="#create-glue-db"><i class="small linkify icon"></i></a> </h3>
 
 <p>Head over to the Glue console, and create a database. Just enter DB name that you'd like. (eg: YOUR_ANALYTICS_DB_NAME)</p>
 
-<h3 id="create-glue-crawlers-for-raw-data">Create Glue crawlers for raw data</h3>
+<h3 id="create-glue-crawlers-for-raw-data">Create Glue crawlers for raw data&nbsp;<a class="anchor" href="#create-glue-crawlers-for-raw-data"><i class="small linkify icon"></i></a> </h3>
 
 <p>Head to crawlers, and create a new one. The parameters are:</p>
 
@@ -3020,7 +3033,7 @@ Include path: s3://YOUR_BUCKET_NAME_HERE/partitioned_analytics_raw
 
 <p>Create a trigger to schedule the crawler to run once an hour, this will keep the Athena meta-data up to date with the partition list.</p>
 
-<h3 id="create-etl-job-to-transform-raw-json-files-to-parquet">Create ETL job to transform raw json files to parquet</h3>
+<h3 id="create-etl-job-to-transform-raw-json-files-to-parquet">Create ETL job to transform raw json files to parquet&nbsp;<a class="anchor" href="#create-etl-job-to-transform-raw-json-files-to-parquet"><i class="small linkify icon"></i></a> </h3>
 
 <p>Here's a python script that will transform your raw json files to Parquet. When creating the ETL, make sure you enable job bookmarks in the advanced settings. Make sure you change YOUR_BUCKET_NAME_HERE and YOUR_ANALYTICS_DB_NAME to match what your settings.</p>
 <div class="highlight"><div class="chroma">
@@ -3075,7 +3088,7 @@ Include path: s3://YOUR_BUCKET_NAME_HERE/partitioned_analytics_raw
 
 <p>Probably a good time to create a trigger to have the job run every hour or day.</p>
 
-<h3 id="create-a-crawler-for-the-parquet-files">Create a crawler for the Parquet files</h3>
+<h3 id="create-a-crawler-for-the-parquet-files">Create a crawler for the Parquet files&nbsp;<a class="anchor" href="#create-a-crawler-for-the-parquet-files"><i class="small linkify icon"></i></a> </h3>
 
 <p>Head to crawlers, and create a new one. The parameters are:</p>
 
@@ -3092,7 +3105,7 @@ Include path: s3://YOUR_BUCKET_NAME_HERE/analytics_data
 
 <p>Create a trigger to schedule the crawler to run once an hour, this will keep the Athena meta-data up to date with the partition list.</p>
 
-<h2 id="review-of-what-we-have-so-far">Review of what we have so far...</h2>
+<h2 id="review-of-what-we-have-so-far">Review of what we have so far...&nbsp;<a class="anchor" href="#review-of-what-we-have-so-far"><i class="small linkify icon"></i></a> </h2>
 
 <p>You're almost done. At this point you have a data pipeline that is ingesting data from an HTTP api, and pushing it into a query friendly format.</p>
 
@@ -3100,7 +3113,7 @@ Include path: s3://YOUR_BUCKET_NAME_HERE/analytics_data
 
 <p>(assuming you've set the limits in your AWS account accordingly).</p>
 
-<h2 id="querying-the-data">Querying the data</h2>
+<h2 id="querying-the-data">Querying the data&nbsp;<a class="anchor" href="#querying-the-data"><i class="small linkify icon"></i></a> </h2>
 
 <p>We can now query the data using AWS Athena. Head on over to the Athena console, and you'll find a database with two tables.</p>
 
@@ -3130,7 +3143,7 @@ Include path: s3://YOUR_BUCKET_NAME_HERE/analytics_data
 
 <p>For this query, it took 28 seconds, and scanned almost the entire data set with 17GB of data read.</p>
 
-<h2 id="building-dashboards-in-quisksight">Building dashboards in QuiskSight</h2>
+<h2 id="building-dashboards-in-quisksight">Building dashboards in QuiskSight&nbsp;<a class="anchor" href="#building-dashboards-in-quisksight"><i class="small linkify icon"></i></a> </h2>
 
 <p>Adding reports on top of this is very straightforward with Quicksight.</p>
 
@@ -3155,9 +3168,9 @@ Include path: s3://YOUR_BUCKET_NAME_HERE/analytics_data
 
 <p><img src="/images/Quicksight-3.png" alt="Quicksight 3" /></p>
 
-<h1 id="cost-analysis">Cost analysis</h1>
+<h1 id="cost-analysis">Cost analysis&nbsp;<a class="anchor" href="#cost-analysis"><i class="small linkify icon"></i></a> </h1>
 
-<h2 id="assumptions">Assumptions</h2>
+<h2 id="assumptions">Assumptions&nbsp;<a class="anchor" href="#assumptions"><i class="small linkify icon"></i></a> </h2>
 
 <p>200 byte payload per event<br />
 200,000,000 events per month<br />
@@ -3165,7 +3178,7 @@ Include path: s3://YOUR_BUCKET_NAME_HERE/analytics_data
 200,000,000/30 (days)/86400 (seconds per day) = 77 requests/sec<br />
 200 bytes per event * 77 requests/sec = 15 KB/sec raw throughput</p>
 
-<h3 id="lambda-compute">Lambda compute</h3>
+<h3 id="lambda-compute">Lambda compute&nbsp;<a class="anchor" href="#lambda-compute"><i class="small linkify icon"></i></a> </h3>
 
 <p>The compute costs of moving the files around in s3 should be negligible.</p>
 
@@ -3178,16 +3191,16 @@ Total Compute – Free tier compute = Monthly billable compute seconds
 2,100,000 GB-s *  $0.00001667 = 35.007$/month
 </code></pre>
 
-<h3 id="lambda-request">Lambda request</h3>
+<h3 id="lambda-request">Lambda request&nbsp;<a class="anchor" href="#lambda-request"><i class="small linkify icon"></i></a> </h3>
 
 <p>200 (million reqs) * 0.2$ (per million): 40$</p>
 
-<h3 id="apig-requests">APIG requests</h3>
+<h3 id="apig-requests">APIG requests&nbsp;<a class="anchor" href="#apig-requests"><i class="small linkify icon"></i></a> </h3>
 
 <p>3.5$ * 200 (million reqs) : 700$/month<br />
  Data transfer out: should be very small, api returns only http status code. 5$</p>
 
-<h3 id="s3-storage">S3 storage</h3>
+<h3 id="s3-storage">S3 storage&nbsp;<a class="anchor" href="#s3-storage"><i class="small linkify icon"></i></a> </h3>
 
 <p>37.25 GB/month * 0.023$/GB = 0.86$/month<br />
 Data in: free<br />
@@ -3195,11 +3208,11 @@ Data out (to athena/glue): free</p>
 
 <p>After a year it'll be about 10$/month.</p>
 
-<h3 id="s3-requests-operations">S3 requests/operations</h3>
+<h3 id="s3-requests-operations">S3 requests/operations&nbsp;<a class="anchor" href="#s3-requests-operations"><i class="small linkify icon"></i></a> </h3>
 
 <p>Should be negligible.</p>
 
-<h3 id="athena">Athena</h3>
+<h3 id="athena">Athena&nbsp;<a class="anchor" href="#athena"><i class="small linkify icon"></i></a> </h3>
 
 <p>5$/TB of data scanned, 10MB minimum query size.<br />
 1 year of data is approximately 447GB (149GB compressed)<br />
@@ -3211,45 +3224,47 @@ Cost of scanning entire uncompressed data set once: 2.18$ (0.72$ compressed read
 
 <p>Let's guess at 500TB scanned per month. 500*5: 2500$/month. Probably overkill.</p>
 
-<h3 id="kinesis-firehose">Kinesis firehose</h3>
+<h3 id="kinesis-firehose">Kinesis firehose&nbsp;<a class="anchor" href="#kinesis-firehose"><i class="small linkify icon"></i></a> </h3>
 
 <p>Data ingested 0.029$/GB ingested, 5KB per record min<br />
 77 records/sec * 5KB/record / 1024 / 1024 = 0.0003671646118 GB/sec * 30 days/month * 86400 sec/day = 951 GB/month<br />
 951 * 0.029 = 27.57$<br />
 (overpaying for kinesis here due to 5kb minimum record size...)</p>
 
-<h3 id="glue-etl">Glue ETL</h3>
+<h3 id="glue-etl">Glue ETL&nbsp;<a class="anchor" href="#glue-etl"><i class="small linkify icon"></i></a> </h3>
 
 <p>I've run the glue ETL to move from JSON to Parquet, and it took about an hour to run @ 10 DPUs and processed about 20 GB of data. I'd expect the Glue costs for the scenario above to probably run at about 10 hours of runtime per month @ 10 DPUs, so let's guess the cost of that at around 10 hours * 0.44$ (dpu-hour) * 10 (DPUs) = 44$/month</p>
 
-<h3 id="quicksight">QuickSight</h3>
+<h3 id="quicksight">QuickSight&nbsp;<a class="anchor" href="#quicksight"><i class="small linkify icon"></i></a> </h3>
 
 <p>TBD</p>
 
-<h2 id="total">Total</h2>
+<h2 id="total">Total&nbsp;<a class="anchor" href="#total"><i class="small linkify icon"></i></a> </h2>
 
 <p>Lambda (35 + 40) + APIG (705) + S3 (10) + Athena (2500) + Kinesis (27.57) + Glue (44) + QuickSight (??) = 3,361.57$/month.</p>
 
-<h1 id="closing-thoughts">Closing thoughts</h1>
+<h1 id="closing-thoughts">Closing thoughts&nbsp;<a class="anchor" href="#closing-thoughts"><i class="small linkify icon"></i></a> </h1>
 
 <p>If you've followed along, you can now see that we've got a scalable platform for tracking events. A method for querying them, but no fancy dashboard reporting.</p>
 
 <p>It's easy enough to plug Athena into a BI platform (Pentaho, Tableau, etc... via JDBC) or into QuickSight.</p>
 
 <p>This solution appears to cost about 1/10th of most SaaS providers. I'd chalk this up as a win.</p>
+
 			</article>
 		</section>
 		<section class="ui secondary attached segment dream-tags">
 			<span>No Tag</span>
 			
-		</section><section class="ui secondary bottom attached segment share row box"><div class="author"><img class="avatar" src="https://www.control-alt-del.org//images/mark.jpg">
+		</section><section class="ui secondary bottom attached segment share row box"><div class="author">
+	<img class="avatar" src="/images/mark.jpg">
 	
 </div>
 <div class="info grow flexbox"><a href="https://twitter.com/markrsteele">
 	
 	<p class="name">Mark Steele</p></a>
 	
-	<p class="desc">Cogito Interruptus Vulgaris</p>		
+	<p class="desc">Cogito Interruptus Vulgaris</p>
 </div>
 <section class="buttons row box">
 	<div class="facebook none flexbox" href="#" onclick="window.open(
@@ -3263,6 +3278,10 @@ Cost of scanning entire uncompressed data set once: 2.18$ (0.72$ compressed read
 	</div>
 </section>
 </section>
+		<section class="ui secondary attached segment copyright">
+			
+
+		</section>
 		
 	</div>
 </div>
@@ -3295,12 +3314,11 @@ Cost of scanning entire uncompressed data set once: 2.18$ (0.72$ compressed read
 </div>
 </section>
 	</div>
-</div></div>
+</div>
+</div>
 		</div>
-	</div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/site.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script>
-<script src="/js/twemoji.min.js"></script>
+	</div><script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.js"></script>
 
 <script>
 	(function () {
@@ -3311,10 +3329,5 @@ Cost of scanning entire uncompressed data set once: 2.18$ (0.72$ compressed read
 	})();
 </script>
 
-<script>
-		anchors.add('.post-content h1');
-		anchors.add('.post-content h2');
-		anchors.add('.post-content h3');
-</script></body>
-
+</body>
 </html>

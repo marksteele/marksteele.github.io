@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
 <head><style>
 body {
 	display: block;
@@ -8,7 +7,14 @@ body {
 		background-image: var(--bgImage) !important;
 	
 }
-</style><title>
+
+body, body.pushable {
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover !important;
+}
+</style>
+<title>
 pdi bag of tricks...
 </title><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +33,8 @@ To do this, at work we created a PDI bloom filter step (thanks Fabio!). This art
 <link rel="shortcut icon" href="/img/defaultFav.ico">
 
 <link rel="canonical" href="https://www.control-alt-del.org/post/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/" />
-<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/><link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
 <style>
 body.pushable {
 	display: block;
@@ -43,7 +50,6 @@ body.pushable {
 	console.log("The client device is a "+(isMobile?"mobile":"PC")+".")
 </script>
 </head>
-
 <body><script>
 var prevBgIndex = 0;
 var bodyBgSwitchIndex = 0;
@@ -80,7 +86,7 @@ var bodyBgSwitchIndex = 0;
 	}
 </script><div class="blur-overlay"></div><div id="sidebar" class="ui sidebar inverted vertical menu">
 	<section id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
@@ -1151,7 +1157,6 @@ var bodyBgSwitchIndex = 0;
 </div>
 	</section>
 	
-	
 	<section id="footer" class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </section>
 </div>
@@ -1162,43 +1167,49 @@ var bodyBgSwitchIndex = 0;
 	<div class="item">
 		<i class="inverted big link bullseye icon dream-flip-toggle" title="About Me"></i>
 	</div><div class="item">
-		<a href="/">
-			<i class="inverted big link home icon" title="Home"></i>
-		</a>
-	</div>
+			<a href="/">
+				<i class="inverted big link home icon" title="Home"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/post">
-			<i class="inverted big link archive icon" title="Archive"></i>
-		</a>
-	</div>
+			<a href="/post">
+				<i class="inverted big link archive icon" title="Archive"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/categories">
-			<i class="inverted big link cubes icon" title="All Categories"></i>
-		</a>
-    </div>
+			<a href="/categories">
+				<i class="inverted big link cubes icon" title="All Categories"></i>
+			</a>
+    	</div>
 	<div class="ui container tablet computer only grid">
 		<div class="item" onClick="$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');">
 			<i class="inverted big link sidebar icon" title="Show Sidebar"></i>
 		</div>
 	</div>
+	<div class="item right">
+		<a href="/index.xml">
+			<i class="inverted big link rss icon" title="RSS Feed"></i>
+		</a>
+	</div>
 	
 </nav>
+
 
 <div class="ui centered grid">
 	<div class="sixteen wide mobile only column"><div class="ui inverted accordion">
 	<div id="header" class="ui inverted segment column box">
 		<header id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
 </h3>
 </header>
-		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">		
-				<i class="hand point icon down"title="Click this to pop tags and categories"></i>		
+		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">
+				<i class="hand point icon down"title="Click this to pop tags and categories"></i>
 			</div></div>
 		<div id="tag-category" class=" content"><section class="ui attached inverted segment dream-categories both flexbox">
-			<div class="inverted accordion">
+					<div class="inverted accordion">
 <div class="title">
 	<i class="dropdown icon"></i>
 	<a class="link" href="/categories/3d-printing">3d-printing</a>
@@ -2261,14 +2272,17 @@ var bodyBgSwitchIndex = 0;
 </div>
 
 </div>
-			</section></div>
+				</section></div>
 		<footer class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </footer>
 	</div>
-</div></div>
+</div>
+</div>
 	<div class="sixteen wide mobile fifteen wide tablet twelve wide computer column post-list">
 		<section class="ui secondary top attached black segment post-head">
-			<h1 class="post-title">pdi bag of tricks...</h1>
+			<h1 class="post-title">
+				pdi bag of tricks...
+			</h1>
 			<div class="sub header">
 					<div><span><i class="calendar outline icon"></i>Jan 20, 2014</span></div>
 					<div><span><i class="clock outline icon"></i>4 min read</span></div>
@@ -2287,7 +2301,6 @@ var bodyBgSwitchIndex = 0;
 </ul>
 </nav></div>
 			
-			
 			<article class="post-content twemoji">
 				<p>After using PDI for a while, you start to encounter some common problems. PDI crashes, databases die, connections get reset, all sorts of<br />
 interesting things can happen in complex systems.</p>
@@ -2305,7 +2318,7 @@ idempotent. This can be tricky given an unlimited input set over time.</p>
 
 <p>Before we begin, grab, compile, and install the <a href="https://github.com/instaclick/PDI-Plugin-Step-BloomFilter">PDI plugin</a>.</p>
 
-<h2 id="use-case-1-ensure-only-once-processing">Use Case #1: Ensure only-once processing</h2>
+<h2 id="use-case-1-ensure-only-once-processing">Use Case #1: Ensure only-once processing&nbsp;<a class="anchor" href="#use-case-1-ensure-only-once-processing"><i class="small linkify icon"></i></a> </h2>
 
 <p>You've got a known sized input set (let's say a few million entries), and want to ensure you only process them once.</p>
 
@@ -2328,7 +2341,7 @@ You might start with a table input step, pass it along to the bloom filter step.
 
 <p>If it is, the row is disgarded. If not, it is added to the bloomfilter and passed along.</p>
 
-<h2 id="use-case-2-unique-value-for-a-given-time-range">Use Case #2: Unique value for a given time range</h2>
+<h2 id="use-case-2-unique-value-for-a-given-time-range">Use Case #2: Unique value for a given time range&nbsp;<a class="anchor" href="#use-case-2-unique-value-for-a-given-time-range"><i class="small linkify icon"></i></a> </h2>
 
 <p>Suppose you were doing log processing of a clickstream, and wanted to know unique clicks by IP to a given URL for a 24 hour period.</p>
 
@@ -2362,7 +2375,7 @@ You might start with a table input step, pass it along to the bloom filter step.
 
 <p>Just as a caveat, the step tries to be smart by caching filters, however you'll need pretty fast I/O if you're working rowset is hitting a large variety of the time periods.</p>
 
-<h2 id="use-case-3-email-blacklist">Use Case #3: Email blacklist</h2>
+<h2 id="use-case-3-email-blacklist">Use Case #3: Email blacklist&nbsp;<a class="anchor" href="#use-case-3-email-blacklist"><i class="small linkify icon"></i></a> </h2>
 
 <p>Suppose you've got an email marketing system and maintain a blacklist of addresses that you do not wish to send emails out to.<br />
 Further suppose that the blacklist is a few million entries. Searching through an array might be slow/CPU intensive, however a<br />
@@ -2371,7 +2384,7 @@ bloomfilter is a great fit for this.</p>
 <p>In this case we'd want two transformations. The first, would train the bloomfilter with the blacklist elements (could rebuild it daily)<br />
 using the 'single bloomfilter' options, and the second would use the 'check only' option specifying the same path.</p>
 
-<h2 id="gotchas">Gotchas</h2>
+<h2 id="gotchas">Gotchas&nbsp;<a class="anchor" href="#gotchas"><i class="small linkify icon"></i></a> </h2>
 
 <p>You need to make sure you don't have multiple jobs running simultaneously hitting the same bloom filter.</p>
 
@@ -2379,22 +2392,24 @@ using the 'single bloomfilter' options, and the second would use the 'check only
 same bloomfilter more than once in a transformation (unless you're accessing it read-only using the check-only option).<br />
 Again, you'd want to make sure nobody else was trying to write to it while you were reading it.</p>
 
-<h2 id="future-ideas">Future ideas</h2>
+<h2 id="future-ideas">Future ideas&nbsp;<a class="anchor" href="#future-ideas"><i class="small linkify icon"></i></a> </h2>
 
 <p>It's possible to merge and intersect bloom filters. Might be a fun experiment to have that ability baked in.</p>
+
 			</article>
 		</section>
 		<section class="ui secondary attached segment dream-tags">
 			<span>No Tag</span>
 			
-		</section><section class="ui secondary bottom attached segment share row box"><div class="author"><img class="avatar" src="https://www.control-alt-del.org//images/mark.jpg">
+		</section><section class="ui secondary bottom attached segment share row box"><div class="author">
+	<img class="avatar" src="/images/mark.jpg">
 	
 </div>
 <div class="info grow flexbox"><a href="https://twitter.com/markrsteele">
 	
 	<p class="name">Mark Steele</p></a>
 	
-	<p class="desc">Cogito Interruptus Vulgaris</p>		
+	<p class="desc">Cogito Interruptus Vulgaris</p>
 </div>
 <section class="buttons row box">
 	<div class="facebook none flexbox" href="#" onclick="window.open(
@@ -2408,6 +2423,10 @@ Again, you'd want to make sure nobody else was trying to write to it while you w
 	</div>
 </section>
 </section>
+		<section class="ui secondary attached segment copyright">
+			
+
+		</section>
 		
 	</div>
 </div>
@@ -2440,12 +2459,11 @@ Again, you'd want to make sure nobody else was trying to write to it while you w
 </div>
 </section>
 	</div>
-</div></div>
+</div>
+</div>
 		</div>
-	</div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/site.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script>
-<script src="/js/twemoji.min.js"></script>
+	</div><script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.js"></script>
 
 <script>
 	(function () {
@@ -2456,10 +2474,5 @@ Again, you'd want to make sure nobody else was trying to write to it while you w
 	})();
 </script>
 
-<script>
-		anchors.add('.post-content h1');
-		anchors.add('.post-content h2');
-		anchors.add('.post-content h3');
-</script></body>
-
+</body>
 </html>

@@ -17,14 +17,7 @@
       <pubDate>Thu, 01 Jan 2015 00:00:00 +0000</pubDate>
       
       <guid>https://www.control-alt-del.org/post/gallery-2015/</guid>
-      <description>I m g 0159
-      I m g 0178
-      I m g 0188
-      I m g 0216
-      I m g 0459
-      I m g 0567
-      I m g 0849
-      I m g 0850</description>
+      <description> div.gallery { display: flex; flex-wrap: wrap; } div.gallery a { flex-grow: 1; object-fit: cover; margin: 2px; display: flex; } div.gallery a img { height: 200px; object-fit: cover; flex-grow: 1; }                                                                           </description>
     </item>
     
   </channel>

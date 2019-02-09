@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
 <head><style>
 body {
 	display: block;
@@ -8,7 +7,14 @@ body {
 		background-image: var(--bgImage) !important;
 	
 }
-</style><title>
+
+body, body.pushable {
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover !important;
+}
+</style>
+<title>
 puppet lessons learned
 </title><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +27,8 @@ Lesson #1: Puppet is not deterministic Yup, that&#39;s right. The tool you&#39;r
 <link rel="shortcut icon" href="/img/defaultFav.ico">
 
 <link rel="canonical" href="https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/" />
-<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/><link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
 <style>
 body.pushable {
 	display: block;
@@ -37,7 +44,6 @@ body.pushable {
 	console.log("The client device is a "+(isMobile?"mobile":"PC")+".")
 </script>
 </head>
-
 <body><script>
 var prevBgIndex = 0;
 var bodyBgSwitchIndex = 0;
@@ -74,7 +80,7 @@ var bodyBgSwitchIndex = 0;
 	}
 </script><div class="blur-overlay"></div><div id="sidebar" class="ui sidebar inverted vertical menu">
 	<section id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
@@ -1145,7 +1151,6 @@ var bodyBgSwitchIndex = 0;
 </div>
 	</section>
 	
-	
 	<section id="footer" class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </section>
 </div>
@@ -1156,43 +1161,49 @@ var bodyBgSwitchIndex = 0;
 	<div class="item">
 		<i class="inverted big link bullseye icon dream-flip-toggle" title="About Me"></i>
 	</div><div class="item">
-		<a href="/">
-			<i class="inverted big link home icon" title="Home"></i>
-		</a>
-	</div>
+			<a href="/">
+				<i class="inverted big link home icon" title="Home"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/post">
-			<i class="inverted big link archive icon" title="Archive"></i>
-		</a>
-	</div>
+			<a href="/post">
+				<i class="inverted big link archive icon" title="Archive"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/categories">
-			<i class="inverted big link cubes icon" title="All Categories"></i>
-		</a>
-    </div>
+			<a href="/categories">
+				<i class="inverted big link cubes icon" title="All Categories"></i>
+			</a>
+    	</div>
 	<div class="ui container tablet computer only grid">
 		<div class="item" onClick="$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');">
 			<i class="inverted big link sidebar icon" title="Show Sidebar"></i>
 		</div>
 	</div>
+	<div class="item right">
+		<a href="/index.xml">
+			<i class="inverted big link rss icon" title="RSS Feed"></i>
+		</a>
+	</div>
 	
 </nav>
+
 
 <div class="ui centered grid">
 	<div class="sixteen wide mobile only column"><div class="ui inverted accordion">
 	<div id="header" class="ui inverted segment column box">
 		<header id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
 </h3>
 </header>
-		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">		
-				<i class="hand point icon down"title="Click this to pop tags and categories"></i>		
+		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">
+				<i class="hand point icon down"title="Click this to pop tags and categories"></i>
 			</div></div>
 		<div id="tag-category" class=" content"><section class="ui attached inverted segment dream-categories both flexbox">
-			<div class="inverted accordion">
+					<div class="inverted accordion">
 <div class="title">
 	<i class="dropdown icon"></i>
 	<a class="link" href="/categories/3d-printing">3d-printing</a>
@@ -2255,14 +2266,17 @@ var bodyBgSwitchIndex = 0;
 </div>
 
 </div>
-			</section></div>
+				</section></div>
 		<footer class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </footer>
 	</div>
-</div></div>
+</div>
+</div>
 	<div class="sixteen wide mobile fifteen wide tablet twelve wide computer column post-list">
 		<section class="ui secondary top attached black segment post-head">
-			<h1 class="post-title">puppet lessons learned</h1>
+			<h1 class="post-title">
+				puppet lessons learned
+			</h1>
 			<div class="sub header">
 					<div><span><i class="calendar outline icon"></i>Apr 13, 2015</span></div>
 					<div><span><i class="clock outline icon"></i>5 min read</span></div>
@@ -2285,7 +2299,6 @@ var bodyBgSwitchIndex = 0;
 </ul>
 </nav></div>
 			
-			
 			<article class="post-content twemoji">
 				
 
@@ -2293,53 +2306,53 @@ var bodyBgSwitchIndex = 0;
 
 <!-- more -->
 
-<h2 id="lesson-1-puppet-is-not-deterministic">Lesson #1: Puppet is not deterministic</h2>
+<h2 id="lesson-1-puppet-is-not-deterministic">Lesson #1: Puppet is not deterministic&nbsp;<a class="anchor" href="#lesson-1-puppet-is-not-deterministic"><i class="small linkify icon"></i></a> </h2>
 
 <p>Yup, that's right. The tool you're trying to use to get all your servers to a deterministic state isn't very deterministic in resolving that state. Many times we've had to hack around adding all sorts of dependancies and ordering to puppet manifests to get it to do the right thing.</p>
 
 <p><img src="/images/dice.jpg" alt="Oh yeah deterministic baby" /></p>
 
-<h2 id="lesson-2-node-classification-with-the-dashboard-sucks">Lesson #2: Node classification with the dashboard sucks.</h2>
+<h2 id="lesson-2-node-classification-with-the-dashboard-sucks">Lesson #2: Node classification with the dashboard sucks.&nbsp;<a class="anchor" href="#lesson-2-node-classification-with-the-dashboard-sucks"><i class="small linkify icon"></i></a> </h2>
 
 <p>One of our initially successful approaches to our puppet deployment made use of the dashboard for all of our classes and variables. This quickly spiralled out of control as managing different environments was next to impossible as there was no clear way to propagate changes to the ENC to the various environments. Eventually this led us to completely scrap the dashboard.</p>
 
 <p><img src="http://weknowmemes.com/wp-content/uploads/2011/11/rage-face-dash-board.jpg" alt="dashboard sucky" /></p>
 
-<h2 id="lesson-3-hierarchical-configuration-is-nice">Lesson #3: Hierarchical configuration is nice</h2>
+<h2 id="lesson-3-hierarchical-configuration-is-nice">Lesson #3: Hierarchical configuration is nice&nbsp;<a class="anchor" href="#lesson-3-hierarchical-configuration-is-nice"><i class="small linkify icon"></i></a> </h2>
 
 <p>Hiera is your friend. But managing complex hierarchies is hard. Unless you can extend hierarchies with imports. Cue the custom hiera yaml backend built by my esteemed co-worker Fabio (see code section below for link). Once installed, this allows us to specify complex hierarchies and split out the configuration in an extensible manner.</p>
 
 <p><img src="http://www.markstivers.com/wordpress/comics/2012-08-18-hierarchy-of-nee.gif" alt="hierarchy" /></p>
 
-<h2 id="lesson-4-package-managers-are-sometimes-stupid">Lesson #4: Package managers are sometimes stupid.</h2>
+<h2 id="lesson-4-package-managers-are-sometimes-stupid">Lesson #4: Package managers are sometimes stupid.&nbsp;<a class="anchor" href="#lesson-4-package-managers-are-sometimes-stupid"><i class="small linkify icon"></i></a> </h2>
 
 <p>I had to write a custom service handler to prevent packages from auto-starting services on package installation. This is extremely annoying in my book as almost all services are misconfigured with unsafe boilerplate configurations by package maintainers. I get the whole convenience factor, but from a security perspective it's horrible. Not sure if this one is ubuntu specific, probably not...</p>
 
 <p><img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTFzoc6hOiNYebIkF-x7nKh4u2X_LzVguGQPdyhPKZB25U8m9eByA" alt="apt..." /></p>
 
-<h2 id="lesson-5-configure-everything-through-class-parameters-pulled-in-via-hiera-hash-merging-let-the-node-tell-puppet-what-it-is">Lesson #5: Configure everything through class parameters pulled in via hiera hash merging. Let the node tell puppet what it is.</h2>
+<h2 id="lesson-5-configure-everything-through-class-parameters-pulled-in-via-hiera-hash-merging-let-the-node-tell-puppet-what-it-is">Lesson #5: Configure everything through class parameters pulled in via hiera hash merging. Let the node tell puppet what it is.&nbsp;<a class="anchor" href="#lesson-5-configure-everything-through-class-parameters-pulled-in-via-hiera-hash-merging-let-the-node-tell-puppet-what-it-is"><i class="small linkify icon"></i></a> </h2>
 
 <p>This one is nice. We only have one file in /etc/puppet/manifests. Everything is done from hiera or facter. Taking this approach, you can have a single instance of puppet running to manage several different environments.</p>
 
 <p><img src="http://www.reactiongifs.com/r/2011/09/mind_blown.gif" alt="mind blown" /></p>
 
-<h2 id="lesson-6-store-everything-in-git-make-your-puppet-master-serve-from-git-repo">Lesson #6: Store everything in Git, make your puppet master serve from git repo</h2>
+<h2 id="lesson-6-store-everything-in-git-make-your-puppet-master-serve-from-git-repo">Lesson #6: Store everything in Git, make your puppet master serve from git repo&nbsp;<a class="anchor" href="#lesson-6-store-everything-in-git-make-your-puppet-master-serve-from-git-repo"><i class="small linkify icon"></i></a> </h2>
 
 <p>No brainer here. Much simpler to manage things if puppet's config is running from a git repo checkout.</p>
 
-<h2 id="lesson-7-puppet-is-riddled-with-memory-leaks">Lesson #7: Puppet is riddled with memory leaks.</h2>
+<h2 id="lesson-7-puppet-is-riddled-with-memory-leaks">Lesson #7: Puppet is riddled with memory leaks.&nbsp;<a class="anchor" href="#lesson-7-puppet-is-riddled-with-memory-leaks"><i class="small linkify icon"></i></a> </h2>
 
 <p>Run it under apache/mod_passenger. Even then it's a hog. Make sure you've got MaxRequestsPerChild to a fairly lowish number to try to mitigate it eating up all the RAM. nom nom nom.</p>
 
 <p><img src="http://cdn.meme.am/instances/500x/35849520.jpg" alt="leaky" /></p>
 
-<h2 id="lesson-8-puppet-classes-templates-should-include-all-possible-options-for-the-object-being-configured">Lesson #8: Puppet classes/templates should include ALL possible options for the object being configured</h2>
+<h2 id="lesson-8-puppet-classes-templates-should-include-all-possible-options-for-the-object-being-configured">Lesson #8: Puppet classes/templates should include ALL possible options for the object being configured&nbsp;<a class="anchor" href="#lesson-8-puppet-classes-templates-should-include-all-possible-options-for-the-object-being-configured"><i class="small linkify icon"></i></a> </h2>
 
 <p>Do something right, or don't do it at all. The puppet forge is riddled with modules that do a crappy job of configuring services, or only expose a small number of possible settings. A pattern that I've come to often use is where possible make the template configure everything. Example below.</p>
 
 <p><img src="http://memeshare.net/memes/preview/9/8558.png" alt="dammit do it right" /></p>
 
-<h2 id="lesson-9-ansible-is-simple-and-deterministic">Lesson #9: Ansible is simple and deterministic.</h2>
+<h2 id="lesson-9-ansible-is-simple-and-deterministic">Lesson #9: Ansible is simple and deterministic.&nbsp;<a class="anchor" href="#lesson-9-ansible-is-simple-and-deterministic"><i class="small linkify icon"></i></a> </h2>
 
 <p>This is possibly one of the most painful lessons given the time we put into Puppet. I haven't personally spent a ton of time with Ansible, but I'm seriously reconsidering my time investment in Puppet. If in doubt, try Ansible first. There, I said it.</p>
 
@@ -2687,19 +2700,21 @@ cat <span class="s">&lt;&lt;&#39;EOF&#39; &gt;/etc/puppet/nodes/webserver/collec
 </div>
 <p>So what we've implemented here is a bottom up approach, where we first load the least specific configs, working our way backwards to more specific configs by merging them together. We have the ability to specificy different classes or parameters based on roles, environments, or specific nodes. Parameters are loaded from both hiera and facter, allowing for maximum flexibility.</p>
 
+
 			</article>
 		</section>
 		<section class="ui secondary attached segment dream-tags">
 			<span>No Tag</span>
 			
-		</section><section class="ui secondary bottom attached segment share row box"><div class="author"><img class="avatar" src="https://www.control-alt-del.org//images/mark.jpg">
+		</section><section class="ui secondary bottom attached segment share row box"><div class="author">
+	<img class="avatar" src="/images/mark.jpg">
 	
 </div>
 <div class="info grow flexbox"><a href="https://twitter.com/markrsteele">
 	
 	<p class="name">Mark Steele</p></a>
 	
-	<p class="desc">Cogito Interruptus Vulgaris</p>		
+	<p class="desc">Cogito Interruptus Vulgaris</p>
 </div>
 <section class="buttons row box">
 	<div class="facebook none flexbox" href="#" onclick="window.open(
@@ -2713,6 +2728,10 @@ cat <span class="s">&lt;&lt;&#39;EOF&#39; &gt;/etc/puppet/nodes/webserver/collec
 	</div>
 </section>
 </section>
+		<section class="ui secondary attached segment copyright">
+			
+
+		</section>
 		
 	</div>
 </div>
@@ -2745,12 +2764,11 @@ cat <span class="s">&lt;&lt;&#39;EOF&#39; &gt;/etc/puppet/nodes/webserver/collec
 </div>
 </section>
 	</div>
-</div></div>
+</div>
+</div>
 		</div>
-	</div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/site.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script>
-<script src="/js/twemoji.min.js"></script>
+	</div><script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.js"></script>
 
 <script>
 	(function () {
@@ -2761,10 +2779,5 @@ cat <span class="s">&lt;&lt;&#39;EOF&#39; &gt;/etc/puppet/nodes/webserver/collec
 	})();
 </script>
 
-<script>
-		anchors.add('.post-content h1');
-		anchors.add('.post-content h2');
-		anchors.add('.post-content h3');
-</script></body>
-
+</body>
 </html>

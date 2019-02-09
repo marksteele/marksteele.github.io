@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
 <head><style>
 body {
 	display: block;
@@ -8,26 +7,27 @@ body {
 		background-image: var(--bgImage) !important;
 	
 }
-</style><title>
+
+body, body.pushable {
+	background-repeat: no-repeat;
+  	background-attachment: fixed;
+  	background-size: cover !important;
+}
+</style>
+<title>
 Image gallery 2015
 </title><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="author" content="Mark Steele" />
-	<meta name="description" content="I m g 0159
-      I m g 0178
-      I m g 0188
-      I m g 0216
-      I m g 0459
-      I m g 0567
-      I m g 0849
-      I m g 0850" />
+	<meta name="description" content=" div.gallery { display: flex; flex-wrap: wrap; } div.gallery a { flex-grow: 1; object-fit: cover; margin: 2px; display: flex; } div.gallery a img { height: 200px; object-fit: cover; flex-grow: 1; }                                                                           " />
 <meta name="generator" content="Hugo 0.48" />
 
 <link rel="shortcut icon" href="/img/defaultFav.ico">
 
 <link rel="canonical" href="https://www.control-alt-del.org/post/gallery-2015/" />
-<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/><link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
+<link rel="alternative" href="/index.xml" title="Mark&#39;s Blargh" type="application/atom+xml"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
 <style>
 body.pushable {
 	display: block;
@@ -43,7 +43,6 @@ body.pushable {
 	console.log("The client device is a "+(isMobile?"mobile":"PC")+".")
 </script>
 </head>
-
 <body><script>
 var prevBgIndex = 0;
 var bodyBgSwitchIndex = 0;
@@ -80,7 +79,7 @@ var bodyBgSwitchIndex = 0;
 	}
 </script><div class="blur-overlay"></div><div id="sidebar" class="ui sidebar inverted vertical menu">
 	<section id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
@@ -1151,7 +1150,6 @@ var bodyBgSwitchIndex = 0;
 </div>
 	</section>
 	
-	
 	<section id="footer" class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </section>
 </div>
@@ -1162,43 +1160,49 @@ var bodyBgSwitchIndex = 0;
 	<div class="item">
 		<i class="inverted big link bullseye icon dream-flip-toggle" title="About Me"></i>
 	</div><div class="item">
-		<a href="/">
-			<i class="inverted big link home icon" title="Home"></i>
-		</a>
-	</div>
+			<a href="/">
+				<i class="inverted big link home icon" title="Home"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/post">
-			<i class="inverted big link archive icon" title="Archive"></i>
-		</a>
-	</div>
+			<a href="/post">
+				<i class="inverted big link archive icon" title="Archive"></i>
+			</a>
+		</div>
 	<div class="item">
-		<a href="/categories">
-			<i class="inverted big link cubes icon" title="All Categories"></i>
-		</a>
-    </div>
+			<a href="/categories">
+				<i class="inverted big link cubes icon" title="All Categories"></i>
+			</a>
+    	</div>
 	<div class="ui container tablet computer only grid">
 		<div class="item" onClick="$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');">
 			<i class="inverted big link sidebar icon" title="Show Sidebar"></i>
 		</div>
 	</div>
+	<div class="item right">
+		<a href="/index.xml">
+			<i class="inverted big link rss icon" title="RSS Feed"></i>
+		</a>
+	</div>
 	
 </nav>
+
 
 <div class="ui centered grid">
 	<div class="sixteen wide mobile only column"><div class="ui inverted accordion">
 	<div id="header" class="ui inverted segment column box">
 		<header id="author" class="ui top attached center aligned inverted segment"><div class="ui small circular image">
-	<img src="/images/mark.jpg">
+		<img src="/images/mark.jpg">
 </div>
 <h3 class="ui header">Mark Steele
 	<div class="sub header">Cogito Interruptus Vulgaris</div>
 </h3>
 </header>
-		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">		
-				<i class="hand point icon down"title="Click this to pop tags and categories"></i>		
+		<div class=" title header-title"><div id="tag-category-pop" class="ui red right corner label">
+				<i class="hand point icon down"title="Click this to pop tags and categories"></i>
 			</div></div>
 		<div id="tag-category" class=" content"><section class="ui attached inverted segment dream-categories both flexbox">
-			<div class="inverted accordion">
+					<div class="inverted accordion">
 <div class="title">
 	<i class="dropdown icon"></i>
 	<a class="link" href="/categories/3d-printing">3d-printing</a>
@@ -2261,499 +2265,250 @@ var bodyBgSwitchIndex = 0;
 </div>
 
 </div>
-			</section></div>
+				</section></div>
 		<footer class="ui bottom attached center aligned inverted segment"><p>© 1999 - 2019 Mark&#39;s Blargh</p>
     </footer>
 	</div>
-</div></div>
+</div>
+</div>
 	<div class="sixteen wide mobile fifteen wide tablet twelve wide computer column post-list">
 		<section class="ui secondary top attached black segment post-head">
-			<h1 class="post-title">Image gallery 2015</h1>
+			<h1 class="post-title">
+				Image gallery 2015
+			</h1>
 			<div class="sub header">
 					<div><span><i class="calendar outline icon"></i>Jan 1, 2015</span></div>
 					<div><span><i class="clock outline icon"></i>1 min read</span></div>
 					<div><span><i class="angle double up icon"></i>Last updated on Jan 1, 2015</span></div>
 			</div>
 			<hr>
-			
 			<article class="post-content twemoji">
-				<p>
-<link rel="stylesheet" href="/css/hugo-easy-gallery.css" />
+				<style>
+  div.gallery {
+     display: flex;
+     flex-wrap: wrap;
+  }
+        div.gallery a {
+            flex-grow: 1;
+            object-fit: cover;
+            margin: 2px;
+            display: flex;
+        }
 
-<div class="gallery caption-position-none caption-effect-none hover-effect-none " itemscope itemtype="http://schema.org/ImageGallery">
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_0159-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_0159-thumb.jpg" alt="I m g 0159" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 0159</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_0159.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_0178-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_0178-thumb.jpg" alt="I m g 0178" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 0178</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_0178.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_0188-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_0188-thumb.jpg" alt="I m g 0188" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 0188</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_0188.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_0216-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_0216-thumb.jpg" alt="I m g 0216" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 0216</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_0216.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_0459-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_0459-thumb.jpg" alt="I m g 0459" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 0459</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_0459.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_0567-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_0567-thumb.jpg" alt="I m g 0567" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 0567</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_0567.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_0849-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_0849-thumb.jpg" alt="I m g 0849" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 0849</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_0849.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_0850-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_0850-thumb.jpg" alt="I m g 0850" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 0850</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_0850.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_0907-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_0907-thumb.jpg" alt="I m g 0907" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 0907</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_0907.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_0908-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_0908-thumb.jpg" alt="I m g 0908" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 0908</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_0908.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_0969-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_0969-thumb.jpg" alt="I m g 0969" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 0969</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_0969.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_1012-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_1012-thumb.jpg" alt="I m g 1012" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 1012</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_1012.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_1027-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_1027-thumb.jpg" alt="I m g 1027" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 1027</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_1027.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_1029-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_1029-thumb.jpg" alt="I m g 1029" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 1029</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_1029.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_1054-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_1054-thumb.jpg" alt="I m g 1054" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 1054</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_1054.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_1088-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_1088-thumb.jpg" alt="I m g 1088" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 1088</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_1088.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_1747-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_1747-thumb.jpg" alt="I m g 1747" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 1747</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_1747.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_20150403_134845-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_20150403_134845-thumb.jpg" alt="I m g 20150403 134845" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 20150403 134845</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_20150403_134845.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_20150415_104508-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_20150415_104508-thumb.jpg" alt="I m g 20150415 104508" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 20150415 104508</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_20150415_104508.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_20150626_142855-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_20150626_142855-thumb.jpg" alt="I m g 20150626 142855" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 20150626 142855</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_20150626_142855.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_20150626_142908-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_20150626_142908-thumb.jpg" alt="I m g 20150626 142908" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 20150626 142908</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_20150626_142908.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_20150626_143518-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_20150626_143518-thumb.jpg" alt="I m g 20150626 143518" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 20150626 143518</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_20150626_143518.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_2036-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_2036-thumb.jpg" alt="I m g 2036" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 2036</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_2036.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_2111-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_2111-thumb.jpg" alt="I m g 2111" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 2111</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_2111.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_2205-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_2205-thumb.jpg" alt="I m g 2205" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 2205</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_2205.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_2248-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_2248-thumb.jpg" alt="I m g 2248" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 2248</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_2248.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_2320-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_2320-thumb.jpg" alt="I m g 2320" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 2320</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_2320.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_2333-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_2333-thumb.jpg" alt="I m g 2333" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 2333</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_2333.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_2992-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_2992-thumb.jpg" alt="I m g 2992" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 2992</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_2992.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_3229-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_3229-thumb.jpg" alt="I m g 3229" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 3229</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_3229.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_3230-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_3230-thumb.jpg" alt="I m g 3230" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 3230</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_3230.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//IMG_5396a-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//IMG_5396a-thumb.jpg" alt="I m g 5396a" />
-				    </div>
-			      <figcaption>
-		          <p>I m g 5396a</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//IMG_5396a.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204160859_fast-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204160859_fast-thumb.jpg" alt="M y x j 20150204160859 fast" />
-				    </div>
-			      <figcaption>
-		          <p>M y x j 20150204160859 fast</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204160859_fast.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204161152_org-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204161152_org-thumb.jpg" alt="M y x j 20150204161152 org" />
-				    </div>
-			      <figcaption>
-		          <p>M y x j 20150204161152 org</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204161152_org.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204161239_fast-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204161239_fast-thumb.jpg" alt="M y x j 20150204161239 fast" />
-				    </div>
-			      <figcaption>
-		          <p>M y x j 20150204161239 fast</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204161239_fast.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-				<div class="box">
-				  <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				    <div class="img" style="background-image: url('https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204231038_save-thumb.jpg');" >
-				      <img itemprop="thumbnail" src="https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204231038_save-thumb.jpg" alt="M y x j 20150204231038 save" />
-				    </div>
-			      <figcaption>
-		          <p>M y x j 20150204231038 save</p>
-			      </figcaption>
-				    <a href="https://www.control-alt-del.org//images/galleries/2015//MYXJ_20150204231038_save.jpg" itemprop="contentUrl"></a>
-				  </figure>
-				</div>
-</div>
-<br />
+        div.gallery a img {            
+            height: 200px;
+            object-fit: cover;
+            flex-grow: 1;
+        }
 
+    </style>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.css" />
 
+    <div class="gallery">
+        
+	
 
-  
-
-
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="/js/load-photoswipe.js"></script>
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" integrity="sha256-sCl5PUOGMLfFYctzDW3MtRib0ctyUvI9Qsmq2wXOeBY=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" integrity="sha256-BFeI1V+Vh1Rk37wswuOYn5lsTcaU96hGaI7OUVCLjPc=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js" integrity="sha256-UplRCs9v4KXVJvVY+p+RSo5Q4ilAUXh7kpjyIP5odyc=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js" integrity="sha256-PWHOlUzc96pMc8ThwRIXPn8yH4NOLu42RQ0b9SpnpFk=" crossorigin="anonymous"></script>
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0159.jpg">
+                <img src="/images/galleries/2015//IMG_0159-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0178.jpg">
+                <img src="/images/galleries/2015//IMG_0178-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0188.jpg">
+                <img src="/images/galleries/2015//IMG_0188-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0216.jpg">
+                <img src="/images/galleries/2015//IMG_0216-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0459.jpg">
+                <img src="/images/galleries/2015//IMG_0459-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0567.jpg">
+                <img src="/images/galleries/2015//IMG_0567-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0849.jpg">
+                <img src="/images/galleries/2015//IMG_0849-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0850.jpg">
+                <img src="/images/galleries/2015//IMG_0850-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0907.jpg">
+                <img src="/images/galleries/2015//IMG_0907-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0908.jpg">
+                <img src="/images/galleries/2015//IMG_0908-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0969.jpg">
+                <img src="/images/galleries/2015//IMG_0969-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1012.jpg">
+                <img src="/images/galleries/2015//IMG_1012-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1027.jpg">
+                <img src="/images/galleries/2015//IMG_1027-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1029.jpg">
+                <img src="/images/galleries/2015//IMG_1029-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1054.jpg">
+                <img src="/images/galleries/2015//IMG_1054-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1088.jpg">
+                <img src="/images/galleries/2015//IMG_1088-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1747.jpg">
+                <img src="/images/galleries/2015//IMG_1747-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150403_134845.jpg">
+                <img src="/images/galleries/2015//IMG_20150403_134845-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150415_104508.jpg">
+                <img src="/images/galleries/2015//IMG_20150415_104508-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150626_142855.jpg">
+                <img src="/images/galleries/2015//IMG_20150626_142855-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150626_142908.jpg">
+                <img src="/images/galleries/2015//IMG_20150626_142908-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150626_143518.jpg">
+                <img src="/images/galleries/2015//IMG_20150626_143518-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2036.jpg">
+                <img src="/images/galleries/2015//IMG_2036-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2111.jpg">
+                <img src="/images/galleries/2015//IMG_2111-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2205.jpg">
+                <img src="/images/galleries/2015//IMG_2205-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2248.jpg">
+                <img src="/images/galleries/2015//IMG_2248-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2320.jpg">
+                <img src="/images/galleries/2015//IMG_2320-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2333.jpg">
+                <img src="/images/galleries/2015//IMG_2333-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2992.jpg">
+                <img src="/images/galleries/2015//IMG_2992-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_3229.jpg">
+                <img src="/images/galleries/2015//IMG_3229-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_3230.jpg">
+                <img src="/images/galleries/2015//IMG_3230-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_5396a.jpg">
+                <img src="/images/galleries/2015//IMG_5396a-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204160859_fast.jpg">
+                <img src="/images/galleries/2015//MYXJ_20150204160859_fast-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204161152_org.jpg">
+                <img src="/images/galleries/2015//MYXJ_20150204161152_org-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204161239_fast.jpg">
+                <img src="/images/galleries/2015//MYXJ_20150204161239_fast-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204231038_save.jpg">
+                <img src="/images/galleries/2015//MYXJ_20150204231038_save-thumb.jpg">  <br/>            
+            </a>
+	
     </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
-</div>
-</p>
+
+
+
 
 			</article>
 		</section>
 		<section class="ui secondary attached segment dream-tags">
 			<span>No Tag</span>
 			
-		</section><section class="ui secondary bottom attached segment share row box"><div class="author"><img class="avatar" src="https://www.control-alt-del.org//images/mark.jpg">
+		</section><section class="ui secondary bottom attached segment share row box"><div class="author">
+	<img class="avatar" src="/images/mark.jpg">
 	
 </div>
 <div class="info grow flexbox"><a href="https://twitter.com/markrsteele">
 	
 	<p class="name">Mark Steele</p></a>
 	
-	<p class="desc">Cogito Interruptus Vulgaris</p>		
+	<p class="desc">Cogito Interruptus Vulgaris</p>
 </div>
 <section class="buttons row box">
 	<div class="facebook none flexbox" href="#" onclick="window.open(
@@ -2767,6 +2522,10 @@ var bodyBgSwitchIndex = 0;
 	</div>
 </section>
 </section>
+		<section class="ui secondary attached segment copyright">
+			
+
+		</section>
 		
 	</div>
 </div>
@@ -2799,12 +2558,11 @@ var bodyBgSwitchIndex = 0;
 </div>
 </section>
 	</div>
-</div></div>
+</div>
+</div>
 		</div>
-	</div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/site.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js"></script>
-<script src="/js/twemoji.min.js"></script>
+	</div><script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.js"></script>
 
 <script>
 	(function () {
@@ -2815,10 +2573,5 @@ var bodyBgSwitchIndex = 0;
 	})();
 </script>
 
-<script>
-		anchors.add('.post-content h1');
-		anchors.add('.post-content h2');
-		anchors.add('.post-content h3');
-</script></body>
-
+</body>
 </html>

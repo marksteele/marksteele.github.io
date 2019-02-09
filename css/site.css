@@ -1,23 +1,12 @@
 /*Fonts*/
 @font-face {
-  font-family: 'Abril Fatface';
-     src: url('../fonts/AbrilFatface-Regular.otf') format('opentype');
+  font-family: 'Arial';
 }
 
 @font-face {
-  font-family: 'Bebas Neue';
-     src: url('../fonts/BebasNeue Regular.otf') format('opentype'), url('../fonts/BebasNeue Regular.ttf') format('truetype');
+  font-family: 'Arial';
 }
 
-@font-face {
-  font-family: 'Droid Serif Italic';
-     src: url('../fonts/DroidSerif-Italic.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Inconsolata';
-     src: url('../fonts/Inconsolata.otf') format('opentype');
-}
 /*Computer view*/
 @media screen and (min-width: 991px) {
   .blog-card {
@@ -76,6 +65,7 @@
   .pusher::-webkit-scrollbar {
     width: 5px !important;
   }
+
   .top.bar .item {
     margin: 0;
     padding-right: 0;
@@ -122,13 +112,30 @@
 }
 /*Site settings*/
 body, body.pushable {
+  font-family: Arial;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: cover;
+  background-size: cover !important;
 }
 
-li {
-  line-height: 1rem;
+.anchor {
+  visibility: hidden;
+}
+
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor,
+h7:hover .anchor,
+h8:hover .anchor,
+h9:hover .anchor {
+  visibility: visible;
+}
+
+li:not('.toc') {
+  line-height: 1.4285em;
 }
 
 .row.box {
@@ -232,9 +239,7 @@ li {
 .pusher::-webkit-scrollbar {
   width: 0.8vw;
 }
-.pusher::-webkit-scrollbar-track {
 
-}
 .pusher::-webkit-scrollbar-thumb {
   background: #aaa;
   background-color: rgba(255, 255, 255, 0.4);
@@ -288,13 +293,13 @@ ul > li {
 /*Post settings*/
 .post-title {
   color: black;
-  font: bold 3rem 'Bebas Neue';
+  font: bold 3rem 'Arial';
   margin-bottom: 1px;
 }
 
 .post-head .sub.header {
   letter-spacing: 0.05em;
-  font: 1.4rem 'Bebas Neue';
+  font: 1.4rem 'Arial';
 }
 
 .sub.header div {
@@ -345,16 +350,15 @@ ul > li {
 }
 
 .post-content code {
-  font-size: 0.9em;
-  background-color: #bfbfbf;
-  padding-left: 0.2em;
-  padding-right: 0.2em;
-  border: 1px #7d7d7d solid;
+  font-size: 0.8em;
+  background-color: #c0c9c833;
+  padding: 0 0.2em;
+  border: 1px solid #929696;
   border-radius: 0.2em;
 }
 
 .post-content pre code {
-  font-family: 'Inconsolata';
+  font-family: 'Inconsolata', monospace;
   font-size: 1.2em;
   background-color: unset;
   padding: initial;
@@ -403,8 +407,6 @@ p > img:not(.emoji), li > img {
 /*Syntax Highlighting*/
 .post-content pre {
   background: #ffffff70;
-  padding-top: 1em;
-  padding-left: 1em;
   background-color: #ffffff70;
   border: 1px solid #8a8a8a6b;
   border-radius: 5px;
@@ -468,7 +470,7 @@ p > img:not(.emoji), li > img {
   margin-bottom: 1px;
   display: block;
   color: #3e3e3e;
-  font: bold 1.2em 'Lato';
+  font: bold 1.2em 'Arial';
   -webkit-transition: 1s;
   -o-transition: 1s;
   transition: 1s;
@@ -609,10 +611,6 @@ p > img:not(.emoji), li > img {
 
 #sidebar .link:hover {
   color: white;
-}
-
-#sidebar {
-  min-height: 100vh;
 }
 
 #author .sub.header {
@@ -761,7 +759,6 @@ p > img:not(.emoji), li > img {
 }
 
 .blog-card .image {
-  visibility: hidden;
   width: 100%;
   height: 100%;
 }
@@ -777,7 +774,7 @@ p > img:not(.emoji), li > img {
   -o-transition: all 0.4s;
   transition: all 0.4s;
 }
- 
+
 .card.title-content {
   opacity: 0;
   bottom: 0;
@@ -797,7 +794,7 @@ p > img:not(.emoji), li > img {
 
 .blog-card .title {
   color: #fff;
-  font: 400 2rem 'Abril Fatface';
+  font: 400 2rem 'Arial', cursive;
   letter-spacing: 1px;
   text-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
   -webkit-transition: 0.4s;
@@ -840,7 +837,7 @@ p > img:not(.emoji), li > img {
 
 .intro {
   margin: auto;
-  font: 200 1.2rem 'Droid Serif Italic';
+  font: 200 1.2rem 'Arial';
   line-height: 1.2rem;
   width: 80%;
   color: #ddd;
@@ -908,4 +905,10 @@ p > img:not(.emoji), li > img {
 
 .blog-card:hover .color-overlay {
   background: rgba(0, 0, 0, 0.6);
+}
+
+.license.statement {
+  font-size: 1.1em;
+  padding-left: 1em;
+  margin: auto;
 }
