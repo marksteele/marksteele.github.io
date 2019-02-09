@@ -13,10 +13,10 @@
     
     <item>
       <title>fun with bloom filters using riak mapreduce</title>
-      <link>https://www.control-alt-del.org/post/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/</link>
+      <link>https://www.control-alt-del.org/posts/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/</link>
       <pubDate>Wed, 14 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/</guid>
       <description>&lt;p&gt;So I.ve been toying with some ideas on how to do large mapreduce jobs, and pushing the processing into Riak (Erlang) to make use of distributed processing and data-locality.&lt;/p&gt;
 
 &lt;p&gt;It took a while to figure out how to get this to work, but here it is.&lt;/p&gt;

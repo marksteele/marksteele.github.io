@@ -13,10 +13,10 @@
     
     <item>
       <title>pdi bag of tricks...</title>
-      <link>https://www.control-alt-del.org/post/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/</link>
+      <link>https://www.control-alt-del.org/posts/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/</link>
       <pubDate>Mon, 20 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/</guid>
+      <guid>https://www.control-alt-del.org/posts/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/</guid>
       <description>&lt;p&gt;After using PDI for a while, you start to encounter some common problems. PDI crashes, databases die, connections get reset, all sorts of&lt;br /&gt;
 interesting things can happen in complex systems.&lt;/p&gt;
 
@@ -32,10 +32,10 @@ idempotent. This can be tricky given an unlimited input set over time.&lt;/p&gt;
     
     <item>
       <title>building a datawarehouse for testing</title>
-      <link>https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/</link>
+      <link>https://www.control-alt-del.org/posts/2014/01/04/building-a-datawarehouse-for-testing/</link>
       <pubDate>Sat, 04 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2014/01/04/building-a-datawarehouse-for-testing/</guid>
+      <guid>https://www.control-alt-del.org/posts/2014/01/04/building-a-datawarehouse-for-testing/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 
 &lt;p&gt;A common problem when starting a new project is getting fixtures in place to facilitate testing of reporting functionality and refining data models. To ease this, I&#39;ve created a PDI job that creates the dimension tables, and populates a fact table.&lt;/p&gt;

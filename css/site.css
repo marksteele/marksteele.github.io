@@ -1,10 +1,12 @@
 /*Fonts*/
 @font-face {
-  font-family: 'Arial';
+  font-family: 'Bebas Neue';
+     src: url('../fonts/BebasNeue Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Arial';
+  font-family: 'Droid Serif Italic';
+     src: url('../fonts/DroidSerif-Italic.ttf') format('truetype');
 }
 
 /*Computer view*/
@@ -112,7 +114,6 @@
 }
 /*Site settings*/
 body, body.pushable {
-  font-family: Arial;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover !important;
@@ -293,13 +294,13 @@ ul > li {
 /*Post settings*/
 .post-title {
   color: black;
-  font: bold 3rem 'Arial';
+  font: bold 3rem 'Bebas Neue';
   margin-bottom: 1px;
 }
 
 .post-head .sub.header {
   letter-spacing: 0.05em;
-  font: 1.4rem 'Arial';
+  font: 1.4rem 'Bebas Neue';
 }
 
 .sub.header div {
@@ -470,7 +471,7 @@ p > img:not(.emoji), li > img {
   margin-bottom: 1px;
   display: block;
   color: #3e3e3e;
-  font: bold 1.2em 'Arial';
+  font: bold 1.2em 'Lato';
   -webkit-transition: 1s;
   -o-transition: 1s;
   transition: 1s;
@@ -794,7 +795,7 @@ p > img:not(.emoji), li > img {
 
 .blog-card .title {
   color: #fff;
-  font: 400 2rem 'Arial', cursive;
+  font: 400 2rem 'Abril Fatface', cursive;
   letter-spacing: 1px;
   text-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
   -webkit-transition: 0.4s;
@@ -837,7 +838,7 @@ p > img:not(.emoji), li > img {
 
 .intro {
   margin: auto;
-  font: 200 1.2rem 'Arial';
+  font: 200 1.2rem 'Droid Serif Italic';
   line-height: 1.2rem;
   width: 80%;
   color: #ddd;

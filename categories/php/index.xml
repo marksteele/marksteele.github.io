@@ -13,10 +13,10 @@
     
     <item>
       <title>unserializing php from pdi</title>
-      <link>https://www.control-alt-del.org/post/2014/01/10/unserializing-php-from-pdi/</link>
+      <link>https://www.control-alt-del.org/posts/2014/01/10/unserializing-php-from-pdi/</link>
       <pubDate>Fri, 10 Jan 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2014/01/10/unserializing-php-from-pdi/</guid>
+      <guid>https://www.control-alt-del.org/posts/2014/01/10/unserializing-php-from-pdi/</guid>
       <description>&lt;p&gt;Here&#39;s a quick post that explains how to do something which may not be obvious.&lt;/p&gt;
 
 &lt;p&gt;The scenario: You&#39;ve got some serialized data stored in a not-so-portable data interchange format (serialized PHP),&lt;br /&gt;
@@ -27,10 +27,10 @@ and would like the data to be made available as part of a PDI transformation.&lt
     
     <item>
       <title>validating ip addresses in php</title>
-      <link>https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/</link>
+      <link>https://www.control-alt-del.org/posts/2011/11/14/validating-ip-addresses-in-php/</link>
       <pubDate>Mon, 14 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/11/14/validating-ip-addresses-in-php/</guid>
       <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     

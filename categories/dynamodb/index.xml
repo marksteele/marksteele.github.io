@@ -13,10 +13,10 @@
     
     <item>
       <title>One-time password sharing... securely!</title>
-      <link>https://www.control-alt-del.org/post/one-time-password-sharing-securely/</link>
+      <link>https://www.control-alt-del.org/posts/one-time-password-sharing-securely/</link>
       <pubDate>Sat, 08 Sep 2018 21:56:19 -0400</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/one-time-password-sharing-securely/</guid>
+      <guid>https://www.control-alt-del.org/posts/one-time-password-sharing-securely/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/self-destruct.jpg&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Need to send a friend a password for something? Don&#39;t trust that the man might be reading your emails and SMS messages? Here&#39;s how to setup your own service to share secrets.&lt;/p&gt;
@@ -26,10 +26,10 @@
     
     <item>
       <title>Envelope encryption in Lambda functions with DynamoDB and KMS</title>
-      <link>https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</link>
+      <link>https://www.control-alt-del.org/posts/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</link>
       <pubDate>Thu, 03 May 2018 10:44:37 -0400</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</guid>
+      <guid>https://www.control-alt-del.org/posts/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/envelope-encryption.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here&#39;s a quick code snippet on how to implement field level encryption of data stored in DynamoDB using per-record encryption keys and the AWS Key management store (KMS).&lt;/p&gt;

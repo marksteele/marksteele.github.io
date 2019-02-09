@@ -13,10 +13,10 @@
     
     <item>
       <title>String set manipulation functions for MySQL</title>
-      <link>https://www.control-alt-del.org/post/string-set-manipulation-functions-for-mysql/</link>
+      <link>https://www.control-alt-del.org/posts/string-set-manipulation-functions-for-mysql/</link>
       <pubDate>Thu, 11 Oct 2018 10:10:05 -0400</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/string-set-manipulation-functions-for-mysql/</guid>
+      <guid>https://www.control-alt-del.org/posts/string-set-manipulation-functions-for-mysql/</guid>
       <description>While I really don&#39;t advise using comma-separated values inside text columns, sometimes you inherit things...
 Here&#39;s a way to check for set inclusion and how to manipulate those sets using SQL functions.
 drop function if exists IN_SET; drop function if exists ADD_TO_SET; drop function if exists REMOVE_FROM_SET; DELIMITER // CREATE FUNCTION IN_SET( $str TEXT, $strlist TEXT ) RETURNS BOOL DETERMINISTIC BEGIN DECLARE inset INT DEFAULT 0; SET inset = (SELECT FIND_IN_SET($str, $strlist)); RETURN (!</description>

@@ -13,10 +13,10 @@
     
     <item>
       <title>Invalidate CloudFront with Lambda</title>
-      <link>https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/</link>
+      <link>https://www.control-alt-del.org/posts/invalidate-cloudfront-with-lambda/</link>
       <pubDate>Thu, 26 Apr 2018 13:48:12 -0400</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/invalidate-cloudfront-with-lambda/</guid>
+      <guid>https://www.control-alt-del.org/posts/invalidate-cloudfront-with-lambda/</guid>
       <description>I&#39;ve written a little Serverless app that uses API Gateway and Lambda to expose an API to invalidate a CloudFront distribution.
 Handy to have something like this in a build pipeline.
 Code here</description>

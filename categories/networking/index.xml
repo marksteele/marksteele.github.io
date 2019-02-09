@@ -13,10 +13,10 @@
     
     <item>
       <title>security advice for the average joe</title>
-      <link>https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/</link>
+      <link>https://www.control-alt-del.org/posts/2015/11/13/security-advice-for-the-average-joe/</link>
       <pubDate>Fri, 13 Nov 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/</guid>
+      <guid>https://www.control-alt-del.org/posts/2015/11/13/security-advice-for-the-average-joe/</guid>
       <description>Introduction A computer lets you make more mistakes faster than any invention in human history - with the possible exception of handguns and tequila. --Mitch Ratliff
 The Internet has gone through a massive transformation since it&#39;s inception. From a tool used mostly by academics, it has come to be a pervasive tool used by just about everyone to communicate, shop, pay bills, invest, and entertain.
 While the use cases never cease to increase, one aspect of Internet usage that is rather problematic is educating the public about the risks involved in living a connected life, and what are the ways people can defend against attacks.</description>
@@ -24,10 +24,10 @@ While the use cases never cease to increase, one aspect of Internet usage that i
     
     <item>
       <title>meshed vpn using tinc</title>
-      <link>https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/</link>
+      <link>https://www.control-alt-del.org/posts/2015/03/19/meshed-vpn-using-tinc/</link>
       <pubDate>Thu, 19 Mar 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/</guid>
+      <guid>https://www.control-alt-del.org/posts/2015/03/19/meshed-vpn-using-tinc/</guid>
       <description>Tinc is a neat little VPN daemon that I&#39;ve recently come across. It is surprisingly simple to configure yet powerful. In this post, I&#39;ll show you how to setup a meshed VPN between four nodes with one of the servers acting as a DHCP server.
 In this fictitious scenario, let&#39;s assume the following nodes:
  dev is a CentOS cloud server with a fixed public IP address, we&#39;ll designate this one as our DHCP server</description>
@@ -35,20 +35,20 @@ In this fictitious scenario, let&#39;s assume the following nodes:
     
     <item>
       <title>geo blocking with iptables/ipset</title>
-      <link>https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/</link>
+      <link>https://www.control-alt-del.org/posts/2015/02/13/geo-blocking-with-iptables-slash-ipset/</link>
       <pubDate>Fri, 13 Feb 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/</guid>
+      <guid>https://www.control-alt-del.org/posts/2015/02/13/geo-blocking-with-iptables-slash-ipset/</guid>
       <description>In this post, I&#39;ll go over how to use iptables and ipset to create a basic firewall with ssh brute force protection and geo-blocking. I&#39;m assuming CentOS here, adjust paths/commands accordingly for other distributions.
 Ipset is a tool to create and maintain IP sets in the Linux kernel. The advantage of using ipset over setting up a bunch of individual rules is one of CPU utilization. Ipset can handle thousands of entries without CPU degradation, wheras introducing thousands of rules in iptables will have a noticeable impact on packet processing speeds.</description>
     </item>
     
     <item>
       <title>tcpdump tip viewing a packet stream data payload</title>
-      <link>https://www.control-alt-del.org/post/2013/10/24/tcpdump-tip-viewing-a-packet-stream-data-payload/</link>
+      <link>https://www.control-alt-del.org/posts/2013/10/24/tcpdump-tip-viewing-a-packet-stream-data-payload/</link>
       <pubDate>Thu, 24 Oct 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2013/10/24/tcpdump-tip-viewing-a-packet-stream-data-payload/</guid>
+      <guid>https://www.control-alt-del.org/posts/2013/10/24/tcpdump-tip-viewing-a-packet-stream-data-payload/</guid>
       <description>Here is an alias that I&#39;ve used often to view packet payloads using tcpdump which filters out all the overhead packets (just contains payloads).
 I usually stick the following lines into my .bashrc on all the servers I install.
 1 2 3  alias tcpdump_http=&amp;#34;tcpdump &amp;#39;tcp port 80 and (((ip[2:2] - ((ip[0]&amp;amp;0xf)&amp;lt;&amp;lt;2)) - ((tcp[12]&amp;amp;0xf0)&amp;gt;&amp;gt;2)) != 0)&amp;#39; -A -s0&amp;#34; alias tcpdump_http_inbound=&amp;#34;tcpdump &amp;#39;tcp dst port 80 and (((ip[2:2] - ((ip[0]&amp;amp;0xf)&amp;lt;&amp;lt;2)) - ((tcp[12]&amp;amp;0xf0)&amp;gt;&amp;gt;2)) !</description>
@@ -56,20 +56,20 @@ I usually stick the following lines into my .bashrc on all the servers I install
     
     <item>
       <title>i see packets...</title>
-      <link>https://www.control-alt-del.org/post/2013/10/23/i-see-packets-dot-dot-dot/</link>
+      <link>https://www.control-alt-del.org/posts/2013/10/23/i-see-packets-dot-dot-dot/</link>
       <pubDate>Wed, 23 Oct 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2013/10/23/i-see-packets-dot-dot-dot/</guid>
+      <guid>https://www.control-alt-del.org/posts/2013/10/23/i-see-packets-dot-dot-dot/</guid>
       <description>&lt;p&gt;While studying for the GCIA certification, I put together the following reference to be able to eyeball packets and see at a glance what&#39;s inside a hex packet dump.&lt;br /&gt;
 &lt;/p&gt;</description>
     </item>
     
     <item>
       <title>port scanning wihtout a port scanner</title>
-      <link>https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/</link>
+      <link>https://www.control-alt-del.org/posts/2011/11/25/port-scanning-wihtout-a-port-scanner/</link>
       <pubDate>Fri, 25 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/11/25/port-scanning-wihtout-a-port-scanner/</guid>
       <description>Booya.
 For older bash versions
 1 2 3 4 5  for i in $(seq 1 1 1024); do echo &amp;gt; /dev/tcp/10.10.10.10/$i; [ $? == 0 ] &amp;amp;&amp;amp; echo $i &amp;gt;&amp;gt;/tmp/open.txt; done   Same thing, newer bash versions
@@ -78,10 +78,10 @@ For older bash versions
     
     <item>
       <title>remote shell without any tools</title>
-      <link>https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/</link>
+      <link>https://www.control-alt-del.org/posts/2011/11/25/remote-shell-without-any-tools/</link>
       <pubDate>Fri, 25 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/11/25/remote-shell-without-any-tools/</guid>
       <description>Here&#39;s a method for opening up a TCP connection from one host to another without needing to install any tools.
 From the attacker machine, wait for a connection
 Wait for connections
@@ -92,10 +92,10 @@ Call home
     
     <item>
       <title>validating ip addresses in php</title>
-      <link>https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/</link>
+      <link>https://www.control-alt-del.org/posts/2011/11/14/validating-ip-addresses-in-php/</link>
       <pubDate>Mon, 14 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/11/14/validating-ip-addresses-in-php/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/11/14/validating-ip-addresses-in-php/</guid>
       <description>&lt;p&gt;&lt;/p&gt;</description>
     </item>
     

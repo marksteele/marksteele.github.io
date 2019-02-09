@@ -13,10 +13,10 @@
     
     <item>
       <title>complex event processing to detect click fraud</title>
-      <link>https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/</link>
+      <link>https://www.control-alt-del.org/posts/2013/10/19/complex-event-processing-to-detect-click-fraud/</link>
       <pubDate>Sat, 19 Oct 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2013/10/19/complex-event-processing-to-detect-click-fraud/</guid>
+      <guid>https://www.control-alt-del.org/posts/2013/10/19/complex-event-processing-to-detect-click-fraud/</guid>
       <description>&lt;p&gt;Here&#39;s another use-case for CEP: Detecting uniqueness over time. A use-case for this type of pattern is identifying click fraud.&lt;/p&gt;
 
 &lt;p&gt;Once more, to see how to get everything up and running, see my previous posts.&lt;/p&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>complex event processing for fun and profit part deux</title>
-      <link>https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/</link>
+      <link>https://www.control-alt-del.org/posts/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/</link>
       <pubDate>Sat, 15 Jun 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/</guid>
+      <guid>https://www.control-alt-del.org/posts/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/</guid>
       <description>&lt;p&gt;In the first instalment, we saw how to use simple moving average. That&#39;s just too easy.&lt;/p&gt;
 
 &lt;p&gt;Let&#39;s do something more complex to see how things pan out.&lt;/p&gt;</description>
@@ -38,10 +38,10 @@
     
     <item>
       <title>complex event processing for fun and profit</title>
-      <link>https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/</link>
+      <link>https://www.control-alt-del.org/posts/2013/06/10/complex-event-processing-for-fun-and-profit/</link>
       <pubDate>Mon, 10 Jun 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2013/06/10/complex-event-processing-for-fun-and-profit/</guid>
+      <guid>https://www.control-alt-del.org/posts/2013/06/10/complex-event-processing-for-fun-and-profit/</guid>
       <description>&lt;p&gt;As an exercise to keep my mind nimble, here.s a write-up on how to use the power of computers to take over the world by out-foxing those slow moving meatbags who do stock trading and compete with skynet on making the most possible profit.&lt;/p&gt;
 
 &lt;p&gt;The pieces of this puzzle are:&lt;/p&gt;
@@ -63,10 +63,10 @@ Let&#39;s get everything installed.&lt;br /&gt;
     
     <item>
       <title>sample esp queries</title>
-      <link>https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/</link>
+      <link>https://www.control-alt-del.org/posts/2011/10/25/sample-esp-queries/</link>
       <pubDate>Tue, 25 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/10/25/sample-esp-queries/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/10/25/sample-esp-queries/</guid>
       <description>&lt;p&gt;Emit when something hasn&#39;t been seen in a while:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

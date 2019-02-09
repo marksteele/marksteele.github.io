@@ -13,10 +13,10 @@
     
     <item>
       <title>introducing cinched</title>
-      <link>https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/</link>
+      <link>https://www.control-alt-del.org/posts/2016/02/04/introducing-cinched/</link>
       <pubDate>Thu, 04 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/</guid>
+      <guid>https://www.control-alt-del.org/posts/2016/02/04/introducing-cinched/</guid>
       <description>Given the frequency of rather embarrassing data breaches recently, I&#39;ve had the opportunity to spend some time thinking about how to help developers protect the data they are storing.
 Getting encryption right is hard, and designing cryptographic applications is not something web developers typically have lots of experience with. To (hopefully) help bridge this knowledge gap, I&#39;ve written a microservice which provides encryption and key management services.
 It&#39;s a cinch to use, and will keep your data cinched.</description>
@@ -24,20 +24,20 @@ It&#39;s a cinch to use, and will keep your data cinched.</description>
     
     <item>
       <title>puppet lessons learned</title>
-      <link>https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/</link>
+      <link>https://www.control-alt-del.org/posts/2015/04/13/puppet-lessons-learned/</link>
       <pubDate>Mon, 13 Apr 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2015/04/13/puppet-lessons-learned/</guid>
+      <guid>https://www.control-alt-del.org/posts/2015/04/13/puppet-lessons-learned/</guid>
       <description>Over the past couple of years my team has iterated several times on the proper way of managing systems using Puppet. For a while it was a gigantic time sink while we tested and prototyped several different appraoches to configuring things with many frustrating failures. This post will be an exploration of some of the lessons learned.
 Lesson #1: Puppet is not deterministic Yup, that&#39;s right. The tool you&#39;re trying to use to get all your servers to a deterministic state isn&#39;t very deterministic in resolving that state.</description>
     </item>
     
     <item>
       <title>meshed vpn using tinc</title>
-      <link>https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/</link>
+      <link>https://www.control-alt-del.org/posts/2015/03/19/meshed-vpn-using-tinc/</link>
       <pubDate>Thu, 19 Mar 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/</guid>
+      <guid>https://www.control-alt-del.org/posts/2015/03/19/meshed-vpn-using-tinc/</guid>
       <description>Tinc is a neat little VPN daemon that I&#39;ve recently come across. It is surprisingly simple to configure yet powerful. In this post, I&#39;ll show you how to setup a meshed VPN between four nodes with one of the servers acting as a DHCP server.
 In this fictitious scenario, let&#39;s assume the following nodes:
  dev is a CentOS cloud server with a fixed public IP address, we&#39;ll designate this one as our DHCP server</description>
@@ -45,30 +45,30 @@ In this fictitious scenario, let&#39;s assume the following nodes:
     
     <item>
       <title>geo blocking with iptables/ipset</title>
-      <link>https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/</link>
+      <link>https://www.control-alt-del.org/posts/2015/02/13/geo-blocking-with-iptables-slash-ipset/</link>
       <pubDate>Fri, 13 Feb 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/</guid>
+      <guid>https://www.control-alt-del.org/posts/2015/02/13/geo-blocking-with-iptables-slash-ipset/</guid>
       <description>In this post, I&#39;ll go over how to use iptables and ipset to create a basic firewall with ssh brute force protection and geo-blocking. I&#39;m assuming CentOS here, adjust paths/commands accordingly for other distributions.
 Ipset is a tool to create and maintain IP sets in the Linux kernel. The advantage of using ipset over setting up a bunch of individual rules is one of CPU utilization. Ipset can handle thousands of entries without CPU degradation, wheras introducing thousands of rules in iptables will have a noticeable impact on packet processing speeds.</description>
     </item>
     
     <item>
       <title>creating forensic images</title>
-      <link>https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/</link>
+      <link>https://www.control-alt-del.org/posts/2013/04/04/creating-forensic-images/</link>
       <pubDate>Thu, 04 Apr 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/</guid>
+      <guid>https://www.control-alt-del.org/posts/2013/04/04/creating-forensic-images/</guid>
       <description>Often reading big disks is a time consuming endeavor. To minimize the number of times you need to read the data, here&#39;s a tip for reading the image using dd, compressing it, and checksumming it.
 1 2 3 4  dd if=/dev/sda | pv | tee &amp;gt;( md5sum &amp;gt; box.dd.md5 ) | \ tee &amp;gt;( sha1 &amp;gt; box.dd.sha1 ) | tee box.dd | gzip | \ tee box.dd.gz | tee &amp;gt;( md5sum &amp;gt;box.</description>
     </item>
     
     <item>
       <title>compressing mysql binary logs</title>
-      <link>https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/</link>
+      <link>https://www.control-alt-del.org/posts/2013/01/14/compressing-mysql-binary-logs/</link>
       <pubDate>Mon, 14 Jan 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2013/01/14/compressing-mysql-binary-logs/</guid>
+      <guid>https://www.control-alt-del.org/posts/2013/01/14/compressing-mysql-binary-logs/</guid>
       <description>&lt;p&gt;Under normal circumstances, master servers in a replication can be setup to automatically rotate binary logs using the expire_logs_days my.cnf configuration setting.&lt;/p&gt;
 
 &lt;p&gt;However when it is known that slaves are in sync, it can be beneficial to pro-actively reduce on-disk size using compression. This can be especially useful in high-churn environments where binary logs grow quickly.&lt;/p&gt;
@@ -86,10 +86,10 @@ Ipset is a tool to create and maintain IP sets in the Linux kernel. The advantag
     
     <item>
       <title>building secure linux systems</title>
-      <link>https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/</link>
+      <link>https://www.control-alt-del.org/posts/2011/12/14/building-secure-linux-systems/</link>
       <pubDate>Wed, 14 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/12/14/building-secure-linux-systems/</guid>
       <description>&lt;p&gt;In this post, I&#39;m going to be documenting the process that I&#39;m working on to build secure Linux systems.&lt;/p&gt;
 
 &lt;p&gt;What I&#39;d like to have when I&#39;m done:&lt;br /&gt;
@@ -103,10 +103,10 @@ Phew, that&#39;s quite the laundry list. But it forms the basis of a good securi
     
     <item>
       <title>security policy templates</title>
-      <link>https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/</link>
+      <link>https://www.control-alt-del.org/posts/2011/09/14/security-policy-templates/</link>
       <pubDate>Wed, 14 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/09/14/security-policy-templates/</guid>
       <description> NIST has a good list
  The department of the interior handbook to be quite a good and comprehensive resource.
  The CMS IS policy seems to be a good over-reaching policy for starting policy

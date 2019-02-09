@@ -13,10 +13,10 @@
     
     <item>
       <title>building a serverless analytics platform at lolscale</title>
-      <link>https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/</link>
+      <link>https://www.control-alt-del.org/posts/building-a-serverless-analytics-platform-at-lolscale/</link>
       <pubDate>Wed, 04 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/building-a-serverless-analytics-platform-at-lolscale/</guid>
+      <guid>https://www.control-alt-del.org/posts/building-a-serverless-analytics-platform-at-lolscale/</guid>
       <description>&lt;h1 id=&#34;hundreds-of-millions-of-events-per-month-on-the-cheap&#34;&gt;Hundreds of millions of events per month on the cheap&lt;/h1&gt;
 
 &lt;p&gt;In this post, I&#39;m going to go over the setup of infrastructure for creating an analytics platform capable of handling hundreds of millions of events per month. All without spinning up a single server.&lt;/p&gt;

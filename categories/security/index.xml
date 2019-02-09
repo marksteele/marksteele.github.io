@@ -13,10 +13,10 @@
     
     <item>
       <title>DropBucket</title>
-      <link>https://www.control-alt-del.org/post/dropbucket/</link>
+      <link>https://www.control-alt-del.org/posts/dropbucket/</link>
       <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/dropbucket/</guid>
+      <guid>https://www.control-alt-del.org/posts/dropbucket/</guid>
       <description>&lt;h1 id=&#34;open-source-self-hosted-file-sharing&#34;&gt;Open source self-hosted file sharing&lt;/h1&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -24,10 +24,10 @@
     
     <item>
       <title>One-time password sharing... securely!</title>
-      <link>https://www.control-alt-del.org/post/one-time-password-sharing-securely/</link>
+      <link>https://www.control-alt-del.org/posts/one-time-password-sharing-securely/</link>
       <pubDate>Sat, 08 Sep 2018 21:56:19 -0400</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/one-time-password-sharing-securely/</guid>
+      <guid>https://www.control-alt-del.org/posts/one-time-password-sharing-securely/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/self-destruct.jpg&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Need to send a friend a password for something? Don&#39;t trust that the man might be reading your emails and SMS messages? Here&#39;s how to setup your own service to share secrets.&lt;/p&gt;
@@ -37,10 +37,10 @@
     
     <item>
       <title>Envelope encryption in Lambda functions with DynamoDB and KMS</title>
-      <link>https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</link>
+      <link>https://www.control-alt-del.org/posts/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</link>
       <pubDate>Thu, 03 May 2018 10:44:37 -0400</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</guid>
+      <guid>https://www.control-alt-del.org/posts/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/envelope-encryption.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here&#39;s a quick code snippet on how to implement field level encryption of data stored in DynamoDB using per-record encryption keys and the AWS Key management store (KMS).&lt;/p&gt;
@@ -50,10 +50,10 @@
     
     <item>
       <title>benchmarking cinched</title>
-      <link>https://www.control-alt-del.org/post/2016/02/12/benchmarking-cinched/</link>
+      <link>https://www.control-alt-del.org/posts/2016/02/12/benchmarking-cinched/</link>
       <pubDate>Fri, 12 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2016/02/12/benchmarking-cinched/</guid>
+      <guid>https://www.control-alt-del.org/posts/2016/02/12/benchmarking-cinched/</guid>
       <description>Now that a first version was cut, it seemed like a good time to start looking at how Cinched performs.
 And I must say, things are looking good so far...
 Test setup 3 nodes in the Cinched cluster (each 4 vCPUs 4GB RAM)
@@ -63,10 +63,10 @@ My testing environment is extremely unreliable (VMs running in an overprovisione
     
     <item>
       <title>introducing cinched</title>
-      <link>https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/</link>
+      <link>https://www.control-alt-del.org/posts/2016/02/04/introducing-cinched/</link>
       <pubDate>Thu, 04 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2016/02/04/introducing-cinched/</guid>
+      <guid>https://www.control-alt-del.org/posts/2016/02/04/introducing-cinched/</guid>
       <description>Given the frequency of rather embarrassing data breaches recently, I&#39;ve had the opportunity to spend some time thinking about how to help developers protect the data they are storing.
 Getting encryption right is hard, and designing cryptographic applications is not something web developers typically have lots of experience with. To (hopefully) help bridge this knowledge gap, I&#39;ve written a microservice which provides encryption and key management services.
 It&#39;s a cinch to use, and will keep your data cinched.</description>
@@ -74,10 +74,10 @@ It&#39;s a cinch to use, and will keep your data cinched.</description>
     
     <item>
       <title>setting up a ca</title>
-      <link>https://www.control-alt-del.org/post/2016/01/30/setting-up-a-ca/</link>
+      <link>https://www.control-alt-del.org/posts/2016/01/30/setting-up-a-ca/</link>
       <pubDate>Sat, 30 Jan 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2016/01/30/setting-up-a-ca/</guid>
+      <guid>https://www.control-alt-del.org/posts/2016/01/30/setting-up-a-ca/</guid>
       <description>Tired of creating your CA using openssl command line tools? Here&#39;s a whirlwind crash course on creating a functional web-based CA in a couple of minutes.
 Preparation I&#39;m assuming you&#39;re running CentOS 7, because that&#39;s what I&#39;m using. Also, the code is redhat-ish in that it&#39;s in the Fedora/RHEL pipeline and not terribly friendly to other distros as far as packaging goes. Also, I happen to like CentOS.
 We&#39;re going to be installing the Dogtag CA PKI solution.</description>
@@ -85,10 +85,10 @@ We&#39;re going to be installing the Dogtag CA PKI solution.</description>
     
     <item>
       <title>security advice for the average joe</title>
-      <link>https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/</link>
+      <link>https://www.control-alt-del.org/posts/2015/11/13/security-advice-for-the-average-joe/</link>
       <pubDate>Fri, 13 Nov 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2015/11/13/security-advice-for-the-average-joe/</guid>
+      <guid>https://www.control-alt-del.org/posts/2015/11/13/security-advice-for-the-average-joe/</guid>
       <description>Introduction A computer lets you make more mistakes faster than any invention in human history - with the possible exception of handguns and tequila. --Mitch Ratliff
 The Internet has gone through a massive transformation since it&#39;s inception. From a tool used mostly by academics, it has come to be a pervasive tool used by just about everyone to communicate, shop, pay bills, invest, and entertain.
 While the use cases never cease to increase, one aspect of Internet usage that is rather problematic is educating the public about the risks involved in living a connected life, and what are the ways people can defend against attacks.</description>
@@ -96,10 +96,10 @@ While the use cases never cease to increase, one aspect of Internet usage that i
     
     <item>
       <title>meshed vpn using tinc</title>
-      <link>https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/</link>
+      <link>https://www.control-alt-del.org/posts/2015/03/19/meshed-vpn-using-tinc/</link>
       <pubDate>Thu, 19 Mar 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2015/03/19/meshed-vpn-using-tinc/</guid>
+      <guid>https://www.control-alt-del.org/posts/2015/03/19/meshed-vpn-using-tinc/</guid>
       <description>Tinc is a neat little VPN daemon that I&#39;ve recently come across. It is surprisingly simple to configure yet powerful. In this post, I&#39;ll show you how to setup a meshed VPN between four nodes with one of the servers acting as a DHCP server.
 In this fictitious scenario, let&#39;s assume the following nodes:
  dev is a CentOS cloud server with a fixed public IP address, we&#39;ll designate this one as our DHCP server</description>
@@ -107,30 +107,30 @@ In this fictitious scenario, let&#39;s assume the following nodes:
     
     <item>
       <title>geo blocking with iptables/ipset</title>
-      <link>https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/</link>
+      <link>https://www.control-alt-del.org/posts/2015/02/13/geo-blocking-with-iptables-slash-ipset/</link>
       <pubDate>Fri, 13 Feb 2015 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2015/02/13/geo-blocking-with-iptables-slash-ipset/</guid>
+      <guid>https://www.control-alt-del.org/posts/2015/02/13/geo-blocking-with-iptables-slash-ipset/</guid>
       <description>In this post, I&#39;ll go over how to use iptables and ipset to create a basic firewall with ssh brute force protection and geo-blocking. I&#39;m assuming CentOS here, adjust paths/commands accordingly for other distributions.
 Ipset is a tool to create and maintain IP sets in the Linux kernel. The advantage of using ipset over setting up a bunch of individual rules is one of CPU utilization. Ipset can handle thousands of entries without CPU degradation, wheras introducing thousands of rules in iptables will have a noticeable impact on packet processing speeds.</description>
     </item>
     
     <item>
       <title>creating forensic images</title>
-      <link>https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/</link>
+      <link>https://www.control-alt-del.org/posts/2013/04/04/creating-forensic-images/</link>
       <pubDate>Thu, 04 Apr 2013 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2013/04/04/creating-forensic-images/</guid>
+      <guid>https://www.control-alt-del.org/posts/2013/04/04/creating-forensic-images/</guid>
       <description>Often reading big disks is a time consuming endeavor. To minimize the number of times you need to read the data, here&#39;s a tip for reading the image using dd, compressing it, and checksumming it.
 1 2 3 4  dd if=/dev/sda | pv | tee &amp;gt;( md5sum &amp;gt; box.dd.md5 ) | \ tee &amp;gt;( sha1 &amp;gt; box.dd.sha1 ) | tee box.dd | gzip | \ tee box.dd.gz | tee &amp;gt;( md5sum &amp;gt;box.</description>
     </item>
     
     <item>
       <title>building secure linux systems</title>
-      <link>https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/</link>
+      <link>https://www.control-alt-del.org/posts/2011/12/14/building-secure-linux-systems/</link>
       <pubDate>Wed, 14 Dec 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/12/14/building-secure-linux-systems/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/12/14/building-secure-linux-systems/</guid>
       <description>&lt;p&gt;In this post, I&#39;m going to be documenting the process that I&#39;m working on to build secure Linux systems.&lt;/p&gt;
 
 &lt;p&gt;What I&#39;d like to have when I&#39;m done:&lt;br /&gt;
@@ -144,10 +144,10 @@ Phew, that&#39;s quite the laundry list. But it forms the basis of a good securi
     
     <item>
       <title>port scanning wihtout a port scanner</title>
-      <link>https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/</link>
+      <link>https://www.control-alt-del.org/posts/2011/11/25/port-scanning-wihtout-a-port-scanner/</link>
       <pubDate>Fri, 25 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/11/25/port-scanning-wihtout-a-port-scanner/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/11/25/port-scanning-wihtout-a-port-scanner/</guid>
       <description>Booya.
 For older bash versions
 1 2 3 4 5  for i in $(seq 1 1 1024); do echo &amp;gt; /dev/tcp/10.10.10.10/$i; [ $? == 0 ] &amp;amp;&amp;amp; echo $i &amp;gt;&amp;gt;/tmp/open.txt; done   Same thing, newer bash versions
@@ -156,10 +156,10 @@ For older bash versions
     
     <item>
       <title>remote shell without any tools</title>
-      <link>https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/</link>
+      <link>https://www.control-alt-del.org/posts/2011/11/25/remote-shell-without-any-tools/</link>
       <pubDate>Fri, 25 Nov 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/11/25/remote-shell-without-any-tools/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/11/25/remote-shell-without-any-tools/</guid>
       <description>Here&#39;s a method for opening up a TCP connection from one host to another without needing to install any tools.
 From the attacker machine, wait for a connection
 Wait for connections
@@ -170,10 +170,10 @@ Call home
     
     <item>
       <title>security policy templates</title>
-      <link>https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/</link>
+      <link>https://www.control-alt-del.org/posts/2011/09/14/security-policy-templates/</link>
       <pubDate>Wed, 14 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/2011/09/14/security-policy-templates/</guid>
+      <guid>https://www.control-alt-del.org/posts/2011/09/14/security-policy-templates/</guid>
       <description> NIST has a good list
  The department of the interior handbook to be quite a good and comprehensive resource.
  The CMS IS policy seems to be a good over-reaching policy for starting policy
