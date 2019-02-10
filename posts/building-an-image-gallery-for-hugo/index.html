@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-us">
 	<head>
-		<title>Mark&#39;s Blargh</title>
+		<title>
+	Building an image gallery for Hugo
+</title>
 		<style>
 	body {
 		display: block;
@@ -24,8 +26,10 @@
 
 
 	
+	
+	
 	<meta name="author" content="Mark Steele" />
-	<meta name="description" content="" />
+	<meta name="description" content="A quick image gallery for Hugo" />
 
 
 
@@ -35,8 +39,6 @@
 <link rel="shortcut icon" href="/img/defaultFav.ico">
 
 
-
-    <link rel="alternate" type="application/rss+xml" href="https://www.control-alt-del.org/index.xml" title="Mark's Blargh" />
 
 
 		
@@ -1372,9 +1374,6 @@ var bodyBgSwitchIndex = 0;
 			<div class="flipper">
 				<div class="front">
 					
-	
-	
-	
 	<nav class="ui top secondary menu bar">
 	
 	<div class="item">
@@ -1383,14 +1382,14 @@ var bodyBgSwitchIndex = 0;
 
 	
 	
-
-	
-	
 		<div class="item">
-			<a href="/posts">
-				<i class="inverted big link archive icon" title="Archive"></i>
+			<a href="/">
+				<i class="inverted big link home icon" title="Home"></i>
 			</a>
 		</div>
+	
+
+	
 	
 
 	
@@ -1407,24 +1406,14 @@ var bodyBgSwitchIndex = 0;
 
 	
 	
-		
-		<div class="item">
-			
-				<a href="/page/2/">
-					<i class="inverted big link chevron circle left icon" title="Previous page"></i>
-				</a>
-			
-			</div>
-		<div class="item">
-			
-				<a href="/page/4/">
-					<i class="inverted big link chevron circle right icon" title="Next page"></i>
-				</a>
-			
-		</div>
-	
 
 	
+	
+		<div class="ui container tablet computer only grid">
+			<div class="item" onClick="$('.ui.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');">
+				<i class="inverted big link sidebar icon" title="Show Sidebar"></i>
+			</div>
+		</div>
 	
 
 	
@@ -1440,8 +1429,8 @@ var bodyBgSwitchIndex = 0;
 
 	<div class="ui centered grid">
 		
-		<div class="fifteen wide mobile fifteen wide tablet four wide computer column">
-			<div class="ui inverted accordion">
+		<div class="sixteen wide mobile only column">
+				<div class="ui inverted accordion">
 	<div id="header" class="ui inverted segment column box">		
 		
 		<header id="author" class="ui top attached center aligned inverted segment">
@@ -1461,16 +1450,16 @@ var bodyBgSwitchIndex = 0;
 		</header>
 
 		
-		<div class="active title header-title">
+		<div class=" title header-title">
 			
 				<div id="tag-category-pop" class="ui red right corner label">
-					<i class="hand point icon up" title="Show/hide tags and categories"></i>
+					<i class="hand point icon down" title="Show/hide tags and categories"></i>
 				</div>
 			
 		</div>
 		
 		
-		<div id="tag-category" class="active content">
+		<div id="tag-category" class=" content">
 			
 
 			
@@ -2689,262 +2678,332 @@ var bodyBgSwitchIndex = 0;
 
 		</div>
 
-		
-		<div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
-			<div class="cards row box">
+		<div class="sixteen wide mobile fifteen wide tablet twelve wide computer column post-list">
+			
+			<section class="ui secondary top attached black segment post-head">
+				<h1 class="post-title">
+					Building an image gallery for Hugo
+				</h1>
+
+				<div class="sub header">
+					<div><span><i class="calendar outline icon"></i>Feb 9, 2019</span></div>
+					
+					<div><span><i class="clock outline icon"></i>1 min read</span></div>
+					<div><span><i class="angle double up icon"></i>Last updated on Feb 9, 2019</span></div>
+				</div>
+				<hr>
+
 				
+
+				<article class="post-content twemoji">
+					<h1 id="a-quick-image-gallery-for-hugo">A quick image gallery for Hugo&nbsp;<a class="anchor" href="#a-quick-image-gallery-for-hugo"><i class="small linkify icon"></i></a> </h1>
+
+<p><br />
+Here's a quick image gallery that can read a folder and generate a quick gallery.</p>
+
+<p>It will try to load all JPG files in the provided path, and assumes that every image has a thumbnail file that has the <code>-thumb.EXT</code> extension. Ex: for a file 'blah.jpg', it would assume there would also be a 'blah-thumb.jpg'.</p>
+
+<p>Drop this into <code>layouts/shortcodes/foldergallery.html</code>:</p>
+
+<script type="application/javascript" src="//gist.github.com/38aa7ce30608da6c5182527105e79b0e/.js"></script>
+
+<p>Once that's done add this javascript to your installation somewhere:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.js&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>The shortcode assumes that galleries are stored in folders under the /static path.</p>
+
+<p>Here's an example of how to use it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-md" data-lang="md"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-md" data-lang="md"><style>
+  div.gallery {
+     display: flex;
+     flex-wrap: wrap;
+  }
+        div.gallery a {
+            flex-grow: 1;
+            object-fit: cover;
+            margin: 2px;
+            display: flex;
+        }
+
+        div.gallery a img {            
+            height: 200px;
+            object-fit: cover;
+            flex-grow: 1;
+        }
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.css" />
+
+    <div class="gallery">
+        
+	
+
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0159.jpg">
+                <img src="/images/galleries/2015//IMG_0159-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0178.jpg">
+                <img src="/images/galleries/2015//IMG_0178-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0188.jpg">
+                <img src="/images/galleries/2015//IMG_0188-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0216.jpg">
+                <img src="/images/galleries/2015//IMG_0216-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0459.jpg">
+                <img src="/images/galleries/2015//IMG_0459-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0567.jpg">
+                <img src="/images/galleries/2015//IMG_0567-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0849.jpg">
+                <img src="/images/galleries/2015//IMG_0849-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0850.jpg">
+                <img src="/images/galleries/2015//IMG_0850-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0907.jpg">
+                <img src="/images/galleries/2015//IMG_0907-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0908.jpg">
+                <img src="/images/galleries/2015//IMG_0908-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0969.jpg">
+                <img src="/images/galleries/2015//IMG_0969-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1012.jpg">
+                <img src="/images/galleries/2015//IMG_1012-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1027.jpg">
+                <img src="/images/galleries/2015//IMG_1027-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1029.jpg">
+                <img src="/images/galleries/2015//IMG_1029-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1054.jpg">
+                <img src="/images/galleries/2015//IMG_1054-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1088.jpg">
+                <img src="/images/galleries/2015//IMG_1088-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1747.jpg">
+                <img src="/images/galleries/2015//IMG_1747-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150403_134845.jpg">
+                <img src="/images/galleries/2015//IMG_20150403_134845-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150415_104508.jpg">
+                <img src="/images/galleries/2015//IMG_20150415_104508-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150626_142855.jpg">
+                <img src="/images/galleries/2015//IMG_20150626_142855-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150626_142908.jpg">
+                <img src="/images/galleries/2015//IMG_20150626_142908-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150626_143518.jpg">
+                <img src="/images/galleries/2015//IMG_20150626_143518-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2036.jpg">
+                <img src="/images/galleries/2015//IMG_2036-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2111.jpg">
+                <img src="/images/galleries/2015//IMG_2111-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2205.jpg">
+                <img src="/images/galleries/2015//IMG_2205-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2248.jpg">
+                <img src="/images/galleries/2015//IMG_2248-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2320.jpg">
+                <img src="/images/galleries/2015//IMG_2320-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2333.jpg">
+                <img src="/images/galleries/2015//IMG_2333-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2992.jpg">
+                <img src="/images/galleries/2015//IMG_2992-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_3229.jpg">
+                <img src="/images/galleries/2015//IMG_3229-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_3230.jpg">
+                <img src="/images/galleries/2015//IMG_3230-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_5396a.jpg">
+                <img src="/images/galleries/2015//IMG_5396a-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204160859_fast.jpg">
+                <img src="/images/galleries/2015//MYXJ_20150204160859_fast-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204161152_org.jpg">
+                <img src="/images/galleries/2015//MYXJ_20150204161152_org-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204161239_fast.jpg">
+                <img src="/images/galleries/2015//MYXJ_20150204161239_fast-thumb.jpg">  <br/>            
+            </a>
+	
+	
+            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204231038_save.jpg">
+                <img src="/images/galleries/2015//MYXJ_20150204231038_save-thumb.jpg">  <br/>            
+            </a>
+	
+    </div>
+
+</code></pre></td></tr></table>
+</div>
+</div>
+<h1 id="generating-thumbnails">Generating thumbnails&nbsp;<a class="anchor" href="#generating-thumbnails"><i class="small linkify icon"></i></a> </h1>
+
+<p>Here's how I do it in Linux (might also work on Mac with homebrew). First, install imagemagick. I store my galleries under <code>static/images/galleries/&lt;GALLERYNAME&gt;</code>. To create thumbnails for all my galleries:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="sb">`</span>find static/images/galleries -type f ! -name <span class="s2">&#34;*-thumb.jpg&#34;</span> -name <span class="s2">&#34;*.jpg&#34;</span><span class="sb">`</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="nv">$i</span><span class="p">;</span> <span class="k">if</span> <span class="o">[</span> -f <span class="si">${</span><span class="nv">i</span><span class="p">%.*</span><span class="si">}</span>-thumb.jpg <span class="o">]</span><span class="p">;</span> <span class="k">then</span> <span class="k">continue</span><span class="p">;</span> <span class="k">fi</span><span class="p">;</span> convert <span class="nv">$i</span> -thumbnail 100x100 <span class="si">${</span><span class="nv">i</span><span class="p">%.*</span><span class="si">}</span>-thumb.jpg<span class="p">;</span> <span class="k">done</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Repeat this for each file format you want thumbnails for (this will only convert jpegs).</p>
+				</article>				
+			</section>
+
+			
+			<section class="ui secondary attached segment dream-tags">
+				
+					<span>No tag</span>
+				
+			</section>
+
+			
+			
+				<section class="ui secondary bottom attached segment share row box">
 					
 
 
+
+
+
+
+
+
+<div class="author">
 	
-
-
-
-<article class="blog-card none flexbox">
+	<img class="avatar" src="/images/mark.jpg">
 	
-	<img class="image" src="/images/ca.svg"></img>
-	<div class="title-content twemoji">
-		<h3><a class="title" href=https://www.control-alt-del.org/posts/2016/01/30/setting-up-a-ca/>setting up a ca</a></h3>
-		<div class="intro twemoji">
-			
-				<br><br>
-			
-		</div>
+</div>
+<div class="info grow flexbox">
+	<a href="https://twitter.com/markrsteele">
+	<p class="name">Mark Steele</p>
+	</a>
+	<p class="desc">Cogito Interruptus Vulgaris</p>
+</div>
+
+
+<section class="buttons row box">
+	<div class="facebook none flexbox" href="#" onclick="window.open(
+			'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+			'facebook-share-dialog',
+			'width=626,height=436'); return false;">
+		<button class="ui facebook button"><i class="facebook icon"></i>Share</button>
 	</div>
-
-	
-	<div class="utility-info">
-		<ul class="utility-list">
-			
-			<div><span><i class="calendar icon"></i>Jan 30, 2016</span></div>
-			<div><span><i class="clock icon"></i>6 min read</span></div>
-		</ul>
+	<div class="twitter none flexbox" onclick="window.open('https://twitter.com/intent/tweet?text=Read &quot;Building an image gallery for Hugo &quot; by @markrsteele https:\/\/www.control-alt-del.org\/posts\/building-an-image-gallery-for-hugo\/','_self')">
+		<button class="ui twitter button"><i class="twitter icon"></i>Tweet</button>
 	</div>
-	<div class="color-overlay"></div>
-</article>
+</section>
 
-				
-					
-
-
-	
-
-
-
-<article class="blog-card none flexbox">
-	
-	<img class="image" src="/images/password2.jpg"></img>
-	<div class="title-content twemoji">
-		<h3><a class="title" href=https://www.control-alt-del.org/posts/2015/11/13/security-advice-for-the-average-joe/>security advice for the average joe</a></h3>
-		<div class="intro twemoji">
+				</section>
 			
-				<br><br>
+
 			
-		</div>
-	</div>
-
-	
-	<div class="utility-info">
-		<ul class="utility-list">
 			
-			<div><span><i class="calendar icon"></i>Nov 13, 2015</span></div>
-			<div><span><i class="clock icon"></i>10 min read</span></div>
-		</ul>
-	</div>
-	<div class="color-overlay"></div>
-</article>
-
-				
-					
-
-
-	
-
-
-
-<article class="blog-card none flexbox">
-	
-	<img class="image" src="/images/dice.jpg"></img>
-	<div class="title-content twemoji">
-		<h3><a class="title" href=https://www.control-alt-del.org/posts/2015/04/13/puppet-lessons-learned/>puppet lessons learned</a></h3>
-		<div class="intro twemoji">
 			
-				<br><br>
+
 			
-		</div>
-	</div>
-
-	
-	<div class="utility-info">
-		<ul class="utility-list">
 			
-			<div><span><i class="calendar icon"></i>Apr 13, 2015</span></div>
-			<div><span><i class="clock icon"></i>5 min read</span></div>
-		</ul>
-	</div>
-	<div class="color-overlay"></div>
-</article>
-
-				
-					
-
-
-	
-
-
-
-<article class="blog-card none flexbox">
-	
-	<img class="image" src="/images/tinclogo.png"></img>
-	<div class="title-content twemoji">
-		<h3><a class="title" href=https://www.control-alt-del.org/posts/2015/03/19/meshed-vpn-using-tinc/>meshed vpn using tinc</a></h3>
-		<div class="intro twemoji">
-			
-				<br><br>
-			
-		</div>
-	</div>
-
-	
-	<div class="utility-info">
-		<ul class="utility-list">
-			
-			<div><span><i class="calendar icon"></i>Mar 19, 2015</span></div>
-			<div><span><i class="clock icon"></i>6 min read</span></div>
-		</ul>
-	</div>
-	<div class="color-overlay"></div>
-</article>
-
-				
-					
-
-
-	
-
-
-
-<article class="blog-card none flexbox">
-	
-	<img class="image" src="/images/linux-security.jpg"></img>
-	<div class="title-content twemoji">
-		<h3><a class="title" href=https://www.control-alt-del.org/posts/2015/02/13/geo-blocking-with-iptables-slash-ipset/>geo blocking with iptables/ipset</a></h3>
-		<div class="intro twemoji">
-			
-				<br><br>
-			
-		</div>
-	</div>
-
-	
-	<div class="utility-info">
-		<ul class="utility-list">
-			
-			<div><span><i class="calendar icon"></i>Feb 13, 2015</span></div>
-			<div><span><i class="clock icon"></i>7 min read</span></div>
-		</ul>
-	</div>
-	<div class="color-overlay"></div>
-</article>
-
-				
-					
-
-
-	
-	
-		
-	
-
-
-
-<article class="blog-card none flexbox">
-	
-	<img class="image" src="/img/default2.jpg"></img>
-	<div class="title-content twemoji">
-		<h3><a class="title" href=https://www.control-alt-del.org/posts/gallery-2015/>Image gallery 2015</a></h3>
-		<div class="intro twemoji">
-			
-				<br><br>
-			
-		</div>
-	</div>
-
-	
-	<div class="utility-info">
-		<ul class="utility-list">
-			
-			<div><span><i class="calendar icon"></i>Jan 1, 2015</span></div>
-			<div><span><i class="clock icon"></i>1 min read</span></div>
-		</ul>
-	</div>
-	<div class="color-overlay"></div>
-</article>
-
-				
-					
-
-
-	
-
-
-
-<article class="blog-card none flexbox">
-	
-	<img class="image" src="/images/pentaho.jpg"></img>
-	<div class="title-content twemoji">
-		<h3><a class="title" href=https://www.control-alt-del.org/posts/2014/01/20/pdi-bag-of-tricks-dot-dot-dot/>pdi bag of tricks...</a></h3>
-		<div class="intro twemoji">
-			
-				<br><br>
-			
-		</div>
-	</div>
-
-	
-	<div class="utility-info">
-		<ul class="utility-list">
-			
-			<div><span><i class="calendar icon"></i>Jan 20, 2014</span></div>
-			<div><span><i class="clock icon"></i>4 min read</span></div>
-		</ul>
-	</div>
-	<div class="color-overlay"></div>
-</article>
-
-				
-					
-
-
-	
-
-
-
-<article class="blog-card none flexbox">
-	
-	<img class="image" src="/images/php.png"></img>
-	<div class="title-content twemoji">
-		<h3><a class="title" href=https://www.control-alt-del.org/posts/2014/01/10/unserializing-php-from-pdi/>unserializing php from pdi</a></h3>
-		<div class="intro twemoji">
-			
-				<br><br>
-			
-		</div>
-	</div>
-
-	
-	<div class="utility-info">
-		<ul class="utility-list">
-			
-			<div><span><i class="calendar icon"></i>Jan 10, 2014</span></div>
-			<div><span><i class="clock icon"></i>1 min read</span></div>
-		</ul>
-	</div>
-	<div class="color-overlay"></div>
-</article>
-
-				
-			</div>
 		</div>
 	</div>
 

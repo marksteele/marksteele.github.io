@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo Shortcodes on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/hugo-shortcodes/</link>
+    <description>Recent content in Hugo Shortcodes on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 09 Feb 2019 21:40:11 -0500</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/hugo-shortcodes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Building an image gallery for Hugo</title>
+      <link>https://www.control-alt-del.org/posts/building-an-image-gallery-for-hugo/</link>
+      <pubDate>Sat, 09 Feb 2019 21:40:11 -0500</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/building-an-image-gallery-for-hugo/</guid>
+      <description>&lt;h1 id=&#34;a-quick-image-gallery-for-hugo&#34;&gt;A quick image gallery for Hugo&lt;/h1&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

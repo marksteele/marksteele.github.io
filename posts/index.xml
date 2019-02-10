@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Mark&#39;s Blargh</description>
     <meta name="generator" content="Hugo 0.48" />
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Feb 2019 21:59:37 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 09 Feb 2019 21:40:11 -0500</lastBuildDate>
     
         <atom:link href="https://www.control-alt-del.org/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Building an image gallery for Hugo</title>
+      <link>https://www.control-alt-del.org/posts/building-an-image-gallery-for-hugo/</link>
+      <pubDate>Sat, 09 Feb 2019 21:40:11 -0500</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/building-an-image-gallery-for-hugo/</guid>
+      <description>&lt;h1 id=&#34;a-quick-image-gallery-for-hugo&#34;&gt;A quick image gallery for Hugo&lt;/h1&gt;</description>
+    </item>
     
     <item>
       <title>DropBucket</title>
