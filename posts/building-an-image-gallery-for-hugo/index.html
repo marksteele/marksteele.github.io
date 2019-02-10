@@ -29,7 +29,8 @@
 	
 	
 	<meta name="author" content="Mark Steele" />
-	<meta name="description" content="A quick image gallery for Hugo" />
+	<meta name="description" content="A quick image gallery for Hugo 
+" />
 
 
 
@@ -2698,14 +2699,15 @@ var bodyBgSwitchIndex = 0;
 				<article class="post-content twemoji">
 					<h1 id="a-quick-image-gallery-for-hugo">A quick image gallery for Hugo&nbsp;<a class="anchor" href="#a-quick-image-gallery-for-hugo"><i class="small linkify icon"></i></a> </h1>
 
-<p><br />
-Here's a quick image gallery that can read a folder and generate a quick gallery.</p>
+<p></p>
+
+<p>Here's a quick image gallery that can read a folder and generate a quick gallery.</p>
 
 <p>It will try to load all JPG files in the provided path, and assumes that every image has a thumbnail file that has the <code>-thumb.EXT</code> extension. Ex: for a file 'blah.jpg', it would assume there would also be a 'blah-thumb.jpg'.</p>
 
 <p>Drop this into <code>layouts/shortcodes/foldergallery.html</code>:</p>
 
-<script type="application/javascript" src="//gist.github.com/38aa7ce30608da6c5182527105e79b0e/.js"></script>
+<script type="application/javascript" src="//gist.github.com/marksteele/38aa7ce30608da6c5182527105e79b0e.js"></script>
 
 <p>Once that's done add this javascript to your installation somewhere:</p>
 <div class="highlight"><div class="chroma">
@@ -2719,223 +2721,10 @@ Here's a quick image gallery that can read a folder and generate a quick gallery
 <p>The shortcode assumes that galleries are stored in folders under the /static path.</p>
 
 <p>Here's an example of how to use it:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-md" data-lang="md"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-md" data-lang="md"><style>
-  div.gallery {
-     display: flex;
-     flex-wrap: wrap;
-  }
-        div.gallery a {
-            flex-grow: 1;
-            object-fit: cover;
-            margin: 2px;
-            display: flex;
-        }
 
-        div.gallery a img {            
-            height: 200px;
-            object-fit: cover;
-            flex-grow: 1;
-        }
+<pre><code>{{&lt; foldergallery src=&quot;images/galleries/2015/&quot; &gt;}}
+</code></pre>
 
-    </style>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.0/jquery.fancybox.min.css" />
-
-    <div class="gallery">
-        
-	
-
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0159.jpg">
-                <img src="/images/galleries/2015//IMG_0159-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0178.jpg">
-                <img src="/images/galleries/2015//IMG_0178-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0188.jpg">
-                <img src="/images/galleries/2015//IMG_0188-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0216.jpg">
-                <img src="/images/galleries/2015//IMG_0216-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0459.jpg">
-                <img src="/images/galleries/2015//IMG_0459-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0567.jpg">
-                <img src="/images/galleries/2015//IMG_0567-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0849.jpg">
-                <img src="/images/galleries/2015//IMG_0849-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0850.jpg">
-                <img src="/images/galleries/2015//IMG_0850-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0907.jpg">
-                <img src="/images/galleries/2015//IMG_0907-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0908.jpg">
-                <img src="/images/galleries/2015//IMG_0908-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_0969.jpg">
-                <img src="/images/galleries/2015//IMG_0969-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1012.jpg">
-                <img src="/images/galleries/2015//IMG_1012-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1027.jpg">
-                <img src="/images/galleries/2015//IMG_1027-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1029.jpg">
-                <img src="/images/galleries/2015//IMG_1029-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1054.jpg">
-                <img src="/images/galleries/2015//IMG_1054-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1088.jpg">
-                <img src="/images/galleries/2015//IMG_1088-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_1747.jpg">
-                <img src="/images/galleries/2015//IMG_1747-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150403_134845.jpg">
-                <img src="/images/galleries/2015//IMG_20150403_134845-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150415_104508.jpg">
-                <img src="/images/galleries/2015//IMG_20150415_104508-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150626_142855.jpg">
-                <img src="/images/galleries/2015//IMG_20150626_142855-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150626_142908.jpg">
-                <img src="/images/galleries/2015//IMG_20150626_142908-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_20150626_143518.jpg">
-                <img src="/images/galleries/2015//IMG_20150626_143518-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2036.jpg">
-                <img src="/images/galleries/2015//IMG_2036-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2111.jpg">
-                <img src="/images/galleries/2015//IMG_2111-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2205.jpg">
-                <img src="/images/galleries/2015//IMG_2205-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2248.jpg">
-                <img src="/images/galleries/2015//IMG_2248-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2320.jpg">
-                <img src="/images/galleries/2015//IMG_2320-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2333.jpg">
-                <img src="/images/galleries/2015//IMG_2333-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_2992.jpg">
-                <img src="/images/galleries/2015//IMG_2992-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_3229.jpg">
-                <img src="/images/galleries/2015//IMG_3229-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_3230.jpg">
-                <img src="/images/galleries/2015//IMG_3230-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//IMG_5396a.jpg">
-                <img src="/images/galleries/2015//IMG_5396a-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204160859_fast.jpg">
-                <img src="/images/galleries/2015//MYXJ_20150204160859_fast-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204161152_org.jpg">
-                <img src="/images/galleries/2015//MYXJ_20150204161152_org-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204161239_fast.jpg">
-                <img src="/images/galleries/2015//MYXJ_20150204161239_fast-thumb.jpg">  <br/>            
-            </a>
-	
-	
-            <a data-fancybox="gallery" href="/images/galleries/2015//MYXJ_20150204231038_save.jpg">
-                <img src="/images/galleries/2015//MYXJ_20150204231038_save-thumb.jpg">  <br/>            
-            </a>
-	
-    </div>
-
-</code></pre></td></tr></table>
-</div>
-</div>
 <h1 id="generating-thumbnails">Generating thumbnails&nbsp;<a class="anchor" href="#generating-thumbnails"><i class="small linkify icon"></i></a> </h1>
 
 <p>Here's how I do it in Linux (might also work on Mac with homebrew). First, install imagemagick. I store my galleries under <code>static/images/galleries/&lt;GALLERYNAME&gt;</code>. To create thumbnails for all my galleries:</p>
