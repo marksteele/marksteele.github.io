@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Security on Mark&#39;s Blargh</title>
+    <title>security on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/categories/security/</link>
-    <description>Recent content in Security on Mark&#39;s Blargh</description>
+    <description>Recent content in security on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 07 Feb 2019 21:59:37 -0500</lastBuildDate>
@@ -17,9 +17,7 @@
       <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
       
       <guid>https://www.control-alt-del.org/posts/dropbucket/</guid>
-      <description>&lt;h1 id=&#34;open-source-self-hosted-file-sharing&#34;&gt;Open source self-hosted file sharing&lt;/h1&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;open-source-self-hosted-file-sharing&#34;&gt;Open source self-hosted file sharing&lt;/h1&gt;</description>
     </item>
     
     <item>
@@ -30,9 +28,7 @@
       <guid>https://www.control-alt-del.org/posts/one-time-password-sharing-securely/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/self-destruct.jpg&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Need to send a friend a password for something? Don&#39;t trust that the man might be reading your emails and SMS messages? Here&#39;s how to setup your own service to share secrets.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Need to send a friend a password for something? Don&#39;t trust that the man might be reading your emails and SMS messages? Here&#39;s how to setup your own service to share secrets.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -43,9 +39,7 @@
       <guid>https://www.control-alt-del.org/posts/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/envelope-encryption.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Here&#39;s a quick code snippet on how to implement field level encryption of data stored in DynamoDB using per-record encryption keys and the AWS Key management store (KMS).&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Here&#39;s a quick code snippet on how to implement field level encryption of data stored in DynamoDB using per-record encryption keys and the AWS Key management store (KMS).&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -137,9 +131,7 @@ Ipset is a tool to create and maintain IP sets in the Linux kernel. The advantag
 - Selinux is ON and enforcing&lt;br /&gt;
 - Is certifiable to a set of reasonable standards&lt;br /&gt;
 - Can be deployed in an automated fashion&lt;br /&gt;
-- Supports remediation if flaws against known good state found&lt;br /&gt;
-&lt;br /&gt;
-Phew, that&#39;s quite the laundry list. But it forms the basis of a good security architecture. Thankfully, there&#39;s lots of help to be had in putting these things together.&lt;/p&gt;</description>
+- Supports remediation if flaws against known good state found&lt;/p&gt;</description>
     </item>
     
     <item>

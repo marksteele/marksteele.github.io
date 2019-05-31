@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Php on Mark&#39;s Blargh</title>
+    <title>php on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/categories/php/</link>
-    <description>Recent content in Php on Mark&#39;s Blargh</description>
+    <description>Recent content in php on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 10 Jan 2014 00:00:00 +0000</lastBuildDate>
@@ -20,9 +20,7 @@
       <description>&lt;p&gt;Here&#39;s a quick post that explains how to do something which may not be obvious.&lt;/p&gt;
 
 &lt;p&gt;The scenario: You&#39;ve got some serialized data stored in a not-so-portable data interchange format (serialized PHP),&lt;br /&gt;
-and would like the data to be made available as part of a PDI transformation.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+and would like the data to be made available as part of a PDI transformation.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -31,7 +29,7 @@ and would like the data to be made available as part of a PDI transformation.&lt
       <pubDate>Mon, 14 Nov 2011 00:00:00 +0000</pubDate>
       
       <guid>https://www.control-alt-del.org/posts/2011/11/14/validating-ip-addresses-in-php/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description></description>
     </item>
     
   </channel>

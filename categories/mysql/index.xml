@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Mysql on Mark&#39;s Blargh</title>
+    <title>MySQL on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/categories/mysql/</link>
-    <description>Recent content in Mysql on Mark&#39;s Blargh</description>
+    <description>Recent content in MySQL on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 11 Oct 2018 10:10:05 -0400</lastBuildDate>

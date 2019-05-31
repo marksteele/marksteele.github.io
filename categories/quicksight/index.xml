@@ -21,9 +21,7 @@
 
 &lt;p&gt;In this post, I&#39;m going to go over the setup of infrastructure for creating an analytics platform capable of handling hundreds of millions of events per month. All without spinning up a single server.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/Serverless-Analytics.png&#34; alt=&#34;Serverless Analytics&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/Serverless-Analytics.png&#34; alt=&#34;Serverless Analytics&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

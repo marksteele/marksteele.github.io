@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Sql on Mark&#39;s Blargh</title>
+    <title>sql on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/categories/sql/</link>
-    <description>Recent content in Sql on Mark&#39;s Blargh</description>
+    <description>Recent content in sql on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 14 Jan 2013 00:00:00 +0000</lastBuildDate>
@@ -40,8 +40,7 @@
       <guid>https://www.control-alt-del.org/posts/2012/08/22/calculating-distances-between-coordinates-in-sql/</guid>
       <description>&lt;p&gt;The following stored functions can calculate the distance between two coordinates using a couple different approximation methods. The return value is in miles.&lt;/p&gt;
 
-&lt;p&gt;Haversine approximation&lt;br /&gt;
-&lt;/p&gt;</description>
+&lt;p&gt;Haversine approximation&lt;/p&gt;</description>
     </item>
     
   </channel>

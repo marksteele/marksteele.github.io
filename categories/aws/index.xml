@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Aws on Mark&#39;s Blargh</title>
+    <title>AWS on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/categories/aws/</link>
-    <description>Recent content in Aws on Mark&#39;s Blargh</description>
+    <description>Recent content in AWS on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 07 Feb 2019 21:59:37 -0500</lastBuildDate>
@@ -17,9 +17,7 @@
       <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
       
       <guid>https://www.control-alt-del.org/posts/dropbucket/</guid>
-      <description>&lt;h1 id=&#34;open-source-self-hosted-file-sharing&#34;&gt;Open source self-hosted file sharing&lt;/h1&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;open-source-self-hosted-file-sharing&#34;&gt;Open source self-hosted file sharing&lt;/h1&gt;</description>
     </item>
     
     <item>
@@ -30,9 +28,7 @@
       <guid>https://www.control-alt-del.org/posts/one-time-password-sharing-securely/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/self-destruct.jpg&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Need to send a friend a password for something? Don&#39;t trust that the man might be reading your emails and SMS messages? Here&#39;s how to setup your own service to share secrets.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Need to send a friend a password for something? Don&#39;t trust that the man might be reading your emails and SMS messages? Here&#39;s how to setup your own service to share secrets.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -43,9 +39,7 @@
       <guid>https://www.control-alt-del.org/posts/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/envelope-encryption.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Here&#39;s a quick code snippet on how to implement field level encryption of data stored in DynamoDB using per-record encryption keys and the AWS Key management store (KMS).&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Here&#39;s a quick code snippet on how to implement field level encryption of data stored in DynamoDB using per-record encryption keys and the AWS Key management store (KMS).&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -56,9 +50,7 @@
       <guid>https://www.control-alt-del.org/posts/serverless-content-security-policy/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/csp_shield_logo.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Add content security policy (CSP) to your site without changing your backends (or when you don&#39;t have backends and are using static site origins). Here&#39;s how!&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Add content security policy (CSP) to your site without changing your backends (or when you don&#39;t have backends and are using static site origins). Here&#39;s how!&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -69,9 +61,7 @@
       <guid>https://www.control-alt-del.org/posts/programatically-associating-lambda-edge-with-a-cloudfront-distribution/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://github.com/marksteele/lambdaAtEdgeToCloudFront&#34;&gt;Here&#39;s a little script &lt;/a&gt;which can be used to programatically associate Lambda@Edge functions with CloudFront.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/lambda-cf.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/lambda-cf.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -88,9 +78,7 @@
 
 &lt;p&gt;It&#39;s also highly secure, as there is virtually no attack surface for the bad guys to get a hold of.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/serverlessblog.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/serverlessblog.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -103,9 +91,7 @@
 
 &lt;p&gt;In this post, I&#39;m going to go over the setup of infrastructure for creating an analytics platform capable of handling hundreds of millions of events per month. All without spinning up a single server.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/Serverless-Analytics.png&#34; alt=&#34;Serverless Analytics&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/Serverless-Analytics.png&#34; alt=&#34;Serverless Analytics&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

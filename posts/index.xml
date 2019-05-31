@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/posts/</link>
     <description>Recent content in Posts on Mark&#39;s Blargh</description>
-    <meta name="generator" content="Hugo 0.48" />
+    <meta name="generator" content="Hugo 0.55.6" />
     <language>en-us</language>
     <lastBuildDate>Sat, 09 Feb 2019 21:40:11 -0500</lastBuildDate>
     
@@ -17,9 +16,7 @@
       <pubDate>Sat, 09 Feb 2019 21:40:11 -0500</pubDate>
       
       <guid>https://www.control-alt-del.org/posts/building-an-image-gallery-for-hugo/</guid>
-      <description>&lt;h1 id=&#34;a-quick-image-gallery-for-hugo&#34;&gt;A quick image gallery for Hugo&lt;/h1&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;a-quick-image-gallery-for-hugo&#34;&gt;A quick image gallery for Hugo&lt;/h1&gt;</description>
     </item>
     
     <item>
@@ -28,9 +25,7 @@
       <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
       
       <guid>https://www.control-alt-del.org/posts/dropbucket/</guid>
-      <description>&lt;h1 id=&#34;open-source-self-hosted-file-sharing&#34;&gt;Open source self-hosted file sharing&lt;/h1&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;open-source-self-hosted-file-sharing&#34;&gt;Open source self-hosted file sharing&lt;/h1&gt;</description>
     </item>
     
     <item>
@@ -61,9 +56,7 @@ drop function if exists IN_SET; drop function if exists ADD_TO_SET; drop functio
       <guid>https://www.control-alt-del.org/posts/one-time-password-sharing-securely/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/self-destruct.jpg&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Need to send a friend a password for something? Don&#39;t trust that the man might be reading your emails and SMS messages? Here&#39;s how to setup your own service to share secrets.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Need to send a friend a password for something? Don&#39;t trust that the man might be reading your emails and SMS messages? Here&#39;s how to setup your own service to share secrets.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -85,9 +78,7 @@ drop function if exists IN_SET; drop function if exists ADD_TO_SET; drop functio
 
 &lt;p&gt;I&#39;ve been doing some 3d printing lately, and I have some thoughts to share about security and safety.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/this-is-fine.0.jpg&#34; alt=&#34;This is fine&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/this-is-fine.0.jpg&#34; alt=&#34;This is fine&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -98,9 +89,7 @@ drop function if exists IN_SET; drop function if exists ADD_TO_SET; drop functio
       <guid>https://www.control-alt-del.org/posts/envelope-encryption-in-lambda-functions-with-dynamodb-and-kms/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/envelope-encryption.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Here&#39;s a quick code snippet on how to implement field level encryption of data stored in DynamoDB using per-record encryption keys and the AWS Key management store (KMS).&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Here&#39;s a quick code snippet on how to implement field level encryption of data stored in DynamoDB using per-record encryption keys and the AWS Key management store (KMS).&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -111,9 +100,7 @@ drop function if exists IN_SET; drop function if exists ADD_TO_SET; drop functio
       <guid>https://www.control-alt-del.org/posts/serverless-content-security-policy/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/csp_shield_logo.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Add content security policy (CSP) to your site without changing your backends (or when you don&#39;t have backends and are using static site origins). Here&#39;s how!&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Add content security policy (CSP) to your site without changing your backends (or when you don&#39;t have backends and are using static site origins). Here&#39;s how!&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -135,9 +122,7 @@ Code here</description>
       <guid>https://www.control-alt-del.org/posts/programatically-associating-lambda-edge-with-a-cloudfront-distribution/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://github.com/marksteele/lambdaAtEdgeToCloudFront&#34;&gt;Here&#39;s a little script &lt;/a&gt;which can be used to programatically associate Lambda@Edge functions with CloudFront.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/lambda-cf.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/lambda-cf.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -154,9 +139,7 @@ Code here</description>
 
 &lt;p&gt;It&#39;s also highly secure, as there is virtually no attack surface for the bad guys to get a hold of.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/serverlessblog.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/serverlessblog.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -165,9 +148,7 @@ Code here</description>
       <pubDate>Mon, 09 Apr 2018 13:50:47 -0400</pubDate>
       
       <guid>https://www.control-alt-del.org/posts/bash-tips/</guid>
-      <description>&lt;p&gt;Some odds and ends...&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Some odds and ends...&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -180,9 +161,7 @@ Code here</description>
 
 &lt;p&gt;In this post, I&#39;m going to go over the setup of infrastructure for creating an analytics platform capable of handling hundreds of millions of events per month. All without spinning up a single server.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/Serverless-Analytics.png&#34; alt=&#34;Serverless Analytics&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/Serverless-Analytics.png&#34; alt=&#34;Serverless Analytics&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -285,9 +264,7 @@ idempotent. This can be tricky given an unlimited input set over time.&lt;/p&gt;
 
 &lt;p&gt;Probabilistic data structures to the rescue!&lt;/p&gt;
 
-&lt;p&gt;To do this, at work we created a PDI bloom filter step (thanks &lt;a href=&#34;https://github.com/FabioBatSilva&#34;&gt;Fabio!&lt;/a&gt;). This article will go over how it works and it&#39;s use cases.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;To do this, at work we created a PDI bloom filter step (thanks &lt;a href=&#34;https://github.com/FabioBatSilva&#34;&gt;Fabio!&lt;/a&gt;). This article will go over how it works and it&#39;s use cases.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -299,9 +276,7 @@ idempotent. This can be tricky given an unlimited input set over time.&lt;/p&gt;
       <description>&lt;p&gt;Here&#39;s a quick post that explains how to do something which may not be obvious.&lt;/p&gt;
 
 &lt;p&gt;The scenario: You&#39;ve got some serialized data stored in a not-so-portable data interchange format (serialized PHP),&lt;br /&gt;
-and would like the data to be made available as part of a PDI transformation.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+and would like the data to be made available as part of a PDI transformation.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -312,9 +287,7 @@ and would like the data to be made available as part of a PDI transformation.&lt
       <guid>https://www.control-alt-del.org/posts/2014/01/04/building-a-datawarehouse-for-testing/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 
-&lt;p&gt;A common problem when starting a new project is getting fixtures in place to facilitate testing of reporting functionality and refining data models. To ease this, I&#39;ve created a PDI job that creates the dimension tables, and populates a fact table.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;A common problem when starting a new project is getting fixtures in place to facilitate testing of reporting functionality and refining data models. To ease this, I&#39;ve created a PDI job that creates the dimension tables, and populates a fact table.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -343,8 +316,7 @@ I usually stick the following lines into my .bashrc on all the servers I install
       <pubDate>Wed, 23 Oct 2013 00:00:00 +0000</pubDate>
       
       <guid>https://www.control-alt-del.org/posts/2013/10/23/i-see-packets-dot-dot-dot/</guid>
-      <description>&lt;p&gt;While studying for the GCIA certification, I put together the following reference to be able to eyeball packets and see at a glance what&#39;s inside a hex packet dump.&lt;br /&gt;
-&lt;/p&gt;</description>
+      <description>&lt;p&gt;While studying for the GCIA certification, I put together the following reference to be able to eyeball packets and see at a glance what&#39;s inside a hex packet dump.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -357,8 +329,7 @@ I usually stick the following lines into my .bashrc on all the servers I install
 
 &lt;p&gt;Once more, to see how to get everything up and running, see my previous posts.&lt;/p&gt;
 
-&lt;p&gt;In our fictitious scenario, we&#39;re going to assume we want to see a stream of incoming data filtered to only output unique data given a subset of uniqueness over a 24 hour period.&lt;br /&gt;
-&lt;/p&gt;</description>
+&lt;p&gt;In our fictitious scenario, we&#39;re going to assume we want to see a stream of incoming data filtered to only output unique data given a subset of uniqueness over a 24 hour period.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -369,7 +340,9 @@ I usually stick the following lines into my .bashrc on all the servers I install
       <guid>https://www.control-alt-del.org/posts/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/</guid>
       <description>&lt;p&gt;In the first instalment, we saw how to use simple moving average. That&#39;s just too easy.&lt;/p&gt;
 
-&lt;p&gt;Let&#39;s do something more complex to see how things pan out.&lt;/p&gt;</description>
+&lt;p&gt;Let&#39;s do something more complex to see how things pan out.&lt;/p&gt;
+
+&lt;p&gt;Refer to the previous instalment for details on how things are setup.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -390,11 +363,8 @@ I usually stick the following lines into my .bashrc on all the servers I install
 &lt;li&gt;A feed of stock prices&lt;br /&gt;&lt;/li&gt;
 &lt;li&gt;An app to view the actions we must take.&lt;br /&gt;
 &lt;br /&gt;
-Let&#39;s get everything installed.&lt;br /&gt;
 &lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;On centos with the EPEL repo available:&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -436,8 +406,7 @@ Let&#39;s get everything installed.&lt;br /&gt;
       <guid>https://www.control-alt-del.org/posts/2012/08/22/calculating-distances-between-coordinates-in-sql/</guid>
       <description>&lt;p&gt;The following stored functions can calculate the distance between two coordinates using a couple different approximation methods. The return value is in miles.&lt;/p&gt;
 
-&lt;p&gt;Haversine approximation&lt;br /&gt;
-&lt;/p&gt;</description>
+&lt;p&gt;Haversine approximation&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -462,9 +431,7 @@ Enough walnuts to cover your baking sheet, let.s say 2 cups. About 3 cups of gra
 - Selinux is ON and enforcing&lt;br /&gt;
 - Is certifiable to a set of reasonable standards&lt;br /&gt;
 - Can be deployed in an automated fashion&lt;br /&gt;
-- Supports remediation if flaws against known good state found&lt;br /&gt;
-&lt;br /&gt;
-Phew, that&#39;s quite the laundry list. But it forms the basis of a good security architecture. Thankfully, there&#39;s lots of help to be had in putting these things together.&lt;/p&gt;</description>
+- Supports remediation if flaws against known good state found&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -499,7 +466,7 @@ Call home
       <pubDate>Mon, 14 Nov 2011 00:00:00 +0000</pubDate>
       
       <guid>https://www.control-alt-del.org/posts/2011/11/14/validating-ip-addresses-in-php/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description></description>
     </item>
     
     <item>
@@ -537,9 +504,7 @@ Call home
       <guid>https://www.control-alt-del.org/posts/2011/09/14/fun-with-bloom-filters-using-riak-mapreduce/</guid>
       <description>&lt;p&gt;So I.ve been toying with some ideas on how to do large mapreduce jobs, and pushing the processing into Riak (Erlang) to make use of distributed processing and data-locality.&lt;/p&gt;
 
-&lt;p&gt;It took a while to figure out how to get this to work, but here it is.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;It took a while to figure out how to get this to work, but here it is.&lt;/p&gt;</description>
     </item>
     
     <item>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Travisci on Mark&#39;s Blargh</title>
+    <title>TravisCI on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/categories/travisci/</link>
-    <description>Recent content in Travisci on Mark&#39;s Blargh</description>
+    <description>Recent content in TravisCI on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 22 Apr 2018 12:36:25 -0400</lastBuildDate>
@@ -25,9 +25,7 @@
 
 &lt;p&gt;It&#39;s also highly secure, as there is virtually no attack surface for the bad guys to get a hold of.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/serverlessblog.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/serverlessblog.png&#34; alt=&#34;null&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

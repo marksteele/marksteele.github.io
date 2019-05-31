@@ -5,14 +5,6 @@
 	Serverless blog HOWTO
 </title>
 		<style>
-	body {
-		display: block;
-		--colorBG: "#40e0d0, #ff8c00, #ff0080";
-		
-			background-image: var(--bgImage) !important;
-		
-	}
-
 	body, body.pushable {
 		background-repeat: no-repeat;
 	  	background-attachment: fixed;
@@ -32,12 +24,11 @@
 	<meta name="description" content="Serverless content management In this post, I will go over how to setup a completely serverless blog that runs with no servers and is for all intents and purposes free to run!
 It leverages static content generation, will be served from a content delivery network, and has a browser based UI for managing content with a review/approval workflow.
 It&#39;s also highly secure, as there is virtually no attack surface for the bad guys to get a hold of.
-
 " />
 
 
 
-<meta name="generator" content="Hugo 0.48" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 
 <link rel="shortcut icon" href="/img/defaultFav.ico">
@@ -55,7 +46,7 @@ It&#39;s also highly secure, as there is virtually no attack surface for the bad
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
 
- <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Inconsolata" rel="stylesheet"> 
+ <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Inconsolata" rel="stylesheet">
 
 
 
@@ -80,7 +71,6 @@ It&#39;s also highly secure, as there is virtually no attack surface for the bad
 
 
 <script>
-	var colorBG =  null 
 	
 	var isMobile = ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
 	console.log("The client device is a "+(isMobile?"mobile":"PC")+".")
@@ -99,44 +89,39 @@ var bodyBgSwitchIndex = 0;
 
 
 	
-		var bgImage = "url(" + "/images/IMG_1191.jpg" + ")";
+		var gradients = [
+		  [],
+		  ['#40e0d0', '#ff8c00', '#ff0080'], 
+		  ['#3e5151', '#decba4'], 
+		  ['#11998e', '#38ef7d'], 
+		  ['#108dc7', '#ef8e38'], 
+		  ['#fc5c7d', '#6a82fb'], 
+		  ['#fc466b', '#3f5efb'], 
+		  ['#c94b4b', '#4b134f'], 
+		  ['#23074d', '#cc5333'] 
+		];
+		var randomBgColor = gradients[getRandomInt(0, gradients.length)].join(", ");
+		var backgroundProperty = 'linear-gradient(to right, ' + randomBgColor + ')';
+		document.body.style.background = backgroundProperty;
 	
 
-	console.log("Current background: " + bgImage.substring(bgImage.indexOf("bg"), bgImage.length));
-	document.body.style.setProperty('--blurEff', "0px");
-	document.body.style.setProperty('--bgImage', bgImage);
 
-
-	function getRandomInt(min, max) {
-	  min = Math.ceil(min);
-	  max = Math.floor(max);
-	  var random;
-	  while (1) {
-	    random = Math.floor(Math.random() * (max - min)) + min;
-	    if (random !== prevBgIndex) {
-	      prevBgIndex = random;
-	      break;
-	    }
-	  }
-	  return random;
-	}
-
-	function connect(arr) {
-	  var str = '';
-	  for (var i = 0; i < arr.length; i++) {
-	    if (i !== arr.length - 1) {
-	      str += arr[i] + ', ';
-	    } else {
-	      str += arr[i];
-	    }
-	  }
-	  return str;
-	}
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  var random;
+  while (1) {
+    random = Math.floor(Math.random() * (max - min)) + min;
+    if (random !== prevBgIndex) {
+      prevBgIndex = random;
+      break;
+    }
+  }
+  return random;
+}
 </script>
 
 
-
-	<div class="blur-overlay"></div>
 
 
 		<div id="sidebar" class="ui sidebar inverted vertical menu">
@@ -2710,8 +2695,6 @@ var bodyBgSwitchIndex = 0;
 
 <p><img src="/images/serverlessblog.png" alt="null" /></p>
 
-<p></p>
-
 <h1 id="moving-parts">Moving parts&nbsp;<a class="anchor" href="#moving-parts"><i class="small linkify icon"></i></a> </h1>
 
 <ul>
@@ -2848,11 +2831,11 @@ git push origin master</code></pre></td></tr></table>
 </span><span class="w">  </span>-<span class="w"> </span>hugo<span class="w"> </span><span class="c"># This commands builds your website on travis</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span>after_success<span class="p">:</span><span class="w"> </span><span class="sd">|
-</span><span class="sd">    cd public
-</span><span class="sd">    git add .
-</span><span class="sd">    git status
-</span><span class="sd">    git commit -m &#39;Site push&#39;
-</span><span class="sd">    git push https://$GITHUB_USER:$GITHUB_API_KEY@github.com/marksteele/marksteele.github.io master</span><span class="w">
+</span><span class="sd">    cd public</span><span class="w">
+</span><span class="w">    </span>git<span class="w"> </span>add<span class="w"> </span>.<span class="w">
+</span><span class="w">    </span>git<span class="w"> </span>status<span class="w">
+</span><span class="w">    </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s1">&#39;Site push&#39;</span><span class="w">
+</span><span class="w">    </span>git<span class="w"> </span>push<span class="w"> </span>https<span class="p">:</span>//$GITHUB_USER<span class="p">:</span>$GITHUB_API_KEY@github.com/marksteele/marksteele.github.io<span class="w"> </span>master<span class="w">
 </span><span class="w">
 </span><span class="w"></span>branches<span class="p">:</span><span class="w">
 </span><span class="w">  </span>only<span class="p">:</span><span class="w">

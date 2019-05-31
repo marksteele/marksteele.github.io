@@ -21,9 +21,7 @@
 
 &lt;p&gt;In this post, I&#39;m going to go over the setup of infrastructure for creating an analytics platform capable of handling hundreds of millions of events per month. All without spinning up a single server.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/Serverless-Analytics.png&#34; alt=&#34;Serverless Analytics&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/Serverless-Analytics.png&#34; alt=&#34;Serverless Analytics&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -34,9 +32,7 @@
       <guid>https://www.control-alt-del.org/posts/2014/01/04/building-a-datawarehouse-for-testing/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 
-&lt;p&gt;A common problem when starting a new project is getting fixtures in place to facilitate testing of reporting functionality and refining data models. To ease this, I&#39;ve created a PDI job that creates the dimension tables, and populates a fact table.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;A common problem when starting a new project is getting fixtures in place to facilitate testing of reporting functionality and refining data models. To ease this, I&#39;ve created a PDI job that creates the dimension tables, and populates a fact table.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -49,8 +45,7 @@
 
 &lt;p&gt;Once more, to see how to get everything up and running, see my previous posts.&lt;/p&gt;
 
-&lt;p&gt;In our fictitious scenario, we&#39;re going to assume we want to see a stream of incoming data filtered to only output unique data given a subset of uniqueness over a 24 hour period.&lt;br /&gt;
-&lt;/p&gt;</description>
+&lt;p&gt;In our fictitious scenario, we&#39;re going to assume we want to see a stream of incoming data filtered to only output unique data given a subset of uniqueness over a 24 hour period.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -61,7 +56,9 @@
       <guid>https://www.control-alt-del.org/posts/2013/06/15/complex-event-processing-for-fun-and-profit-part-deux/</guid>
       <description>&lt;p&gt;In the first instalment, we saw how to use simple moving average. That&#39;s just too easy.&lt;/p&gt;
 
-&lt;p&gt;Let&#39;s do something more complex to see how things pan out.&lt;/p&gt;</description>
+&lt;p&gt;Let&#39;s do something more complex to see how things pan out.&lt;/p&gt;
+
+&lt;p&gt;Refer to the previous instalment for details on how things are setup.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -82,11 +79,8 @@
 &lt;li&gt;A feed of stock prices&lt;br /&gt;&lt;/li&gt;
 &lt;li&gt;An app to view the actions we must take.&lt;br /&gt;
 &lt;br /&gt;
-Let&#39;s get everything installed.&lt;br /&gt;
 &lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;On centos with the EPEL repo available:&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>

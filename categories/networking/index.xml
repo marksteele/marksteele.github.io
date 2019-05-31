@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Networking on Mark&#39;s Blargh</title>
+    <title>networking on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/categories/networking/</link>
-    <description>Recent content in Networking on Mark&#39;s Blargh</description>
+    <description>Recent content in networking on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 13 Nov 2015 00:00:00 +0000</lastBuildDate>
@@ -60,8 +60,7 @@ I usually stick the following lines into my .bashrc on all the servers I install
       <pubDate>Wed, 23 Oct 2013 00:00:00 +0000</pubDate>
       
       <guid>https://www.control-alt-del.org/posts/2013/10/23/i-see-packets-dot-dot-dot/</guid>
-      <description>&lt;p&gt;While studying for the GCIA certification, I put together the following reference to be able to eyeball packets and see at a glance what&#39;s inside a hex packet dump.&lt;br /&gt;
-&lt;/p&gt;</description>
+      <description>&lt;p&gt;While studying for the GCIA certification, I put together the following reference to be able to eyeball packets and see at a glance what&#39;s inside a hex packet dump.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -96,7 +95,7 @@ Call home
       <pubDate>Mon, 14 Nov 2011 00:00:00 +0000</pubDate>
       
       <guid>https://www.control-alt-del.org/posts/2011/11/14/validating-ip-addresses-in-php/</guid>
-      <description>&lt;p&gt;&lt;/p&gt;</description>
+      <description></description>
     </item>
     
   </channel>

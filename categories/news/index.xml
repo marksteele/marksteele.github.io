@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>News on Mark&#39;s Blargh</title>
+    <title>news on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/categories/news/</link>
-    <description>Recent content in News on Mark&#39;s Blargh</description>
+    <description>Recent content in news on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 02 Oct 2018 22:49:29 -0400</lastBuildDate>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Devops on Mark&#39;s Blargh</title>
+    <title>devops on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/categories/devops/</link>
-    <description>Recent content in Devops on Mark&#39;s Blargh</description>
+    <description>Recent content in devops on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 13 Apr 2015 00:00:00 +0000</lastBuildDate>
@@ -74,9 +74,7 @@ Ipset is a tool to create and maintain IP sets in the Linux kernel. The advantag
 - Selinux is ON and enforcing&lt;br /&gt;
 - Is certifiable to a set of reasonable standards&lt;br /&gt;
 - Can be deployed in an automated fashion&lt;br /&gt;
-- Supports remediation if flaws against known good state found&lt;br /&gt;
-&lt;br /&gt;
-Phew, that&#39;s quite the laundry list. But it forms the basis of a good security architecture. Thankfully, there&#39;s lots of help to be had in putting these things together.&lt;/p&gt;</description>
+- Supports remediation if flaws against known good state found&lt;/p&gt;</description>
     </item>
     
     <item>

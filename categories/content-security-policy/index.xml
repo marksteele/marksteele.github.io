@@ -19,9 +19,7 @@
       <guid>https://www.control-alt-del.org/posts/serverless-content-security-policy/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/csp_shield_logo.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Add content security policy (CSP) to your site without changing your backends (or when you don&#39;t have backends and are using static site origins). Here&#39;s how!&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;Add content security policy (CSP) to your site without changing your backends (or when you don&#39;t have backends and are using static site origins). Here&#39;s how!&lt;/p&gt;</description>
     </item>
     
   </channel>
