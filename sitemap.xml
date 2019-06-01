@@ -3,26 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.control-alt-del.org/posts/building-an-image-gallery-for-hugo/</loc>
-    <lastmod>2019-02-09T21:40:11-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://www.control-alt-del.org/categories/</loc>
-    <lastmod>2019-02-09T21:40:11-05:00</lastmod>
+    <lastmod>2019-06-01T14:49:05-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.control-alt-del.org/</loc>
-    <lastmod>2019-02-09T21:40:11-05:00</lastmod>
+    <lastmod>2019-06-01T14:49:05-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://www.control-alt-del.org/posts/</loc>
-    <lastmod>2019-02-09T21:40:11-05:00</lastmod>
+    <lastmod>2019-06-01T14:49:05-04:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/posts/tkd-mikey-blue-belt-grading/</loc>
+    <lastmod>2019-06-01T14:49:05-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/categories/news/</loc>
+    <lastmod>2019-06-01T14:49:05-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.control-alt-del.org/posts/building-an-image-gallery-for-hugo/</loc>
+    <lastmod>2019-02-09T21:40:11-05:00</lastmod>
   </url>
   
   <url>
@@ -86,12 +97,6 @@
   <url>
     <loc>https://www.control-alt-del.org/posts/summer-2018/</loc>
     <lastmod>2018-10-02T22:49:29-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.control-alt-del.org/categories/news/</loc>
-    <lastmod>2018-10-02T22:49:29-04:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
