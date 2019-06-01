@@ -94,21 +94,11 @@ var bodyBgSwitchIndex = 0;
 
 
 	
-		var gradients = [
-		  [],
-		  ['#40e0d0', '#ff8c00', '#ff0080'], 
-		  ['#3e5151', '#decba4'], 
-		  ['#11998e', '#38ef7d'], 
-		  ['#108dc7', '#ef8e38'], 
-		  ['#fc5c7d', '#6a82fb'], 
-		  ['#fc466b', '#3f5efb'], 
-		  ['#c94b4b', '#4b134f'], 
-		  ['#23074d', '#cc5333'] 
-		];
-		var randomBgColor = gradients[getRandomInt(0, gradients.length)].join(", ");
-		var backgroundProperty = 'linear-gradient(to right, ' + randomBgColor + ')';
-		document.body.style.background = backgroundProperty;
+		var bgImage = "url(" + "/images/IMG_1191.jpg" + ")";	
 	
+		console.log("Current background: " + bgImage.substring(bgImage.indexOf("bg"), bgImage.length));
+		document.body.style.setProperty('--blurEff',  null );
+		document.body.style.backgroundImage = bgImage;	
 
 
 function getRandomInt(min, max) {

@@ -84,21 +84,11 @@ var bodyBgSwitchIndex = 0;
 
 
 	
-		var gradients = [
-		  [],
-		  ['#40e0d0', '#ff8c00', '#ff0080'], 
-		  ['#3e5151', '#decba4'], 
-		  ['#11998e', '#38ef7d'], 
-		  ['#108dc7', '#ef8e38'], 
-		  ['#fc5c7d', '#6a82fb'], 
-		  ['#fc466b', '#3f5efb'], 
-		  ['#c94b4b', '#4b134f'], 
-		  ['#23074d', '#cc5333'] 
-		];
-		var randomBgColor = gradients[getRandomInt(0, gradients.length)].join(", ");
-		var backgroundProperty = 'linear-gradient(to right, ' + randomBgColor + ')';
-		document.body.style.background = backgroundProperty;
+		var bgImage = "url(" + "/images/IMG_1191.jpg" + ")";	
 	
+		console.log("Current background: " + bgImage.substring(bgImage.indexOf("bg"), bgImage.length));
+		document.body.style.setProperty('--blurEff',  null );
+		document.body.style.backgroundImage = bgImage;	
 
 
 function getRandomInt(min, max) {
@@ -2846,7 +2836,7 @@ function getRandomInt(min, max) {
 
 <article class="blog-card none flexbox">
 	
-	<img class="image" src="/img/default1.jpg"></img>
+	<img class="image" src="/img/default4.jpg"></img>
 	<div class="title-content twemoji">
 		<h3><a class="title" href=https://www.control-alt-del.org/posts/gallery-2015/>Image gallery 2015</a></h3>
 		<div class="intro twemoji">
