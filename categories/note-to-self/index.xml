@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>note-to-self on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/note-to-self/</link>
+    <description>Recent content in note-to-self on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 03 Jun 2019 17:02:39 -0400</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/note-to-self/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting AWS IPs for a given region</title>
+      <link>https://www.control-alt-del.org/posts/getting-aws-ips-for-a-given-region/</link>
+      <pubDate>Mon, 03 Jun 2019 17:02:39 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/getting-aws-ips-for-a-given-region/</guid>
+      <description>I keep forgetting this...
+curl -s https://ip-ranges.amazonaws.com/ip-ranges.json | jq -r &#39;.prefixes\[] | select(.region==&amp;quot;ca-central-1&amp;quot;) | .ip_prefix&#39; | sort</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Serverless on Mark&#39;s Blargh</title>
+    <title>serverless on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/categories/serverless/</link>
-    <description>Recent content in Serverless on Mark&#39;s Blargh</description>
+    <description>Recent content in serverless on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Feb 2019 21:59:37 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 03 May 2018 10:44:37 -0400</lastBuildDate>
     
 	<atom:link href="https://www.control-alt-del.org/categories/serverless/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>DropBucket</title>
-      <link>https://www.control-alt-del.org/posts/dropbucket/</link>
-      <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
-      
-      <guid>https://www.control-alt-del.org/posts/dropbucket/</guid>
-      <description>&lt;h1 id=&#34;open-source-self-hosted-file-sharing&#34;&gt;Open source self-hosted file sharing&lt;/h1&gt;</description>
-    </item>
     
     <item>
       <title>Envelope encryption in Lambda functions with DynamoDB and KMS</title>

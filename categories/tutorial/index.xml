@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tutorial on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/tutorial/</link>
+    <description>Recent content in tutorial on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Apr 2020 15:58:27 -0400</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Spring Boot/React - FullStack Project Template/Tutorial</title>
+      <link>https://www.control-alt-del.org/posts/spring-boot-react-fullstack-project-template-tutorial/</link>
+      <pubDate>Sun, 12 Apr 2020 15:58:27 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/spring-boot-react-fullstack-project-template-tutorial/</guid>
+      <description>Here&#39;s a Spring Boot project template/tutorial that I&#39;ve put together to try to get some best practices codified on how to quickly throw together a service.
+Full code here for the impatient: https://github.com/marksteele/SpringBootReactFullStackSample
+Here&#39;s what it&#39;ll look like when we&#39;re done (note my amazing front-end skills)
+We&#39;ll cover: REST endpoints, scheduled tasks, thread-pools to parallelize work, React, MySQL, 12-factor app best practices, OAuth2 (google), monitoring, unit testing, code coverage, project mess detection, spotbugs, DevOps and more!</description>
+    </item>
+    
+  </channel>
+</rss>

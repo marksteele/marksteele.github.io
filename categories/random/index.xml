@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Random on Mark&#39;s Blargh</title>
+    <title>random on Mark&#39;s Blargh</title>
     <link>https://www.control-alt-del.org/categories/random/</link>
-    <description>Recent content in Random on Mark&#39;s Blargh</description>
+    <description>Recent content in random on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Oct 2014 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 31 May 2021 10:20:16 -0400</lastBuildDate>
     
 	<atom:link href="https://www.control-alt-del.org/categories/random/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>walking desk</title>
-      <link>https://www.control-alt-del.org/post/walking-desk/</link>
-      <pubDate>Wed, 01 Oct 2014 00:00:00 +0000</pubDate>
+      <title>Flow vs. Impedance vs. Sabotage</title>
+      <link>https://www.control-alt-del.org/posts/flow-vs-sabotage/</link>
+      <pubDate>Mon, 31 May 2021 10:20:16 -0400</pubDate>
       
-      <guid>https://www.control-alt-del.org/post/walking-desk/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://www.control-alt-del.org/images/mark-walk.gif&#34; alt=&#34;Walking fast&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <guid>https://www.control-alt-del.org/posts/flow-vs-sabotage/</guid>
+      <description>Flow is impacted by many different factors, but the topics I&#39;d like to touch on are communication, process, and culture.
+Communication In 1968, Conway observed: &amp;quot;Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations.&amp;quot; This is known as Conway’s law. Worded a bit differently: Organizations which design processes are constrained to produce a process flow which is a copy of the communication structures between departments.</description>
     </item>
     
   </channel>

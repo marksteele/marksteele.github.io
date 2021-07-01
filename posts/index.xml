@@ -5,10 +5,92 @@
     <description>Recent content in Posts on Mark&#39;s Blargh</description>
     <meta name="generator" content="Hugo 0.55.6" />
     <language>en-us</language>
-    <lastBuildDate>Sat, 01 Jun 2019 14:49:05 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 31 May 2021 10:20:16 -0400</lastBuildDate>
     
         <atom:link href="https://www.control-alt-del.org/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Flow vs. Impedance vs. Sabotage</title>
+      <link>https://www.control-alt-del.org/posts/flow-vs-sabotage/</link>
+      <pubDate>Mon, 31 May 2021 10:20:16 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/flow-vs-sabotage/</guid>
+      <description>Flow is impacted by many different factors, but the topics I&#39;d like to touch on are communication, process, and culture.
+Communication In 1968, Conway observed: &amp;quot;Organizations which design systems are constrained to produce designs which are copies of the communication structures of these organizations.&amp;quot; This is known as Conway’s law. Worded a bit differently: Organizations which design processes are constrained to produce a process flow which is a copy of the communication structures between departments.</description>
+    </item>
+    
+    <item>
+      <title>2020</title>
+      <link>https://www.control-alt-del.org/posts/2020/</link>
+      <pubDate>Thu, 05 Nov 2020 10:50:37 -0500</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/2020/</guid>
+      <description>Bringing down the house...
+ Awesome soccer skills...
+  Boomy McBoomerangface
+   Water fight
+ Flippy Kimmy
+  Aquadude
+  Ferris wheel
+ Stick figures
+  Pictures!
+ div.gallery { display: flex; flex-wrap: wrap; } div.gallery a { flex-grow: 1; object-fit: cover; margin: 2px; display: flex; } div.gallery a img { height: 200px; object-fit: cover; flex-grow: 1; }                                                                                                                                                   </description>
+    </item>
+    
+    <item>
+      <title>Farewell Google Play Music - A tale in three acts...</title>
+      <link>https://www.control-alt-del.org/posts/farewell-google-play-music-a-tale-in-three-acts/</link>
+      <pubDate>Wed, 04 Nov 2020 22:23:20 -0500</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/farewell-google-play-music-a-tale-in-three-acts/</guid>
+      <description>Prologue: The death of a beloved friend... I&#39;ve been an avid fan of Google Play Music for several years now, and when I heard it was being shutdown I was quite sad. It did exactly what I wanted, namely provide a way for me to easily stream my music collection and buy new tunes.
+I grew up buying physical things (first cassettes, then CDs), and the idea of renting my music collection never sat well with me.</description>
+    </item>
+    
+    <item>
+      <title>Spring Boot/React - FullStack Project Template/Tutorial</title>
+      <link>https://www.control-alt-del.org/posts/spring-boot-react-fullstack-project-template-tutorial/</link>
+      <pubDate>Sun, 12 Apr 2020 15:58:27 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/spring-boot-react-fullstack-project-template-tutorial/</guid>
+      <description>Here&#39;s a Spring Boot project template/tutorial that I&#39;ve put together to try to get some best practices codified on how to quickly throw together a service.
+Full code here for the impatient: https://github.com/marksteele/SpringBootReactFullStackSample
+Here&#39;s what it&#39;ll look like when we&#39;re done (note my amazing front-end skills)
+We&#39;ll cover: REST endpoints, scheduled tasks, thread-pools to parallelize work, React, MySQL, 12-factor app best practices, OAuth2 (google), monitoring, unit testing, code coverage, project mess detection, spotbugs, DevOps and more!</description>
+    </item>
+    
+    <item>
+      <title>Parsing SFTP logs with Cloudwatch log Insights</title>
+      <link>https://www.control-alt-del.org/posts/parsing-sftp-logs-with-cloudwatch-log-insights/</link>
+      <pubDate>Tue, 11 Feb 2020 10:32:18 -0500</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/parsing-sftp-logs-with-cloudwatch-log-insights/</guid>
+      <description>This is a bit painful, but here it is:
+filter @message like /OPEN/ | parse @message /^(?&amp;lt;logstream&amp;gt;\S+)\s(?&amp;lt;Action&amp;gt;\S+)(\s(SourceIP=(?&amp;lt;SourceIP&amp;gt;\S+)\sUser=(?&amp;lt;User&amp;gt;\S+)\sHomeDir=(?&amp;lt;HomeDir&amp;gt;\S+)\sClient=(?&amp;lt;Client&amp;gt;(&amp;quot;[^&amp;quot;]+?&amp;quot;|\S+))\sRole=.*|Path=(?&amp;lt;Path&amp;gt;\S+)\s((BytesIn=(?&amp;lt;BytesIn&amp;gt;\S+)|BytesOut=(?&amp;lt;BytesOut&amp;gt;\S+)|Mode=(?&amp;lt;Mode&amp;gt;\S+))|NewPath=(?&amp;lt;NewPath&amp;gt;\S+))))?$/ | sort @timestamp asc | display @timestamp, logstream, Action, SourceIP, User, HomeDir, Client, Path, BytesIn, Mode,BytesOut, NewPath  You can remove the filter line in order to get all types of commands, or change the filter to narrow down your results.</description>
+    </item>
+    
+    <item>
+      <title>Pro-tip: grep through terminal history</title>
+      <link>https://www.control-alt-del.org/posts/pro-tip-grep-through-terminal-history/</link>
+      <pubDate>Wed, 23 Oct 2019 09:39:24 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/pro-tip-grep-through-terminal-history/</guid>
+      <description>Might seem like a stupid little trick, but...
+On a mac, if you want to grep your terminal scrollback (as opposed to using search).
+command-a (select all), command-c (copy), then:
+1  pbpaste | grep &amp;lt;WHAT YOU ARE LOOKING FOR&amp;gt;  </description>
+    </item>
+    
+    <item>
+      <title>Getting AWS IPs for a given region</title>
+      <link>https://www.control-alt-del.org/posts/getting-aws-ips-for-a-given-region/</link>
+      <pubDate>Mon, 03 Jun 2019 17:02:39 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/getting-aws-ips-for-a-given-region/</guid>
+      <description>I keep forgetting this...
+curl -s https://ip-ranges.amazonaws.com/ip-ranges.json | jq -r &#39;.prefixes\[] | select(.region==&amp;quot;ca-central-1&amp;quot;) | .ip_prefix&#39; | sort</description>
+    </item>
     
     <item>
       <title>TKD - Mikey blue belt grading</title>
@@ -26,15 +108,6 @@
       
       <guid>https://www.control-alt-del.org/posts/building-an-image-gallery-for-hugo/</guid>
       <description>&lt;h1 id=&#34;a-quick-image-gallery-for-hugo&#34;&gt;A quick image gallery for Hugo&lt;/h1&gt;</description>
-    </item>
-    
-    <item>
-      <title>DropBucket</title>
-      <link>https://www.control-alt-del.org/posts/dropbucket/</link>
-      <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
-      
-      <guid>https://www.control-alt-del.org/posts/dropbucket/</guid>
-      <description>&lt;h1 id=&#34;open-source-self-hosted-file-sharing&#34;&gt;Open source self-hosted file sharing&lt;/h1&gt;</description>
     </item>
     
     <item>

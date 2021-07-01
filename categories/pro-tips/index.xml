@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pro-tips on Mark&#39;s Blargh</title>
+    <link>https://www.control-alt-del.org/categories/pro-tips/</link>
+    <description>Recent content in pro-tips on Mark&#39;s Blargh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 23 Oct 2019 09:39:24 -0400</lastBuildDate>
+    
+	<atom:link href="https://www.control-alt-del.org/categories/pro-tips/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pro-tip: grep through terminal history</title>
+      <link>https://www.control-alt-del.org/posts/pro-tip-grep-through-terminal-history/</link>
+      <pubDate>Wed, 23 Oct 2019 09:39:24 -0400</pubDate>
+      
+      <guid>https://www.control-alt-del.org/posts/pro-tip-grep-through-terminal-history/</guid>
+      <description>Might seem like a stupid little trick, but...
+On a mac, if you want to grep your terminal scrollback (as opposed to using search).
+command-a (select all), command-c (copy), then:
+1  pbpaste | grep &amp;lt;WHAT YOU ARE LOOKING FOR&amp;gt;  </description>
+    </item>
+    
+  </channel>
+</rss>

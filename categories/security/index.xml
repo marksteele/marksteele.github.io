@@ -6,18 +6,19 @@
     <description>Recent content in security on Mark&#39;s Blargh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Feb 2019 21:59:37 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 11 Feb 2020 10:32:18 -0500</lastBuildDate>
     
 	<atom:link href="https://www.control-alt-del.org/categories/security/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>DropBucket</title>
-      <link>https://www.control-alt-del.org/posts/dropbucket/</link>
-      <pubDate>Thu, 07 Feb 2019 21:59:37 -0500</pubDate>
+      <title>Parsing SFTP logs with Cloudwatch log Insights</title>
+      <link>https://www.control-alt-del.org/posts/parsing-sftp-logs-with-cloudwatch-log-insights/</link>
+      <pubDate>Tue, 11 Feb 2020 10:32:18 -0500</pubDate>
       
-      <guid>https://www.control-alt-del.org/posts/dropbucket/</guid>
-      <description>&lt;h1 id=&#34;open-source-self-hosted-file-sharing&#34;&gt;Open source self-hosted file sharing&lt;/h1&gt;</description>
+      <guid>https://www.control-alt-del.org/posts/parsing-sftp-logs-with-cloudwatch-log-insights/</guid>
+      <description>This is a bit painful, but here it is:
+filter @message like /OPEN/ | parse @message /^(?&amp;lt;logstream&amp;gt;\S+)\s(?&amp;lt;Action&amp;gt;\S+)(\s(SourceIP=(?&amp;lt;SourceIP&amp;gt;\S+)\sUser=(?&amp;lt;User&amp;gt;\S+)\sHomeDir=(?&amp;lt;HomeDir&amp;gt;\S+)\sClient=(?&amp;lt;Client&amp;gt;(&amp;quot;[^&amp;quot;]+?&amp;quot;|\S+))\sRole=.*|Path=(?&amp;lt;Path&amp;gt;\S+)\s((BytesIn=(?&amp;lt;BytesIn&amp;gt;\S+)|BytesOut=(?&amp;lt;BytesOut&amp;gt;\S+)|Mode=(?&amp;lt;Mode&amp;gt;\S+))|NewPath=(?&amp;lt;NewPath&amp;gt;\S+))))?$/ | sort @timestamp asc | display @timestamp, logstream, Action, SourceIP, User, HomeDir, Client, Path, BytesIn, Mode,BytesOut, NewPath  You can remove the filter line in order to get all types of commands, or change the filter to narrow down your results.</description>
     </item>
     
     <item>
